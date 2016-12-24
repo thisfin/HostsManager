@@ -9,19 +9,20 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
         }
     }
 
-
+    override func loadView() {
+        let view = NSView(frame: NSRect(x: 0, y: 0, width: 300, height: 300))
+        view.wantsLayer = true
+        view.layer?.borderWidth = 2
+        view.layer?.borderColor = NSColor.red.cgColor
+        self.view = view
+    }
 }
-
