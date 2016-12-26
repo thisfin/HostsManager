@@ -11,6 +11,7 @@
 		66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2D1E0D14F9000EBBF0 /* ViewController.swift */; };
 		66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */; };
 		66308E3B1E0E59D4000EBBF0 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E3A1E0E59D4000EBBF0 /* Application.swift */; };
+		66C383301E10F40100824982 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 66C3832F1E10F40100824982 /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66308E341E0D14F9000EBBF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66308E3A1E0E59D4000EBBF0 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		66C3832F1E10F40100824982 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Resource/icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +59,17 @@
 				66308E3A1E0E59D4000EBBF0 /* Application.swift */,
 				66308E2D1E0D14F9000EBBF0 /* ViewController.swift */,
 				66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */,
+				66C3832E1E10F3EE00824982 /* Resource */,
 			);
 			path = HostsManager;
+			sourceTree = "<group>";
+		};
+		66C3832E1E10F3EE00824982 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				66C3832F1E10F40100824982 /* icon.png */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,6 +132,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66C383301E10F40100824982 /* icon.png in Resources */,
 				66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
