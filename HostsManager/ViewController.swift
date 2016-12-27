@@ -19,10 +19,14 @@ class ViewController: NSViewController {
     }
 
     override func loadView() {
-        let view = NSView(frame: NSRect(x: 0, y: 0, width: 300, height: 300))
-        view.wantsLayer = true
-        view.layer?.borderWidth = 2
-        view.layer?.borderColor = NSColor.red.cgColor
-        self.view = view
+        self.view = {
+            let view = NSView(frame: NSRect(x: 0, y: 100, width: 300, height: 300))
+            view.wantsLayer = true
+            view.layer?.borderWidth = 2
+            view.layer?.borderColor = NSColor.red.cgColor
+            view.wantsLayer = true
+            view.layer?.backgroundColor = CGColor.black
+            return view
+        }()
     }
 }

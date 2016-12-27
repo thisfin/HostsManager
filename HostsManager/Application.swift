@@ -11,7 +11,7 @@ import Cocoa
 class Application: NSApplication {
     let appDelegate = AppDelegate()
 
-    override init () {
+    override init() {
         super.init()
         self.delegate = appDelegate
     }
