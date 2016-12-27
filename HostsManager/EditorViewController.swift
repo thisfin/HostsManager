@@ -20,6 +20,5 @@ class EditorViewController: NSViewController {
         self.view = view
 
 //        var toolbar: NSToolbar = NSToolbar.init()
-
     }
 }

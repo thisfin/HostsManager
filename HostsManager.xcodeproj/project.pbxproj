@@ -15,6 +15,11 @@
 		66C383321E11071800824982 /* StatusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383311E11071800824982 /* StatusMenu.swift */; };
 		66C383341E11282400824982 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383331E11282400824982 /* EditorViewController.swift */; };
 		66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3834E1E1250D900824982 /* SettingWindow.swift */; };
+		66C383511E1297D000824982 /* WYIconfont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383501E1297D000824982 /* WYIconfont.swift */; };
+		66C383531E1297D900824982 /* fontawesome-webfont_4.6.3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66C383521E1297D900824982 /* fontawesome-webfont_4.6.3.ttf */; };
+		66C383561E12980A00824982 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C383551E12980A00824982 /* CoreText.framework */; };
+		66C383581E12DDF000824982 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383571E12DDF000824982 /* Constants.swift */; };
+		66C3835A1E12DE2C00824982 /* NSColorEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383591E12DE2C00824982 /* NSColorEx.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,11 @@
 		66C383311E11071800824982 /* StatusMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenu.swift; sourceTree = "<group>"; };
 		66C383331E11282400824982 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		66C3834E1E1250D900824982 /* SettingWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingWindow.swift; sourceTree = "<group>"; };
+		66C383501E1297D000824982 /* WYIconfont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYIconfont.swift; sourceTree = "<group>"; };
+		66C383521E1297D900824982 /* fontawesome-webfont_4.6.3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "fontawesome-webfont_4.6.3.ttf"; path = "Resource/fontawesome-webfont_4.6.3.ttf"; sourceTree = "<group>"; };
+		66C383551E12980A00824982 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		66C383571E12DDF000824982 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		66C383591E12DE2C00824982 /* NSColorEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColorEx.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66C383561E12980A00824982 /* CoreText.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +57,7 @@
 			children = (
 				66308E2A1E0D14F9000EBBF0 /* HostsManager */,
 				66308E291E0D14F9000EBBF0 /* Products */,
+				66C383541E12980A00824982 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,15 +72,18 @@
 		66308E2A1E0D14F9000EBBF0 /* HostsManager */ = {
 			isa = PBXGroup;
 			children = (
-				66308E341E0D14F9000EBBF0 /* Info.plist */,
 				66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */,
 				66308E3A1E0E59D4000EBBF0 /* Application.swift */,
-				66308E2D1E0D14F9000EBBF0 /* ViewController.swift */,
 				66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */,
-				66C3832E1E10F3EE00824982 /* Resource */,
-				66C383311E11071800824982 /* StatusMenu.swift */,
+				66C383571E12DDF000824982 /* Constants.swift */,
 				66C383331E11282400824982 /* EditorViewController.swift */,
+				66308E341E0D14F9000EBBF0 /* Info.plist */,
+				66C383591E12DE2C00824982 /* NSColorEx.swift */,
+				66C3832E1E10F3EE00824982 /* Resource */,
 				66C3834E1E1250D900824982 /* SettingWindow.swift */,
+				66C383311E11071800824982 /* StatusMenu.swift */,
+				66308E2D1E0D14F9000EBBF0 /* ViewController.swift */,
+				66C383501E1297D000824982 /* WYIconfont.swift */,
 			);
 			path = HostsManager;
 			sourceTree = "<group>";
@@ -77,8 +92,17 @@
 			isa = PBXGroup;
 			children = (
 				66C3832F1E10F40100824982 /* icon.png */,
+				66C383521E1297D900824982 /* fontawesome-webfont_4.6.3.ttf */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		66C383541E12980A00824982 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				66C383551E12980A00824982 /* CoreText.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +167,7 @@
 			files = (
 				66C383301E10F40100824982 /* icon.png in Resources */,
 				66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */,
+				66C383531E1297D900824982 /* fontawesome-webfont_4.6.3.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,9 +181,12 @@
 				66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */,
 				66C383321E11071800824982 /* StatusMenu.swift in Sources */,
 				66308E3B1E0E59D4000EBBF0 /* Application.swift in Sources */,
+				66C3835A1E12DE2C00824982 /* NSColorEx.swift in Sources */,
+				66C383511E1297D000824982 /* WYIconfont.swift in Sources */,
 				66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */,
 				66C383341E11282400824982 /* EditorViewController.swift in Sources */,
 				66308E2C1E0D14F9000EBBF0 /* AppDelegate.swift in Sources */,
+				66C383581E12DDF000824982 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
