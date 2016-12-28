@@ -15,7 +15,7 @@ class WYIconfont: NSObject {
     private static var fontPath = "fontawesome-webfont_4.6.3"
 
     // once范例
-    private static var oneTimeThing: () = {
+    static var oneTimeThing: () = {
         let frameworkBundle: Bundle = Bundle(for: WYIconfont.classForCoder())
         let path: String? = frameworkBundle.path(forResource: WYIconfont.fontPath, ofType: "ttf")
         if let dynamicFontData = NSData(contentsOfFile: path!) {
@@ -32,12 +32,12 @@ class WYIconfont: NSObject {
     }()
 
     // MARK: - public
-    public static func setFont(fontPath: String, fontName: String) {
+    static func setFont(fontPath: String, fontName: String) {
         WYIconfont.fontPath = fontPath
         WYIconfont.fontName = fontName
     }
 
-    public static func fontOfSize(_ fontSize: CGFloat) -> NSFont {
+    static func fontOfSize(_ fontSize: CGFloat) -> NSFont {
         _ = oneTimeThing
 
         let font: NSFont? = NSFont(name: WYIconfont.fontName, size: fontSize)
@@ -45,7 +45,7 @@ class WYIconfont: NSObject {
         return font!
     }
 
-    public static func imageWithIcon(content: String, backgroundColor: NSColor = NSColor.clear, iconColor: NSColor = NSColor.white, size: CGSize) -> NSImage {
+    static func imageWithIcon(content: String, backgroundColor: NSColor = NSColor.clear, iconColor: NSColor = NSColor.white, size: CGSize) -> NSImage {
         // 逐步缩小算字号
         var fontSize: Int!
         let constraintSize = CGSize(width: size.width, height: CGFloat(MAXFLOAT))
@@ -79,7 +79,7 @@ class WYIconfont: NSObject {
         return image
     }
 
-    public static func imageWithIcon(content: String, backgroundColor: NSColor = NSColor.clear, iconColor: NSColor = NSColor.white, fontSize: CGFloat) -> NSImage {
+    static func imageWithIcon(content: String, backgroundColor: NSColor = NSColor.clear, iconColor: NSColor = NSColor.white, fontSize: CGFloat) -> NSImage {
         let attributes = [NSFontAttributeName: WYIconfont.fontOfSize(fontSize),
                           NSForegroundColorAttributeName: iconColor,
                           NSBackgroundColorAttributeName: backgroundColor,

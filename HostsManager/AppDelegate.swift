@@ -10,6 +10,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    static let windowSize = CGSize(width: 800, height: 500)
     var window: NSWindow!
     var rootStatusItem: NSStatusItem!
 
@@ -18,21 +19,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         rootStatusItem.title = ""
-        rootStatusItem.image = {
-            let image = NSImage(named: "icon.png")
-            image?.size = NSSize(width: 20, height: 20)
-            return image
-        }()
+        rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom,
+                                                        backgroundColor: .clear,
+                                                        iconColor: .black,
+                                                        size: CGSize(width: 20, height:20))
         rootStatusItem.menu = StatusMenu()
 
-        window = SettingWindow()
-//        window = SettingWindow(contentRect: NSRect(x: 0, y:0, width: 400, height: 400),
-//                               styleMask: [.closable, .resizable, .miniaturizable, .titled],
-//                               backing: .buffered,
-//                               defer: false)
+//        window = SettingWindow()
+        window = SettingWindow(contentRect: CGRect.zero,
+                               styleMask: [.closable, .resizable, .miniaturizable, .titled],
+                               backing: .buffered,
+                               defer: false)
         window.title = "hello"
         window.center()
-        window.contentViewController = ViewController()
+//        window.contentViewController = ViewController()
 //        window.contentView = {
 //            let view = NSView(frame: self.window.frame)
 //            return view

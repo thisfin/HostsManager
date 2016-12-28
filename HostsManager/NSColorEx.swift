@@ -9,7 +9,7 @@
 import Cocoa
 
 extension NSColor {
-    public static func colorWithHexValue(_ hexValue: UInt, alpha: UInt = 255) -> NSColor {
+    static func colorWithHexValue(_ hexValue: UInt, alpha: UInt = 255) -> NSColor {
         let r: Float = Float((hexValue & 0x00FF0000) >> 16) / 255
         let g: Float = Float((hexValue & 0x0000FF00) >> 8) / 255
         let b: Float = Float(hexValue & 0x000000FF) / 255
@@ -18,7 +18,7 @@ extension NSColor {
     }
 
     // param string "aarrggbb" or "#aarrggbb" or "rrggbb" or "#rrggbb" or "rgb" or "#rgb"
-    public static func colorWithString(_ string: String) -> NSColor {
+    static func colorWithString(_ string: String) -> NSColor {
         let len = string.characters.count
         var hexValue = UInt(0)
         var alpha = UInt(255)

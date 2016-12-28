@@ -9,28 +9,26 @@
 import Cocoa
 
 class SettingWindow: NSWindow, NSToolbarDelegate {
-    lazy var settingViewController: ViewController = {
-        return ViewController()
-    }()
-
     let toolbarItemInfos: [ToolbarItemInfo] = [
         ToolbarItemInfo(title: "编辑",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontScan, backgroundColor: .clear, iconColor: .black, fontSize: 40),
-                        viewController: ViewController(),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: CGSize(width: 40, height:40)),
+                        viewController: EditorViewController(),
                         identifier: "a"),
         ToolbarItemInfo(title: "查看源文件",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontImage, backgroundColor: .clear, iconColor: .black, fontSize: 40),
-                        viewController: ViewController(),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: CGSize(width: 40, height:40)),
+                        viewController: SourceViewController(),
                         identifier: "b"),
         ToolbarItemInfo(title: "设置",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontlight, backgroundColor: .clear, iconColor: .black, fontSize: 40),
-                        viewController: ViewController(),
-                        identifier: "c")
-    ]
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: CGSize(width: 40, height:40)),
+                        viewController: SettingViewController(),
+                        identifier: "c")]
+
+    var nowShowItemIdentifier: String = ""
 
     override init(contentRect: NSRect, styleMask style: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: style, backing: bufferingType, defer: flag)
 
+        // 设置toolbar
         toolbar = {
             let toolbar = NSToolbar(identifier: "WYToolbarIdentifier") // 默认构造函数有问题!!!
             toolbar.allowsUserCustomization = true
@@ -40,28 +38,26 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
             toolbar.delegate = self
             return toolbar
         }()
-
-        contentViewController = settingViewController
+        // 设置默认值
+        toolbar?.selectedItemIdentifier = toolbarItemInfos[0].identifier
+        itemSelected(selectedItemIdentifier: toolbarItemInfos[0].identifier)
     }
 
     // MARK: - NSToolbarDelegate
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
-        let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
-//        let toolbarItem = NSToolbarItem()
         var toolbarItemInfo: ToolbarItemInfo!
         for info in toolbarItemInfos {
             if info.identifier == itemIdentifier {
                 toolbarItemInfo = info
             }
         }
+        let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
+        toolbarItem.minSize = CGSize(width: 30, height: 30)
+        toolbarItem.maxSize = CGSize(width: 100, height: 100)
         toolbarItem.label = toolbarItemInfo.title
         toolbarItem.image = toolbarItemInfo.image
-        toolbarItem.paletteLabel = "Add"
-        toolbarItem.toolTip = "a dd"
-//        toolbarItem.minSize = CGSize(width: 25, height: 25)
-//        toolbarItem.maxSize = CGSize(width: 100, height: 100)
         toolbarItem.target = self
-        //        toolbarItem.action = #selelctor()
+        toolbarItem.action = #selector(SettingWindow.toolbarItemSelected(_:))
         return toolbarItem
     }
 
@@ -75,6 +71,28 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
 
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
         return toolbarDefaultItemIdentifiers(toolbar)
+    }
+
+    func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
+        return toolbarDefaultItemIdentifiers(toolbar)
+    }
+
+    // MARK: - private
+    func toolbarItemSelected(_ sender: NSToolbarItem) {
+        itemSelected(selectedItemIdentifier: sender.itemIdentifier)
+    }
+
+    private func itemSelected(selectedItemIdentifier: String) {
+        if nowShowItemIdentifier == selectedItemIdentifier {
+            return
+        }
+        nowShowItemIdentifier = selectedItemIdentifier
+        toolbarItemInfos.forEach { (toolbarItemInfo) in
+            if selectedItemIdentifier == toolbarItemInfo.identifier {
+                contentViewController = toolbarItemInfo.viewController
+                return
+            }
+        }
     }
 }
 
