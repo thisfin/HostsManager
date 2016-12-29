@@ -25,18 +25,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                         size: CGSize(width: 20, height:20))
         rootStatusItem.menu = StatusMenu()
 
-//        window = SettingWindow()
         window = SettingWindow(contentRect: CGRect.zero,
                                styleMask: [.closable, .resizable, .miniaturizable, .titled],
                                backing: .buffered,
                                defer: false)
-        window.title = "hello"
         window.center()
-//        window.contentViewController = ViewController()
-//        window.contentView = {
-//            let view = NSView(frame: self.window.frame)
-//            return view
-//        }()
         window.makeKeyAndOrderFront(self)
     }
 

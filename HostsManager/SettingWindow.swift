@@ -89,6 +89,7 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
         nowShowItemIdentifier = selectedItemIdentifier
         toolbarItemInfos.forEach { (toolbarItemInfo) in
             if selectedItemIdentifier == toolbarItemInfo.identifier {
+                title = toolbarItemInfo.title
                 contentViewController = toolbarItemInfo.viewController
                 return
             }

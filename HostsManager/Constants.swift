@@ -14,6 +14,10 @@ typealias SimpleBlock = (_ data: AnyObject) -> Void
 class Constants {
     static let colorBianchi = NSColor.colorWithHexValue(0x8bddd1)
 
+    static let colorTableBackground = NSColor.colorWithHexValue(0xf5f5f5)
+    static let colorTableBackgroundLight = NSColor.white
+    static let colorTableBorder = NSColor.colorWithHexValue(0xc8c8c8)
+
     static let iconfontScan = "\u{f029}"
     static let iconfontHistory = "\u{f03a}"
     static let iconfontlight = "\u{f0e7}"
