@@ -8,14 +8,10 @@
 
 import Cocoa
 
-class HostScrollView: NSScrollView, NSTableViewDataSource, NSTableViewDelegate {
+class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
     var tableView: NSTableView!
     var datas: [Host]!
 
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

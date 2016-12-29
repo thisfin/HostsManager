@@ -90,12 +90,12 @@
 		66308E2A1E0D14F9000EBBF0 /* HostsManager */ = {
 			isa = PBXGroup;
 			children = (
-				6664357F1E13DD2300047EBD /* Data */,
 				66308E341E0D14F9000EBBF0 /* Info.plist */,
 				66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */,
 				66308E3A1E0E59D4000EBBF0 /* Application.swift */,
 				66C383571E12DDF000824982 /* Constants.swift */,
 				66C383331E11282400824982 /* EditorViewController.swift */,
+				666435881E14D3D100047EBD /* HostScrollView.swift */,
 				666435861E14B9F000047EBD /* ScrollView.swift */,
 				66C3835E1E138B8D00824982 /* SettingViewController.swift */,
 				66C3834E1E1250D900824982 /* SettingWindow.swift */,
@@ -103,9 +103,9 @@
 				66C383311E11071800824982 /* StatusMenu.swift */,
 				66308E2D1E0D14F9000EBBF0 /* ViewController.swift */,
 				66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */,
+				6664357F1E13DD2300047EBD /* Data */,
 				66C3832E1E10F3EE00824982 /* Resource */,
 				66C3835B1E135B1000824982 /* Tools */,
-				666435881E14D3D100047EBD /* HostScrollView.swift */,
 			);
 			path = HostsManager;
 			sourceTree = "<group>";
