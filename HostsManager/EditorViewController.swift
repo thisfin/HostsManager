@@ -90,7 +90,6 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             textField.isBezeled = false
             textField.drawsBackground = false
             textField.isSelectable = false
-
             textField.backgroundColor = NSColor.clear
             return textField
             }())
