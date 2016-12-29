@@ -19,7 +19,7 @@ class Mock {
                 group.hostList = {
                     var array2: [Host] = []
                     for y in 0..<10 {
-                        array2.append(Host(ip: String(format: "ip %ld", y),
+                        array2.append(Host(ip: String(format: "ip %ld %ld", x, y),
                                            domain: String(format: "domain %ld", y),
                                            selected: (y + 1) % 2 == 0,
                                            desc: String(format: "desc %ld", y)))}

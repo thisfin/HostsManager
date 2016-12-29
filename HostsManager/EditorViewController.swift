@@ -13,6 +13,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
     var tableView: NSTableView!
 
     var scrollView: NSScrollView!
+    var hostView: HostScrollView!
 
     override func loadView() { // 代码实现请务必重载此方法添加view
         view = NSView()
@@ -54,6 +55,14 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         column.minWidth = tableView.frame.width
         column.resizingMask = .autoresizingMask
         tableView.addTableColumn(column)
+
+        hostView = HostScrollView(frame: NSMakeRect(scrollView.frame.origin.x + scrollView.frame.size.width + 20,
+                                                    scrollView.frame.origin.y,
+                                                    view.frame.size.width - 20 * 2 - scrollView.frame.origin.x - scrollView.frame.size.width,
+                                                    scrollView.frame.size.height))
+        view.addSubview(hostView)
+
+        tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
     }
 
     // MARK: - NSTableViewDataSource
@@ -114,6 +123,11 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         return 40
+    }
+
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let row: Int = tableView.selectedRow
+        hostView.setTableData(Mock.groups[row].hostList!)
     }
 
     // MARK: - private
