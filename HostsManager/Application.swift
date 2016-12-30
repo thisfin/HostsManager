@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class Application: NSApplication {
+class Application: NSApplication { // 注册到info.plist
     let appDelegate = AppDelegate()
 
     override init() {
