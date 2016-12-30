@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Host: NSObject {
+class Host: NSObject, NSCopying {
     var ip: String
     var domain: String
     var selected: Bool = false
@@ -21,5 +21,10 @@ class Host: NSObject {
         if desc != nil {
             self.desc = desc!
         }
+    }
+
+    func copy(with zone: NSZone? = nil) -> Any {
+        let host: Host = Host(ip: ip, domain: domain, selected: selected, desc: desc)
+        return host;
     }
 }

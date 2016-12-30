@@ -14,7 +14,7 @@ class ViewController: NSViewController {
 
         view.wantsLayer = true
         view.layer?.backgroundColor = CGColor.black
-        view.frame = CGRect(origin: CGPoint(x: 0, y:0), size: AppDelegate.windowSize)
+        view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
 
 //                self.view = {
 //                                let view = NSView(frame: NSRect(x: 0, y: 100, width: 300, height: 300))
@@ -63,7 +63,7 @@ class ViewController: NSViewController {
         view.addSubview({
             //            let imageView = NSImageView(image: WYIconfont.imageWithIcon(content: "\u{f03a}", backgroundColor: .yellow, iconColor: .white, size: CGSize(width: 50, height: 50)))
             let imageView = NSImageView(image: WYIconfont.imageWithIcon(content: "\u{f03a}", fontSize: 40))
-            imageView.frame = CGRect(origin: CGPoint(x: 0, y:0), size: (imageView.image?.size)!)
+            imageView.frame = NSRect(origin: NSPoint.zero, size: (imageView.image?.size)!)
             return imageView
             }())
     }

@@ -9,7 +9,9 @@
 import Cocoa
 
 class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
-    var tableView: NSTableView!
+    private let rowHeight: CGFloat = 30
+    private let tableViewDragTypeName = "DragTypeName"
+    private var tableView: NSTableView!
     var datas: [Host]!
 
     required init?(coder: NSCoder) {
@@ -18,7 +20,10 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
+        initSubview()
+    }
 
+    func initSubview() {
         autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         hasVerticalScroller = true
         wantsLayer = true
@@ -26,37 +31,31 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
         layer?.borderWidth = 1
         layer?.borderColor = Constants.colorTableBorder.cgColor
 
-        tableView = NSTableView(frame: NSMakeRect(0, 0, frameRect.size.width, frameRect.size.height))
+        tableView = NSTableView(frame: NSRect(origin: NSPoint.zero, size: frame.size))
         tableView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = Constants.colorTableBackground
+        tableView.register(forDraggedTypes: [tableViewDragTypeName])
+        tableView.doubleAction = #selector(HostScrollView.doubleClicked(_:))
         contentView.documentView = tableView
 
         for i in 0..<4 {
             let column = NSTableColumn(identifier: String(format: "column%ld", i))
-            column.resizingMask = .autoresizingMask
             column.headerCell.alignment = .center
             switch i {
             case 0:
-                column.isEditable = true
                 column.title = "生效"
                 column.width = 50
             case 1:
-                column.isEditable = true
                 column.title = "ip"
-                column.width = (tableView.frame.width - 150) / 3
+                column.width = 100
             case 2:
-                column.isEditable = true
                 column.title = "域名"
-                column.headerCell.alignment = .center
-                column.width = (tableView.frame.width - 150) / 3
+                column.width = (tableView.frame.width - 150) / 2
             case 3:
-                column.isEditable = true
                 column.title = "备注"
-                column.headerCell.alignment = .center
-                column.width = (tableView.frame.width - 150) / 3
-                column.resizingMask = .userResizingMask
+                column.width = (tableView.frame.width - 150) / 2
             default:
                 break
             }
@@ -65,54 +64,69 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
         }
     }
 
+    // MARK: - NSTableViewDataSource
     func numberOfRows(in tableView: NSTableView) -> Int {
         return datas != nil ? datas.count : 0
     }
 
-    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        return datas[row]
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation { // 拖拽
+        return .every
     }
+
+    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
+        let data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
+        pboard.declareTypes([tableViewDragTypeName], owner: self)
+        pboard.setData(data, forType: tableViewDragTypeName)
+        return true
+    }
+
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+        let pboard = info.draggingPasteboard()
+        let rowData = pboard.data(forType: tableViewDragTypeName)
+        let rowIndexs: NSIndexSet = NSKeyedUnarchiver.unarchiveObject(with: rowData!) as! NSIndexSet
+        let dragRow = rowIndexs.firstIndex
+
+        if datas.count > 1 && dragRow != row { // 数据重新排列
+            datas.insert(datas[dragRow], at: row)
+            datas.remove(at: dragRow + (dragRow > row ? 1 : 0))
+            tableView.noteNumberOfRowsChanged()
+            tableView.reloadData()
+        }
+        return true
+    }
+
+//    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+//        return datas[row]
+//    }
 
     // MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let subView = NSView(frame: NSRect(x: 0, y: 0, width: (tableColumn?.width)!, height: 30))
-        subView.autoresizingMask = .viewWidthSizable
-        if tableColumn?.identifier == "column0" {
-            subView.addSubview({
+        let width: CGFloat = (tableColumn?.width)!
+        let height: CGFloat = rowHeight
+
+        if let identifier = tableColumn?.identifier {
+            var resultSubView: NSView?
+            switch identifier {
+            case "column0":
                 let checkBox = NSButton(checkboxWithTitle: " ", target: self, action: #selector(HostScrollView.checkBoxClicked(_:)))
                 checkBox.state = datas[row].selected ? 1 : 0
-                return checkBox
-
-//                checkBoxField =  [[NSButton alloc]initCheckBoxWithItem:tableColumnItem];
-//                view = checkBoxField ;
-//                }
-//                else{
-//                checkBoxField = (NSButton*)view;
-//                }
-//                [checkBoxField setTarget:self];
-//                [checkBoxField setAction:@selector(checkBoxChick:)];
-//                if(value){
-//                checkBoxField.state = [value integerValue];
-//            }
-                }())
-        } else {
-        subView.addSubview({
-            let textField = NSTextField(frame: CGRect(x: 50,
-                                                      y: (subView.frame.height - 20) / 2,
-                                                      width: subView.frame.width - 50,
-                                                      height: 20))
-            textField.font = NSFont.systemFont(ofSize: 14)
-            textField.textColor = NSColor.colorWithHexValue(0x333333)
-            textField.stringValue = String(format: "%@ %@ %@", datas[row].ip, datas[row].domain, datas[row].desc ?? "")
-            textField.isEditable = true
-            textField.isBordered = false
-            textField.isBezeled = false
-            textField.drawsBackground = false
-            textField.isSelectable = true
-            textField.backgroundColor = NSColor.clear
-            textField.alignment = NSTextAlignment.right
-            textField.autoresizingMask = .viewWidthSizable
-            if let identifier = tableColumn?.identifier {
+                checkBox.frame.origin = NSMakePoint((width - checkBox.frame.width) / 2 + 5, (height - checkBox.frame.height) / 2)
+                resultSubView = checkBox
+            default:
+                let textFieldHeight: CGFloat = 20
+                let padding: CGFloat = (height - textFieldHeight) / 2
+                let textField = NSTextField(frame: NSMakeRect(padding, padding, width - padding * 2, textFieldHeight))
+                textField.font = NSFont.systemFont(ofSize: 14)
+                textField.textColor = NSColor.colorWithHexValue(0x333333)
+                textField.isEditable = false
+                textField.isBordered = false
+                textField.isBezeled = false
+                textField.drawsBackground = false
+                textField.isSelectable = true
+                textField.backgroundColor = NSColor.clear
+                textField.alignment = NSTextAlignment.right
+                textField.autoresizingMask = .viewWidthSizable
+                textField.maximumNumberOfLines = 1
                 switch identifier {
                 case "column1":
                     textField.stringValue = datas[row].ip
@@ -121,23 +135,27 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
                     textField.stringValue = datas[row].domain
                     textField.placeholderString = "域名 非空"
                 case "column3":
-                    textField.stringValue = /*datas[row].desc ??*/ ""
+                    textField.stringValue = datas[row].desc ?? ""
                 default:
                     break
                 }
+                resultSubView = textField
             }
-            return textField
-            }())
+            return {
+                let view = NSView(frame: NSRect(origin: NSPoint.zero, size: NSMakeSize(width, height)))
+                view.addSubview(resultSubView!)
+                return view
+                }()
         }
-        return subView
+        return nil
     }
 
-    func tableView(_ tableView: NSTableView, didAdd rowView: NSTableRowView, forRow row: Int) {
+    func tableView(_ tableView: NSTableView, didAdd rowView: NSTableRowView, forRow row: Int) { // 背景色
         rowView.backgroundColor = row % 2 == 0 ? Constants.colorTableBackgroundLight : Constants.colorTableBackground
     }
 
-    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 30
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat { // 行高
+        return rowHeight
     }
 
     func selectionShouldChange(in tableView: NSTableView) -> Bool {
@@ -145,9 +163,20 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
     }
 
     // MARK: - private
-    func doubleClicked(_ sender: NSTableView) {
+    func doubleClicked(_ sender: NSTableView) { // 双击编辑
         let row: Int = sender.clickedRow
-        NSLog("%ld", row)
+        let column: Int = sender.clickedColumn
+
+        if row >= 0 && column >= 0 {
+            if let v = sender.view(atColumn: column, row: row, makeIfNecessary: false) {
+                v.subviews.filter({ (t) -> Bool in
+                    t is NSTextField
+                }).forEach({ (t) in
+                    (t as! NSTextField).isEditable = true
+                    self.window?.makeFirstResponder(t)
+                })
+            }
+        }
     }
 
     func checkBoxClicked(_ sender: NSButton) {

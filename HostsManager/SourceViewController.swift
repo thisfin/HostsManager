@@ -18,6 +18,6 @@ class SourceViewController: NSViewController {
 
         view.wantsLayer = true
         view.layer?.backgroundColor = CGColor.white
-        view.frame = CGRect(origin: CGPoint(x: 0, y:0), size: AppDelegate.windowSize)
+        view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
     }
 }

@@ -48,7 +48,7 @@ class WYIconfont: NSObject {
     static func imageWithIcon(content: String, backgroundColor: NSColor = NSColor.clear, iconColor: NSColor = NSColor.white, size: CGSize) -> NSImage {
         // 逐步缩小算字号
         var fontSize: Int!
-        let constraintSize = CGSize(width: size.width, height: CGFloat(MAXFLOAT))
+        let constraintSize = NSMakeSize(size.width, CGFloat(MAXFLOAT))
         for i in stride(from: 500, to: 5, by: -2) {
             let rect = content.boundingRect(with: constraintSize,
                                             options: NSStringDrawingOptions.usesFontLeading,
@@ -61,7 +61,7 @@ class WYIconfont: NSObject {
         }
 
         // 绘制
-        let textRext = CGRect(origin: CGPoint.zero, size: size)
+        let textRext = NSRect(origin: NSPoint.zero, size: size)
         let image = NSImage(size: size)
         image.lockFocus()
 //        let context : CGContext = (NSGraphicsContext.current()?.cgContext)!
@@ -89,12 +89,12 @@ class WYIconfont: NSObject {
                             return style}()]
 
         var size = content.size(withAttributes: attributes)
-        size = CGSize(width: size.width * 1.1, height: size.height * 1.05)
+        size = NSMakeSize(size.width * 1.1, size.height * 1.05)
         let image = NSImage(size: size)
         image.lockFocus()
         backgroundColor.setFill()
-        NSBezierPath(rect: CGRect(origin: CGPoint.zero, size: size)).fill()
-        content.draw(at: CGPoint(x: size.width * 0.05, y: size.height * 0.025), withAttributes: attributes)
+        NSBezierPath(rect: NSRect(origin: NSPoint.zero, size: size)).fill()
+        content.draw(at: NSMakePoint(size.width * 0.05, size.height * 0.025), withAttributes: attributes)
         image.unlockFocus()
         return image
     }

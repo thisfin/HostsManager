@@ -26,14 +26,14 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.colorWithHexValue(0xececec).cgColor
-        view.frame = CGRect(origin: CGPoint(x: 0, y:0), size: AppDelegate.windowSize)
+        view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
 
 
 
 
 
 
-        scrollView = ScrollView(frame: CGRect(x: 20, y: 20, width: 200, height: view.frame.height - 20 * 2))
+        scrollView = ScrollView(frame: NSMakeRect(20, 20, 200, view.frame.height - 20 * 2))
         scrollView.autoresizingMask = [.viewMaxXMargin, .viewHeightSizable]
         scrollView.hasVerticalScroller = true
 //        scrollView.borderType = .lineBorder
@@ -43,23 +43,24 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         scrollView.layer?.borderColor = Constants.colorTableBorder.cgColor
         view.addSubview(scrollView)
 
-        tableView = NSTableView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: scrollView.frame.size))
+        tableView = NSTableView(frame: NSRect(origin: NSPoint.zero, size: scrollView.frame.size))
         tableView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = Constants.colorTableBackground
+        tableView.headerView = nil
         tableView.doubleAction = #selector(EditorViewController.doubleClicked(_:)) // 双击
         scrollView.contentView.documentView = tableView
 
         let column = NSTableColumn(identifier: "column")
-        column.minWidth = tableView.frame.width
+        column.width = tableView.frame.width
         column.resizingMask = .autoresizingMask
         tableView.addTableColumn(column)
 
-        hostView = HostScrollView(frame: NSMakeRect(scrollView.frame.origin.x + scrollView.frame.size.width + 20,
-                                                    scrollView.frame.origin.y,
-                                                    view.frame.size.width - 20 * 2 - scrollView.frame.origin.x - scrollView.frame.size.width,
-                                                    scrollView.frame.size.height))
+        hostView = HostScrollView(frame: NSMakeRect(scrollView.frame.maxX + 20,
+                                                    scrollView.frame.minY,
+                                                    view.frame.width - scrollView.frame.maxX - 20 * 2,
+                                                    scrollView.frame.height))
         view.addSubview(hostView)
 
         tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
@@ -76,12 +77,9 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     // MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let subView = NSView(frame: NSRect(x: 0, y: 0, width: (tableColumn?.width)!, height: 40))
+        let subView = NSView(frame: NSMakeRect(0, 0, (tableColumn?.width)!, 40))
         subView.addSubview({
-            let textField = NSTextField(frame: CGRect(x: 50,
-                                                      y: (subView.frame.height - 20) / 2,
-                                                      width: subView.frame.width - 20,
-                                                      height: 20))
+            let textField = NSTextField(frame: NSMakeRect(50, (subView.frame.height - 20) / 2, subView.frame.width - 20, 20))
             textField.font = NSFont.systemFont(ofSize: 16)
             textField.textColor = NSColor.black
             textField.stringValue = Mock.groups[row].name!

@@ -395,6 +395,7 @@
 			baseConfigurationReference = FCFB1EB601438F80C885CC7F /* Pods-HostsManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = CY25956VB2;
 				INFOPLIST_FILE = HostsManager/Info.plist;
@@ -410,6 +411,7 @@
 			baseConfigurationReference = 98BEDC0F0CC65A5E7C7E8462 /* Pods-HostsManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = CY25956VB2;
 				INFOPLIST_FILE = HostsManager/Info.plist;

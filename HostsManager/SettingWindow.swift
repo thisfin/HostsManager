@@ -11,15 +11,15 @@ import Cocoa
 class SettingWindow: NSWindow, NSToolbarDelegate {
     let toolbarItemInfos: [ToolbarItemInfo] = [
         ToolbarItemInfo(title: "编辑",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: CGSize(width: 40, height:40)),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
                         viewController: EditorViewController(),
                         identifier: "a"),
         ToolbarItemInfo(title: "查看源文件",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: CGSize(width: 40, height:40)),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
                         viewController: SourceViewController(),
                         identifier: "b"),
         ToolbarItemInfo(title: "设置",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: CGSize(width: 40, height:40)),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
                         viewController: SettingViewController(),
                         identifier: "c")]
 
@@ -52,8 +52,8 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
             }
         }
         let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
-        toolbarItem.minSize = CGSize(width: 30, height: 30)
-        toolbarItem.maxSize = CGSize(width: 100, height: 100)
+        toolbarItem.minSize = NSMakeSize(30, 30)
+        toolbarItem.maxSize = NSMakeSize(100, 100)
         toolbarItem.label = toolbarItemInfo.title
         toolbarItem.image = toolbarItemInfo.image
         toolbarItem.target = self
