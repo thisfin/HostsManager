@@ -46,7 +46,7 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
     // MARK: - NSToolbarDelegate
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         var toolbarItemInfo: ToolbarItemInfo!
-        for info in toolbarItemInfos {
+        toolbarItemInfos.forEach { (info) in
             if info.identifier == itemIdentifier {
                 toolbarItemInfo = info
             }
