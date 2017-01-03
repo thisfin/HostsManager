@@ -11,7 +11,7 @@ MacOS hosts编辑管理
     - 编辑 50%
     - 导入导出
     - 增删
-* core data
+* core data 20%
 * 预览界面
 * 设置界面
 * 开机自启动
