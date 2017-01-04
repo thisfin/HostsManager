@@ -124,7 +124,10 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     func tableViewSelectionDidChange(_ notification: Notification) {
         let row: Int = tableView.selectedRow
-        hostView.setTableData(Mock.groups[row].hostList!)
+        hostView.setTableData((Mock.groups[row].hosts!.allObjects as! [Host]).sorted(by: {
+            $0.sequence < $1.sequence
+        }))
+//        hostView.setTableData(Mock.groups[row].hostList!)
     }
 
     // MARK: - private

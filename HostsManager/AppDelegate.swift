@@ -35,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        Application.shared().mainMenu = statusMenu
+        Mock.context = context
 
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         rootStatusItem.title = ""
@@ -55,7 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             fatalError("Wrong object type")
         }
         user.name = "liyi"
-        user.id = 3
+        user.id = 5
 //        try! context.save()
 
 
@@ -67,31 +68,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        request.predicate = predicate
         try! context.fetch(request).forEach { (user) in
             if let u: User = user as? User {
-                NSLog("%ld %@", u.id, u.name ?? "")
+                NSLog("%ld %@ %ld", u.id, u.name ?? "", u.objectID)
             }
         }
-//
-//
-//        // 初始化一个查询请求
-//        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-//        // 设置要查询的实体
-//        request.entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:context];
-//        // 设置排序（按照age降序）
-//        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"age" ascending:NO];
-//        request.sortDescriptors = [NSArray arrayWithObject:sort];
-//        // 设置条件过滤(搜索name中包含字符串"Itcast-1"的记录，注意：设置条件过滤时，数据库SQL语句中的%要用*来代替，所以%Itcast-1%应该写成*Itcast-1*)
-//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name like %@", @"*Itcast-1*"];
-//        request.predicate = predicate;
-//        // 执行请求
-//        NSError *error = nil;
-//        NSArray *objs = [context executeFetchRequest:request error:&error];
-//        if (error) {
-//            [NSException raise:@"查询错误" format:@"%@", [error localizedDescription]];
-//        }  
-//        // 遍历数据  
-//        for (NSManagedObject *obj in objs) {  
-//            NSLog(@"name=%@", [obj valueForKey:@"name"]  
-//        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

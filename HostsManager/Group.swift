@@ -8,13 +8,13 @@
 
 import Foundation
 
-class Group: NSObject, NSCopying {
+class Group1: NSObject, NSCopying {
     var name: String?
-    var hostList: [Host]?
+    var hostList: [Host1]?
     var selected: Bool = false
 
     func copy(with zone: NSZone? = nil) -> Any {
-        let group: Group = Group()
+        let group: Group1 = Group1()
         group.name = name
         group.hostList = hostList
         group.selected = selected

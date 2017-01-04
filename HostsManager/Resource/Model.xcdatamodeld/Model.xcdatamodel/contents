@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Group" representedClassName="Group" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="selected" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sequence" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="hosts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Host" syncable="YES"/>
+    </entity>
+    <entity name="Host" representedClassName="Host" syncable="YES" codeGenerationType="class">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="domain" attributeType="String" syncable="YES"/>
+        <attribute name="ip" attributeType="String" syncable="YES"/>
+        <attribute name="selected" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sequence" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Group" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="User" positionX="-45" positionY="0" width="128" height="75"/>
+        <element name="Host" positionX="-18" positionY="45" width="128" height="135"/>
+        <element name="Group" positionX="9" positionY="90" width="128" height="30"/>
     </elements>
 </model>

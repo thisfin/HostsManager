@@ -129,10 +129,10 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
                 textField.maximumNumberOfLines = 1
                 switch identifier {
                 case "column1":
-                    textField.stringValue = datas[row].ip
+                    textField.stringValue = datas[row].ip!
                     textField.placeholderString = "ip地址 非空"
                 case "column2":
-                    textField.stringValue = datas[row].domain
+                    textField.stringValue = datas[row].domain!
                     textField.placeholderString = "域名 非空"
                 case "column3":
                     textField.stringValue = datas[row].desc ?? ""
