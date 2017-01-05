@@ -10,6 +10,10 @@ import Cocoa
 import SnapKit
 
 class EditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+    static let leftSideWidth: CGFloat = 200     // 左边列表宽度
+    static let marginWidth: CGFloat = 20        // 边距
+    static let toolViewHeight: CGFloat = 20     // 工具条高度
+
     var tableView: NSTableView!
 
     var scrollView: NSScrollView!
@@ -33,7 +37,11 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
 
 
-        scrollView = ScrollView(frame: NSMakeRect(20, 20, 200, view.frame.height - 20 * 2))
+        scrollView = ScrollView(frame:
+            NSMakeRect(EditorViewController.marginWidth,
+                       EditorViewController.marginWidth + EditorViewController.toolViewHeight,
+                       EditorViewController.leftSideWidth,
+                       view.frame.height - EditorViewController.marginWidth * 2 - EditorViewController.toolViewHeight))
         scrollView.autoresizingMask = [.viewMaxXMargin, .viewHeightSizable]
         scrollView.hasVerticalScroller = true
 //        scrollView.borderType = .lineBorder
@@ -42,6 +50,13 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         scrollView.layer?.borderWidth = 1
         scrollView.layer?.borderColor = Constants.colorTableBorder.cgColor
         view.addSubview(scrollView)
+
+        let toolView = GroupToolView(frame: NSMakeRect(EditorViewController.marginWidth,
+                                                       EditorViewController.marginWidth,
+                                                       EditorViewController.leftSideWidth,
+                                                       EditorViewController.toolViewHeight))
+        toolView.autoresizingMask = [.viewMaxXMargin, .viewMinYMargin]
+        view.addSubview(toolView)
 
         tableView = NSTableView(frame: NSRect(origin: NSPoint.zero, size: scrollView.frame.size))
         tableView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
@@ -57,10 +72,10 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         column.resizingMask = .autoresizingMask
         tableView.addTableColumn(column)
 
-        hostView = HostScrollView(frame: NSMakeRect(scrollView.frame.maxX + 20,
-                                                    scrollView.frame.minY,
-                                                    view.frame.width - scrollView.frame.maxX - 20 * 2,
-                                                    scrollView.frame.height))
+        hostView = HostScrollView(frame: NSMakeRect(scrollView.frame.maxX + EditorViewController.marginWidth,
+                                                    scrollView.frame.minY - EditorViewController.toolViewHeight,
+                                                    view.frame.width - scrollView.frame.maxX - EditorViewController.marginWidth * 2,
+                                                    scrollView.frame.height + EditorViewController.toolViewHeight))
         view.addSubview(hostView)
 
         tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)

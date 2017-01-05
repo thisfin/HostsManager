@@ -11,6 +11,7 @@
 		660991691E1B5794008DF493 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 660991671E1B5794008DF493 /* Model.xcdatamodeld */; };
 		6609916B1E1B70E1008DF493 /* ManagerObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6609916A1E1B70E1008DF493 /* ManagerObjectType.swift */; };
 		6609916D1E1B7273008DF493 /* UserEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6609916C1E1B7273008DF493 /* UserEx.swift */; };
+		6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6609916E1E1CFBF9008DF493 /* GroupToolView.swift */; };
 		66308E2C1E0D14F9000EBBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */; };
 		66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2D1E0D14F9000EBBF0 /* ViewController.swift */; };
 		66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		660991681E1B5794008DF493 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		6609916A1E1B70E1008DF493 /* ManagerObjectType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerObjectType.swift; sourceTree = "<group>"; };
 		6609916C1E1B7273008DF493 /* UserEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEx.swift; sourceTree = "<group>"; };
+		6609916E1E1CFBF9008DF493 /* GroupToolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupToolView.swift; sourceTree = "<group>"; };
 		66308E281E0D14F9000EBBF0 /* HostsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HostsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66308E2D1E0D14F9000EBBF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				6664357F1E13DD2300047EBD /* Data */,
 				66C3832E1E10F3EE00824982 /* Resource */,
 				66C3835B1E135B1000824982 /* Tools */,
+				6609916E1E1CFBF9008DF493 /* GroupToolView.swift */,
 			);
 			path = HostsManager;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */,
 				66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */,
 				66C3835F1E138B8D00824982 /* SettingViewController.swift in Sources */,
 				66C383321E11071800824982 /* StatusMenu.swift in Sources */,
