@@ -24,15 +24,13 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
     }
 
     func initSubview() {
-        autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         hasVerticalScroller = true
         wantsLayer = true
         layer?.masksToBounds = true
         layer?.borderWidth = 1
         layer?.borderColor = Constants.colorTableBorder.cgColor
 
-        tableView = NSTableView(frame: NSRect(origin: NSPoint.zero, size: frame.size))
-        tableView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
+        tableView = NSTableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = Constants.colorTableBackground
@@ -47,15 +45,19 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
             case 0:
                 column.title = "生效"
                 column.width = 50
+                column.minWidth = 50
             case 1:
                 column.title = "ip"
                 column.width = 100
+                column.minWidth = 50
             case 2:
                 column.title = "域名"
-                column.width = (tableView.frame.width - 150) / 2
+                column.width = 200 //(tableView.frame.width - 150) / 2
+                column.minWidth = 50
             case 3:
                 column.title = "备注"
-                column.width = (tableView.frame.width - 150) / 2
+                column.width = tableView.frame.width - 350//(tableView.frame.width - 150) / 2
+                column.width = 50
             default:
                 break
             }

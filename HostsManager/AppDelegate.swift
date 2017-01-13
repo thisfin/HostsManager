@@ -24,9 +24,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
             try! psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: {
-                let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
-                let storeURL = documentURL?.appendingPathComponent("model.sqlite")
-                return storeURL
+                if let documentURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
+                    let infoDictionary = Bundle.main.infoDictionary,
+                    let identifier: String = infoDictionary["CFBundleIdentifier"] as? String {
+                    var directoryURL = documentURL.appendingPathComponent(identifier).appendingPathComponent("Data")
+                    if !FileManager.default.fileExists(atPath: directoryURL.path) {
+                        try! FileManager.default.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true)
+                    }
+                    return directoryURL.appendingPathComponent("model").appendingPathExtension("sqlite")
+                }
+                return nil
             }(), options: nil)
             return psc
         }()
@@ -34,6 +41,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
+
 //        Application.shared().mainMenu = statusMenu
         Mock.context = context
 

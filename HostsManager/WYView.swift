@@ -6,4 +6,10 @@
 //  Copyright © 2017年 wenyou. All rights reserved.
 //
 
-import Foundation
+import Cocoa
+
+class WYView: NSView {
+    override var isFlipped: Bool {
+        return true
+    }
+}

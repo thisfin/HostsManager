@@ -12,12 +12,15 @@ import SnapKit
 class EditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     static let leftSideWidth: CGFloat = 200     // 左边列表宽度
     static let marginWidth: CGFloat = 20        // 边距
-    static let toolViewHeight: CGFloat = 20     // 工具条高度
+    static let toolViewHeight: CGFloat = 25     // 工具条高度
+    static let cellHeight: CGFloat = 40
 
     var tableView: NSTableView!
 
     var scrollView: NSScrollView!
     var hostView: HostScrollView!
+
+    var toolView: NSView!
 
     override func loadView() { // 代码实现请务必重载此方法添加view
         view = NSView()
@@ -27,22 +30,43 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         super.viewDidLoad()
 //        self.preferredContentSize = AppDelegate.windowSize
 
-
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.colorWithHexValue(0xececec).cgColor
         view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
 
+        toolView = GroupToolView(frame: NSRect.zero)
+        view.addSubview(toolView)
+        toolView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(EditorViewController.marginWidth)
+            make.height.equalTo(EditorViewController.toolViewHeight)
+            make.bottom.equalToSuperview().offset(0 - EditorViewController.marginWidth)
+            make.width.equalTo(EditorViewController.leftSideWidth)
+        }
 
+//        let segment = NSSegmentedControl()
+//        let segment = NSSegmentedControl.init(frame: NSMakeRect(EditorViewController.marginWidth,
+//                                                                EditorViewController.marginWidth,
+//                                                                EditorViewController.leftSideWidth,
+//                                                                EditorViewController.toolViewHeight))
+//        segment.segmentStyle = .smallSquare
+//        segment.trackingMode = .momentaryAccelerator
+//        segment.segmentCount = 3
+//        segment.setImage(NSImage(named: NSImageNameAddTemplate), forSegment: 0)
+//        segment.setImageScaling(.scaleNone, forSegment: 0)
+//        segment.setImage(NSImage(named: NSImageNameRemoveTemplate), forSegment: 0)
+//        segment.setImageScaling(.scaleNone, forSegment: 0)
+//        segment.setWidth(0, forSegment: 2)
+//        view.addSubview(segment)
+//
+//        segment.snp.makeConstraints { (make) in
+//            make.left.equalToSuperview().offset(EditorViewController.marginWidth)
+//            //            make.top.equalTo(scrollView.snp_bottomMargin)
+//            make.height.equalTo(EditorViewController.toolViewHeight)
+//            make.bottom.equalToSuperview().offset(0 - EditorViewController.marginWidth)
+//            make.width.equalTo(EditorViewController.leftSideWidth)
+//        }
 
-
-
-
-        scrollView = ScrollView(frame:
-            NSMakeRect(EditorViewController.marginWidth,
-                       EditorViewController.marginWidth + EditorViewController.toolViewHeight,
-                       EditorViewController.leftSideWidth,
-                       view.frame.height - EditorViewController.marginWidth * 2 - EditorViewController.toolViewHeight))
-        scrollView.autoresizingMask = [.viewMaxXMargin, .viewHeightSizable]
+        scrollView = ScrollView()
         scrollView.hasVerticalScroller = true
 //        scrollView.borderType = .lineBorder
         scrollView.wantsLayer = true
@@ -51,12 +75,33 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         scrollView.layer?.borderColor = Constants.colorTableBorder.cgColor
         view.addSubview(scrollView)
 
-        let toolView = GroupToolView(frame: NSMakeRect(EditorViewController.marginWidth,
-                                                       EditorViewController.marginWidth,
-                                                       EditorViewController.leftSideWidth,
-                                                       EditorViewController.toolViewHeight))
-        toolView.autoresizingMask = [.viewMaxXMargin, .viewMinYMargin]
-        view.addSubview(toolView)
+        scrollView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(EditorViewController.marginWidth)
+            make.bottom.equalTo(toolView.snp.top)
+            make.left.equalTo(toolView)
+            make.width.equalTo(toolView)
+        }
+
+
+
+
+
+//        let addButton = NSButton.init(frame: NSMakeRect(EditorViewController.marginWidth,
+//                                                        EditorViewController.marginWidth - 1,
+//                                                        EditorViewController.leftSideWidth,
+//                                                        EditorViewController.toolViewHeight + 2))
+//        addButton.title = "+"
+//        //        addButton.font = WYIconfont.fontOfSize(14)
+//        addButton.font = NSFont.systemFont(ofSize: 16)
+//        addButton.alignment = .center
+//        view.addSubview(addButton)
+
+        //        addButton.layer?.borderWidth = 1
+        //        addButton.layer?.borderColor = Constants.colorTableBorder.cgColor
+        //        addButton.wantsLayer = false
+        //        addButton.layer?.backgroundColor = NSColor.blue.cgColor
+//        addButton.setButtonType(.momentaryPushIn)
+//        addButton.bezelStyle = .smallSquare
 
         tableView = NSTableView(frame: NSRect(origin: NSPoint.zero, size: scrollView.frame.size))
         tableView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
@@ -72,11 +117,14 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         column.resizingMask = .autoresizingMask
         tableView.addTableColumn(column)
 
-        hostView = HostScrollView(frame: NSMakeRect(scrollView.frame.maxX + EditorViewController.marginWidth,
-                                                    scrollView.frame.minY - EditorViewController.toolViewHeight,
-                                                    view.frame.width - scrollView.frame.maxX - EditorViewController.marginWidth * 2,
-                                                    scrollView.frame.height + EditorViewController.toolViewHeight))
+        hostView = HostScrollView()
         view.addSubview(hostView)
+        hostView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(EditorViewController.marginWidth)
+            make.bottom.equalToSuperview().offset(0 - EditorViewController.marginWidth)
+            make.left.equalTo(scrollView.snp.right).offset(EditorViewController.marginWidth)
+            make.right.equalToSuperview().offset(0 - EditorViewController.marginWidth)
+        }
 
         tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
     }
@@ -134,7 +182,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
     }
 
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 40
+        return EditorViewController.cellHeight
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
