@@ -31,27 +31,26 @@
       "scale" : "2x"
     },
     {
-      "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "electron的副本 2.png",
+      "size" : "256x256",
       "scale" : "1x"
     },
     {
       "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "electron的副本-1.png",
+      "filename" : "h_512.png",
       "scale" : "2x"
     },
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "electron的副本.png",
+      "filename" : "h_512-1.png",
       "scale" : "1x"
     },
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "electron.png",
+      "filename" : "h_1024.png",
       "scale" : "2x"
     }
   ],
