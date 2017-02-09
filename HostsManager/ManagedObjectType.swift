@@ -9,12 +9,12 @@
 import Foundation
 import CoreData
 
-public protocol ManagerObjectType: class {
-    static var entityName:String {get}
+public protocol ManagedObjectType: class {
+    static var entityName: String {get}
     static var defaultSortDescriptors: [NSSortDescriptor] {get}
 }
 
-extension ManagerObjectType {
+extension ManagedObjectType {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
         return []
     }
