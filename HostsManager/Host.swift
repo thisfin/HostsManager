@@ -8,11 +8,17 @@
 
 import Foundation
 
-class Host {
+class Host: NSObject {
     var ip: String?
     var domain: String?
     var selected: Bool = false
     var desc: String?
+
+
+    func a() {
+        let a = self.dictionaryWithValues(forKeys: allKeys())
+        NSLog("%@", a)
+    }
 
 //    init(ip: String, domain: String, selected: Bool = false, desc: String? = nil) {
 //        self.ip = ip

@@ -8,8 +8,13 @@
 
 import Foundation
 
-class Group {
+class Group: NSObject {
     var name: String?
     var hosts: [Host]?
     var selected: Bool = false
+
+    func a() {
+        let a = self.dictionaryWithValues(forKeys: allKeys())
+        NSLog("%@", a)
+    }
 }

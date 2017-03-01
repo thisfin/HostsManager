@@ -30,6 +30,7 @@
 		66C3835A1E12DE2C00824982 /* NSColorEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383591E12DE2C00824982 /* NSColorEx.swift */; };
 		66C3835D1E138B0200824982 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3835C1E138B0200824982 /* SourceViewController.swift */; };
 		66C3835F1E138B8D00824982 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3835E1E138B8D00824982 /* SettingViewController.swift */; };
+		66D6A8441E67111600C055D4 /* NSObjectEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D6A8431E67111600C055D4 /* NSObjectEx.swift */; };
 		993CF837A4E8F6AD11CC295C /* Pods_HostsManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50B083621E7C5CDBAA5A741 /* Pods_HostsManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		66C383591E12DE2C00824982 /* NSColorEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColorEx.swift; sourceTree = "<group>"; };
 		66C3835C1E138B0200824982 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		66C3835E1E138B8D00824982 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		66D6A8431E67111600C055D4 /* NSObjectEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectEx.swift; sourceTree = "<group>"; };
 		98BEDC0F0CC65A5E7C7E8462 /* Pods-HostsManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostsManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-HostsManager/Pods-HostsManager.release.xcconfig"; sourceTree = "<group>"; };
 		C50B083621E7C5CDBAA5A741 /* Pods_HostsManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HostsManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCFB1EB601438F80C885CC7F /* Pods-HostsManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostsManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HostsManager/Pods-HostsManager.debug.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				66B2F8EB1E209E9F001FB418 /* CALayerEx.swift */,
 				66C383591E12DE2C00824982 /* NSColorEx.swift */,
 				66C383501E1297D000824982 /* WYIconfont.swift */,
+				66D6A8431E67111600C055D4 /* NSObjectEx.swift */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */,
 				66C3835F1E138B8D00824982 /* SettingViewController.swift in Sources */,
 				66C383321E11071800824982 /* StatusMenu.swift in Sources */,
+				66D6A8441E67111600C055D4 /* NSObjectEx.swift in Sources */,
 				666435851E13E53800047EBD /* Mock.swift in Sources */,
 				666435811E13DD3D00047EBD /* Host.swift in Sources */,
 				66308E3B1E0E59D4000EBBF0 /* Application.swift in Sources */,
