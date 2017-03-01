@@ -61,6 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.center()
         window.makeKeyAndOrderFront(self)
 
+        /*
         guard let user: User = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User else {
             fatalError("Wrong object type")
         }
@@ -80,6 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NSLog("%ld %@ %ld", u.id, u.name ?? "", u.objectID)
             }
         }
+ */
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
