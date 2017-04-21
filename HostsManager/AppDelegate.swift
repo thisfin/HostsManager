@@ -82,6 +82,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
  */
+
+//        let fileManager = FileManager.default
+
+        let str = try! String.init(contentsOfFile: "/etc/hosts", encoding: .utf8)
+        NSLog("\(str)")
+
+        let fileManager = FileManager.default
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
