@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import WYKit
 
 class SettingWindow: NSWindow, NSToolbarDelegate {
     let toolbarItemInfos: [ToolbarItemInfo] = [

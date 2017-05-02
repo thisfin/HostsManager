@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import WYKit
 
 class ViewController: NSViewController {
     override func viewDidLoad() {

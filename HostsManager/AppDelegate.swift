@@ -8,6 +8,7 @@
 
 import Cocoa
 import CoreData
+import WYKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import WYKit
 
 class GroupToolView: NSView {
     required init?(coder: NSCoder) {
