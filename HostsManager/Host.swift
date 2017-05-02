@@ -11,13 +11,17 @@ import Foundation
 class Host: NSObject {
     var ip: String?
     var domain: String?
-    var selected: Bool = false
-    var desc: String?
-
 
     func a() {
         let a = self.dictionaryWithValues(forKeys: allKeys())
         NSLog("%@", a)
+    }
+
+    convenience init(ip: String, domain: String) {
+        self.init()
+
+        self.ip = ip
+        self.domain = domain
     }
 
 //    init(ip: String, domain: String, selected: Bool = false, desc: String? = nil) {

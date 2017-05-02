@@ -111,7 +111,7 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
             switch identifier {
             case "column0":
                 let checkBox = NSButton(checkboxWithTitle: " ", target: self, action: #selector(HostScrollView.checkBoxClicked(_:)))
-                checkBox.state = datas[row].selected ? 1 : 0
+//                checkBox.state = datas[row].selected ? 1 : 0
                 checkBox.frame.origin = NSMakePoint((width - checkBox.frame.width) / 2 + 5, (height - checkBox.frame.height) / 2)
                 resultSubView = checkBox
             default:
@@ -137,7 +137,8 @@ class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
                     textField.stringValue = datas[row].domain!
                     textField.placeholderString = "域名 非空"
                 case "column3":
-                    textField.stringValue = datas[row].desc ?? ""
+//                    textField.stringValue = datas[row].desc ?? ""
+                    ()
                 default:
                     break
                 }

@@ -10,6 +10,7 @@ import Foundation
 
 class Group: NSObject {
     var name: String?
+    var content: String?
     var hosts: [Host]?
     var selected: Bool = false
 

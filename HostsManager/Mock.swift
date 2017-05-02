@@ -26,8 +26,8 @@ class Mock {
                             let host = Host()
                             host.ip = String(format: "ip %ld %ld", x, y)
                             host.domain = String(format: "domain %ld", y)
-                            host.selected = (y + 1) % 2 == 0
-                            host.desc = String(format: "desc %ld", y)
+//                            host.selected = (y + 1) % 2 == 0
+//                            host.desc = String(format: "desc %ld", y)
 //                            host.sequence = Int16(y)
                             return host
                             }())

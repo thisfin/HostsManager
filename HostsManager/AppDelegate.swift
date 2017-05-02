@@ -16,36 +16,41 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
     var rootStatusItem: NSStatusItem!
 
-    let context: NSManagedObjectContext = { // coredata
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = {
-            let bundles = [Bundle(for: AppDelegate.classForCoder())]
-            guard let model = NSManagedObjectModel.mergedModel(from: bundles) else {
-                fatalError("model not found")
-            }
-            let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
-            try! psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: {
-                if let documentURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
-                    let infoDictionary = Bundle.main.infoDictionary,
-                    let identifier: String = infoDictionary["CFBundleIdentifier"] as? String {
-                    var directoryURL = documentURL.appendingPathComponent(identifier).appendingPathComponent("Data")
-                    if !FileManager.default.fileExists(atPath: directoryURL.path) {
-                        try! FileManager.default.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true)
-                    }
-                    return directoryURL.appendingPathComponent("model").appendingPathExtension("sqlite")
-                }
-                return nil
-            }(), options: nil)
-            return psc
-        }()
-        return context
-    }()
+//    let context: NSManagedObjectContext = { // coredata
+//        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+//        context.persistentStoreCoordinator = {
+//
+//
+//            let bundles = [Bundle(for: AppDelegate.classForCoder())]
+//            guard let model = NSManagedObjectModel.mergedModel(from: bundles) else {
+//                fatalError("model not found")
+//            }
+//            let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+//            try! psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: {
+//                if let documentURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
+//                    let infoDictionary = Bundle.main.infoDictionary,
+//                    let identifier: String = infoDictionary["CFBundleIdentifier"] as? String {
+//                    var directoryURL = documentURL.appendingPathComponent(identifier).appendingPathComponent("Data")
+//                    if !FileManager.default.fileExists(atPath: directoryURL.path) {
+//                        try! FileManager.default.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true)
+//                    }
+//                    return directoryURL.appendingPathComponent("model").appendingPathExtension("sqlite")
+//                }
+//                return nil
+//            }(), options: nil)
+//            return psc
+//        }()
+//        return context
+//    }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints") // 布局约束冲突
 
+        HostDataManager.init().writeToLocalFile()
+        NSLog(HostsFileManager.init().fileMD5)
+
 //        Application.shared().mainMenu = statusMenu
-        Mock.context = context
+//        Mock.context = context
 
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         rootStatusItem.title = ""
@@ -89,7 +94,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let str = try! String.init(contentsOfFile: "/etc/hosts", encoding: .utf8)
         NSLog("\(str)")
 
-        let fileManager = FileManager.default
+        _ = FileManager.default
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

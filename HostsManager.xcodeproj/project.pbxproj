@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		660991661E1B4978008DF493 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660991651E1B4978008DF493 /* CoreData.framework */; };
 		6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6609916E1E1CFBF9008DF493 /* GroupToolView.swift */; };
+		662D1C1B1EB831E1008D2B4D /* HostDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */; };
+		662D1C1D1EB836BB008D2B4D /* HostsFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */; };
 		66308E2C1E0D14F9000EBBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */; };
 		66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2D1E0D14F9000EBBF0 /* ViewController.swift */; };
 		66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */; };
@@ -35,6 +37,9 @@
 /* Begin PBXFileReference section */
 		660991651E1B4978008DF493 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6609916E1E1CFBF9008DF493 /* GroupToolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupToolView.swift; sourceTree = "<group>"; };
+		662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostDataManager.swift; sourceTree = "<group>"; };
+		662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsFileManager.swift; sourceTree = "<group>"; };
+		662D1C1E1EB8537E008D2B4D /* HostsManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HostsManager-Bridging-Header.h"; sourceTree = "<group>"; };
 		66308E281E0D14F9000EBBF0 /* HostsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HostsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66308E2D1E0D14F9000EBBF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +103,7 @@
 		66308E2A1E0D14F9000EBBF0 /* HostsManager */ = {
 			isa = PBXGroup;
 			children = (
+				662D1C1E1EB8537E008D2B4D /* HostsManager-Bridging-Header.h */,
 				66308E341E0D14F9000EBBF0 /* Info.plist */,
 				66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */,
 				66308E3A1E0E59D4000EBBF0 /* Application.swift */,
@@ -120,6 +126,8 @@
 				666435821E13E45800047EBD /* Group.swift */,
 				666435801E13DD3D00047EBD /* Host.swift */,
 				666435841E13E53800047EBD /* Mock.swift */,
+				662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */,
+				662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -307,10 +315,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */,
+				662D1C1D1EB836BB008D2B4D /* HostsFileManager.swift in Sources */,
 				66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */,
 				66C3835F1E138B8D00824982 /* SettingViewController.swift in Sources */,
 				66C383321E11071800824982 /* StatusMenu.swift in Sources */,
 				66D6A8441E67111600C055D4 /* NSObjectEx.swift in Sources */,
+				662D1C1B1EB831E1008D2B4D /* HostDataManager.swift in Sources */,
 				666435851E13E53800047EBD /* Mock.swift in Sources */,
 				666435811E13DD3D00047EBD /* Host.swift in Sources */,
 				66308E3B1E0E59D4000EBBF0 /* Application.swift in Sources */,
@@ -432,6 +442,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = win.sourcecode.HostsManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HostsManager/HostsManager-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -448,6 +459,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = win.sourcecode.HostsManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HostsManager/HostsManager-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
