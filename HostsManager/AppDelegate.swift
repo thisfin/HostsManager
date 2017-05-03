@@ -46,8 +46,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints") // 布局约束冲突
 
-        HostDataManager.init().writeToLocalFile()
-        NSLog(HostsFileManager.init().fileMD5)
+        let a = HostsFileManager.sharedInstance.readContentFromFile()
+        NSLog("\(a)")
+
+//        HostDataManager.init().writeToLocalFile()
 
 //        Application.shared().mainMenu = statusMenu
 //        Mock.context = context
@@ -91,8 +93,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 //        let fileManager = FileManager.default
 
-        let str = try! String.init(contentsOfFile: "/etc/hosts", encoding: .utf8)
-        NSLog("\(str)")
+//        let str = try! String.init(contentsOfFile: "/etc/hosts", encoding: .utf8)
+//        NSLog("\(str)")
 
         _ = FileManager.default
     }

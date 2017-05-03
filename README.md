@@ -11,16 +11,20 @@ MacOS hosts编辑管理
     - tableview 80%
     - 拖拽 50%
     - 编辑 .8 > 等待迁入 快捷键未完成
-    - 导入导出
-    - 增删
+    - 导入导出 20%
+    - 增删 50%
 * core data .0 不采用
 * 预览界面
 * 设置界面 50%
-* 开机自启动
+* 开机自启动 ?
 * 权限 .8 > 等待迁入
 * 文件编辑状态监控 .8 >等待 迁入
 * 配置文件io
-* hosts文件读写
+* hosts文件读写 50%
 * 打包
 * 发布
 * icon
+
+hosts io
+left list
+menu host parse

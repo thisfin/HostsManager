@@ -20,6 +20,7 @@
 		666435851E13E53800047EBD /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435841E13E53800047EBD /* Mock.swift */; };
 		666435871E14B9F000047EBD /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435861E14B9F000047EBD /* ScrollView.swift */; };
 		666435891E14D3D100047EBD /* HostScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435881E14D3D100047EBD /* HostScrollView.swift */; };
+		66818C5E1EB9828B00248ABF /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66818C5D1EB9828B00248ABF /* PreferenceManager.swift */; };
 		669720B71E1F9B0E0093DDEF /* WYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669720B61E1F9B0E0093DDEF /* WYView.swift */; };
 		66B2F8EC1E209E9F001FB418 /* CALayerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B2F8EB1E209E9F001FB418 /* CALayerEx.swift */; };
 		66C383321E11071800824982 /* StatusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383311E11071800824982 /* StatusMenu.swift */; };
@@ -52,6 +53,7 @@
 		666435841E13E53800047EBD /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		666435861E14B9F000047EBD /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		666435881E14D3D100047EBD /* HostScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostScrollView.swift; sourceTree = "<group>"; };
+		66818C5D1EB9828B00248ABF /* PreferenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		669720B61E1F9B0E0093DDEF /* WYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYView.swift; sourceTree = "<group>"; };
 		66B2F8EB1E209E9F001FB418 /* CALayerEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerEx.swift; sourceTree = "<group>"; };
 		66C383311E11071800824982 /* StatusMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenu.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				666435841E13E53800047EBD /* Mock.swift */,
 				662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */,
 				662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */,
+				66818C5D1EB9828B00248ABF /* PreferenceManager.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */,
+				66818C5E1EB9828B00248ABF /* PreferenceManager.swift in Sources */,
 				662D1C1D1EB836BB008D2B4D /* HostsFileManager.swift in Sources */,
 				66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */,
 				66C3835F1E138B8D00824982 /* SettingViewController.swift in Sources */,
