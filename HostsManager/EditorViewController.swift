@@ -6,24 +6,25 @@
 //  Copyright © 2016年 wenyou. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 import SnapKit
 
 class EditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
-    static let leftSideWidth: CGFloat = 200     // 左边列表宽度
-    static let marginWidth: CGFloat = 20        // 边距
-    static let toolViewHeight: CGFloat = 25     // 工具条高度
-    static let cellHeight: CGFloat = 40
+    private static let leftSideWidth: CGFloat = 200     // 左边列表宽度
+    private static let marginWidth: CGFloat = 20        // 边距
+    private static let toolViewHeight: CGFloat = 25     // 工具条高度
+    private static let cellHeight: CGFloat = 40
 
-    var tableView: NSTableView!
+    private let tableViewDragTypeName = "DragTypeName"
+    private let dataManager = HostDataManager.sharedInstance
 
-    var scrollView: NSScrollView!
-    var hostView: HostScrollView!
-
-    var toolView: NSView!
+    private var tableView: NSTableView!
+    private var scrollView: NSScrollView!
+    private var hostView: HostScrollView!
+    private var toolView: NSView!
 
     override func loadView() { // 代码实现请务必重载此方法添加view
-        view = NSView()
+        view = NSView.init()
     }
 
     override func viewDidLoad() {
@@ -109,6 +110,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         tableView.delegate = self
         tableView.backgroundColor = Constants.colorTableBackground
         tableView.headerView = nil
+        tableView.register(forDraggedTypes: [tableViewDragTypeName])
         tableView.doubleAction = #selector(EditorViewController.doubleClicked(_:)) // 双击
         scrollView.contentView.documentView = tableView
 
@@ -131,11 +133,37 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     // MARK: - NSTableViewDataSource
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return Mock.groups.count
+        return (dataManager.groups?.count)!
     }
 
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        return Mock.groups[row]
+        return dataManager.groups?[row]
+    }
+
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation { // 拖拽
+        return .every
+    }
+
+    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
+        let data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
+        pboard.declareTypes([tableViewDragTypeName], owner: self)
+        pboard.setData(data, forType: tableViewDragTypeName)
+        return true
+    }
+
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+        let pboard = info.draggingPasteboard()
+        let rowData = pboard.data(forType: tableViewDragTypeName)
+        let rowIndexs: NSIndexSet = NSKeyedUnarchiver.unarchiveObject(with: rowData!) as! NSIndexSet
+        let dragRow = rowIndexs.firstIndex
+
+        if (dataManager.groups?.count)! > 1 && dragRow != row { // 数据重新排列
+            dataManager.groups?.insert((dataManager.groups?[dragRow])!, at: row)
+            dataManager.groups?.remove(at: dragRow + (dragRow > row ? 1 : 0))
+            tableView.noteNumberOfRowsChanged()
+            tableView.reloadData()
+        }
+        return true
     }
 
     // MARK: - NSTableViewDelegate
@@ -145,7 +173,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             let textField = NSTextField(frame: NSMakeRect(50, (subView.frame.height - 20) / 2, subView.frame.width - 20, 20))
             textField.font = NSFont.systemFont(ofSize: 16)
             textField.textColor = NSColor.black
-            textField.stringValue = Mock.groups[row].name!
+            textField.stringValue = (dataManager.groups?[row].name!)!
             textField.isEditable = true
             textField.isBordered = false
             textField.isBezeled = false

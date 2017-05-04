@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wenyou. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
 class SettingViewController: NSViewController {
     override func loadView() {

@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wenyou. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
 class Application: NSApplication { // 注册到info.plist
     let appDelegate = AppDelegate()

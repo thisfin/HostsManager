@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wenyou. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 import WYKit
 
 class SettingWindow: NSWindow, NSToolbarDelegate {

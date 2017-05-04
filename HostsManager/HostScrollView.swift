@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wenyou. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
 class HostScrollView: ScrollView, NSTableViewDataSource, NSTableViewDelegate {
     private let rowHeight: CGFloat = 30

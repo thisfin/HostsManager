@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wenyou. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
 class ScrollView: NSScrollView {
     override func draw(_ dirtyRect: NSRect) { // 不重写不出边框...

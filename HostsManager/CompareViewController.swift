@@ -1,0 +1,84 @@
+//
+//  CompareViewController.swift
+//  HostsManager
+//
+//  Created by wenyou on 2017/5/4.
+//  Copyright © 2017年 wenyou. All rights reserved.
+//
+
+import AppKit
+import SnapKit
+
+class CompareViewController: NSViewController {
+    private let leftTextView = NSTextView.init()
+    private let rightTextView = NSTextView.init()
+
+    override func loadView() {
+        self.view = NSView.init()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.wantsLayer = true
+        view.layer?.backgroundColor = NSColor.white.cgColor
+        view.frame = NSRect.init(origin: .zero, size: AppDelegate.windowSize)
+
+        let leftScrollView = NSScrollView.init()
+
+        view.addSubview(leftScrollView)
+        let rightScrollView = NSScrollView.init()
+        view.addSubview(rightScrollView)
+
+        leftScrollView.snp.makeConstraints { (maker) in
+            maker.left.equalToSuperview().offset(20)
+            maker.top.equalToSuperview().offset(20)
+            maker.bottom.equalToSuperview().offset(-20)
+            maker.right.equalTo(rightScrollView.snp.left).offset(-20)
+            maker.width.equalTo(rightScrollView)
+        }
+        rightScrollView.snp.makeConstraints { (maker) in
+            maker.top.equalToSuperview().offset(20)
+            maker.bottom.equalToSuperview().offset(-20)
+            maker.right.equalToSuperview().offset(-20)
+        }
+
+        leftScrollView.documentView = leftTextView
+        leftScrollView.hasVerticalScroller = true
+        leftScrollView.hasHorizontalScroller = true
+
+        leftTextView.frame = NSRect.init(origin: .zero, size: leftScrollView.frame.size)
+        leftTextView.autoresizingMask = [.viewHeightSizable, .viewWidthSizable]
+        leftTextView.textContainerInset = .zero
+        leftTextView.backgroundColor = .green
+        leftTextView.isEditable = false
+        leftTextView.menu = nil
+        leftTextView.isVerticallyResizable = true
+        leftTextView.isHorizontallyResizable = true
+        leftTextView.textContainer?.widthTracksTextView = false
+        leftTextView.textContainer?.heightTracksTextView = false
+        leftTextView.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
+        leftTextView.textContainer?.containerSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
+
+        rightScrollView.documentView = rightTextView
+        rightScrollView.hasVerticalScroller = true
+        rightScrollView.hasHorizontalScroller = true
+        rightTextView.frame = NSRect.init(origin: .zero, size: rightScrollView.frame.size)
+        rightTextView.autoresizingMask = [.viewHeightSizable, .viewWidthSizable]
+        rightTextView.textContainerInset = .zero
+        rightTextView.backgroundColor = .blue
+        rightTextView.isEditable = false
+        rightTextView.menu = nil
+        rightTextView.isVerticallyResizable = true
+        rightTextView.isHorizontallyResizable = true
+        rightTextView.textContainer?.widthTracksTextView = false
+        rightTextView.textContainer?.heightTracksTextView = false
+        rightTextView.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
+        rightTextView.textContainer?.containerSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
+
+
+        leftTextView.string = "1234567890hahahahahhahahahahhahahahahhahahahahhahahahahhahahahahhahahahah\n1\n2\n3\n4\n5\n6\n7\n8\n8\n8\n8"
+        rightTextView.string = "1234567890hahahahahhahahahahhahahahahhahahahahhahahahahhahahahahhahahahah\n1\n2\n3\n4\n5\n6\n7\n8\n8\n8\n8"
+
+    }
+}

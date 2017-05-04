@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wenyou. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 import CoreData
 import WYKit
 
@@ -62,10 +62,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                         size: NSMakeSize(20, 20))
         rootStatusItem.menu = StatusMenu()
 
-        window = SettingWindow(contentRect: NSRect.zero,
-                               styleMask: [.closable, .resizable, .miniaturizable, .titled],
-                               backing: .buffered,
-                               defer: false)
+//        window = SettingWindow(contentRect: NSRect.zero,
+//                               styleMask: [.closable, .resizable, .miniaturizable, .titled],
+//                               backing: .buffered,
+//                               defer: false)
+
+        window = CompareWindow.init(contentRect: NSRect.zero,
+                                    styleMask: [.closable, .resizable, .miniaturizable, .titled],
+                                    backing: .buffered,
+                                    defer: false)
         window.center()
         window.makeKeyAndOrderFront(self)
 

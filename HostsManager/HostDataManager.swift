@@ -9,6 +9,19 @@
 import Foundation
 
 class HostDataManager: NSObject, XMLParserDelegate {
+    private static let selfInstance = HostDataManager()
+
+    public static var sharedInstance: HostDataManager {
+        return selfInstance
+    }
+
+    override private init() {
+        super.init()
+
+        //todo:
+        groups = HostsFileManager.sharedInstance.readContentFromFile()
+    }
+
     var groups: [Group]?
     var temp: [Group]?
 
@@ -50,6 +63,11 @@ class HostDataManager: NSObject, XMLParserDelegate {
         NSLog("\(String(describing: temp))")
     }
 
+    // 数据更新处理
+    func updateGroupData() {
+
+    }
+
     // 转换成hosts文件内容
     func toHostsFileContent() -> String {
         return ""
@@ -78,7 +96,7 @@ class HostDataManager: NSObject, XMLParserDelegate {
             }
         case "content":
             if elementName == lastParseElementName {
-                temp?.last?.content = lastParseElementValue
+                temp?.last?.content = lastParseElementValue!
             }
         case "selected":
             if elementName == lastParseElementName {

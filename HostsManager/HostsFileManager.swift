@@ -49,11 +49,15 @@ class HostsFileManager: NSObject {
         }
     }
 
-    func checkHostsFile() -> Bool {
-        if case let oldMD5 = PreferenceManager.sharedInstance.lastHostsFileMD5, oldMD5 == fileMD5 {
-            return true
+    // 验证 hosts 文件的状态
+    func checkHostsFile() -> FileState {
+        if let oldMD5 = PreferenceManager.sharedInstance.lastHostsFileMD5 {
+            if oldMD5 == fileMD5 {
+                return .fileUnchange
+            }
+            return .fileChanage
         }
-        return false
+        return .neverInit
     }
 
     func writeContentToFile(content: Array<Group>) {
@@ -63,7 +67,7 @@ class HostsFileManager: NSObject {
         content.forEach { (group) in
             if group.selected {
                 fileContent.append("# _wywywy_ \(group.name!)\n")
-                fileContent.append("\(group.content!)\n")
+                fileContent.append("\(group.content)\n")
             }
         }
         if fileContent.characters.count > 0 {
@@ -127,5 +131,16 @@ class HostsFileManager: NSObject {
             }
         })
         return value
+    }
+
+    public struct FileState: RawRepresentable {
+        var rawValue: UInt
+        init(rawValue: UInt) {
+            self.rawValue = rawValue
+        }
+
+        public static let neverInit = FileState.init(rawValue: 0)      // 未初始化过, 程序第一次运行
+        public static let fileChanage = FileState.init(rawValue: 1)    // 用户未通过此程序对 hosts 文件进行了修改
+        public static let fileUnchange = FileState.init(rawValue: 2)   // 文件正常
     }
 }

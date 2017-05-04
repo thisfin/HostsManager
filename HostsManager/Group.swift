@@ -10,9 +10,9 @@ import Foundation
 
 class Group: NSObject {
     var name: String?
-    var content: String?
-    var hosts: [Host]?
+    var content: String = ""
     var selected: Bool = false
+    var hosts: [Host]?
 
     func a() {
         let a = self.dictionaryWithValues(forKeys: allKeys())

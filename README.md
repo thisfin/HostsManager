@@ -25,6 +25,8 @@ MacOS hosts编辑管理
 * 发布
 * icon
 
-hosts io
-left list
-menu host parse
+* 启动检查 & 对比 & 多个io
+* left list
+* edit流程搞通
+* menu host parse
+* init hosts compare
