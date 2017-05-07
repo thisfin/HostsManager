@@ -28,4 +28,6 @@ class Constants {
     static let iconfontEdit = "\u{f044}"
     static let iconfontText = "\u{f0f6}"
     static let iconfontRandom = "\u{f074}"
+
+    static let marginWidth: CGFloat = 20
 }
