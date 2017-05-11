@@ -13,6 +13,8 @@ class CompareViewController: NSViewController {
     private let leftTextView = NSTextView.init()
     private let rightTextView = NSTextView.init()
 
+    var compareWindowCloseBlock: SimpleBlockNoneParameter?
+
     override func loadView() {
         self.view = NSView.init()
     }
@@ -99,10 +101,14 @@ class CompareViewController: NSViewController {
 
     // MARK: - 
     func leftButtonClicked(_ sender: NSButton) {
-
+        if let block = self.compareWindowCloseBlock {
+            block()
+        }
     }
 
     func rightButtonClicked(_ sender: NSButton) {
-
+        if let block = self.compareWindowCloseBlock {
+            block()
+        }
     }
 }

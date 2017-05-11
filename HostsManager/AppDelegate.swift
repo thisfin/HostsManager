@@ -13,7 +13,8 @@ import WYKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     static let windowSize = NSMakeSize(800, 500)
-    var window: NSWindow!
+    var settingWindow: SettingWindow!
+    var compareWindow: CompareWindow!
     var rootStatusItem: NSStatusItem!
 
 //    let context: NSManagedObjectContext = { // coredata
@@ -46,6 +47,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints") // 布局约束冲突
 
+        switch HostsFileManager.sharedInstance.checkHostsFile().rawValue {
+        case HostsFileManager.FileState.neverInit.rawValue:
+            // 弹出提示对话框
+            // 读取hosts文件写入本地缓存
+            // 记录hosts的md5
+            ()
+        case HostsFileManager.FileState.fileChanage.rawValue:
+            // 弹出对比页面进行处理
+            // hosts为主 走上面的流程
+            // 缓存为主 则写入hosts, 记录md5
+            ()
+        case HostsFileManager.FileState.fileUnchange.rawValue:
+            // 正常进入程序
+            ()
+        default:
+            ()
+        }
+
         let a = HostsFileManager.sharedInstance.readContentFromFile()
         NSLog("\(a)")
 
@@ -53,6 +72,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 //        Application.shared().mainMenu = statusMenu
 //        Mock.context = context
+
+
 
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         rootStatusItem.title = ""
@@ -62,17 +83,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                         size: NSMakeSize(20, 20))
         rootStatusItem.menu = StatusMenu()
 
-//        window = SettingWindow(contentRect: NSRect.zero,
-//                               styleMask: [.closable, .resizable, .miniaturizable, .titled],
-//                               backing: .buffered,
-//                               defer: false)
+        settingWindow = SettingWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
+        compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
 
-        window = CompareWindow.init(contentRect: NSRect.zero,
-                                    styleMask: [.closable, .resizable, .miniaturizable, .titled],
-                                    backing: .buffered,
-                                    defer: false)
-        window.center()
-        window.makeKeyAndOrderFront(self)
+        compareWindow.closeBlock = {
+            self.settingWindow.center()
+            self.settingWindow.makeKeyAndOrderFront(self)
+            self.compareWindow.orderOut(self)
+        }
+        compareWindow.center()
+        compareWindow.makeKeyAndOrderFront(self)
+
+        let alert = NSAlert.init()
+        alert.messageText = "提示"
+        alert.informativeText = "点击确认导入已存在的 hosts 文件, 内容保存在 default 组"
+        alert.alertStyle = .informational
+        alert.beginSheetModal(for: NSApp.mainWindow!) { (modalResponse) in
+            ()
+        }
 
         /*
         guard let user: User = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User else {
