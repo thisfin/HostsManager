@@ -23,7 +23,6 @@ MacOS hosts编辑管理
 * hosts文件读写 50%
 * 打包
 * 发布
-* icon
 
 * 启动检查 & 对比 & 多个io
 * left list

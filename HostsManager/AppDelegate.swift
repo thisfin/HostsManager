@@ -13,9 +13,9 @@ import WYKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     static let windowSize = NSMakeSize(800, 500)
-    var settingWindow: SettingWindow!
-    var compareWindow: CompareWindow!
-    var rootStatusItem: NSStatusItem!
+    private var rootStatusItem: NSStatusItem!
+    private lazy var settingWindow = SettingWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
+    private lazy var compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
 
 //    let context: NSManagedObjectContext = { // coredata
 //        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
@@ -57,7 +57,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // 弹出对比页面进行处理
             // hosts为主 走上面的流程
             // 缓存为主 则写入hosts, 记录md5
-            ()
+            compareWindow.closeBlock = {
+                self.settingWindow.center()
+                self.settingWindow.makeKeyAndOrderFront(self)
+                self.compareWindow.orderOut(self)
+            }
+            compareWindow.center()
+            compareWindow.makeKeyAndOrderFront(self)
+            WYHelp.alert(title: "文件检查", message: "/etc/hosts 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
         case HostsFileManager.FileState.fileUnchange.rawValue:
             // 正常进入程序
             ()
@@ -82,25 +89,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                         iconColor: .black,
                                                         size: NSMakeSize(20, 20))
         rootStatusItem.menu = StatusMenu()
+//
+//        compareWindow.closeBlock = {
+//            self.settingWindow.center()
+//            self.settingWindow.makeKeyAndOrderFront(self)
+//            self.compareWindow.orderOut(self)
+//        }
+//        compareWindow.center()
+//        compareWindow.makeKeyAndOrderFront(self)
 
-        settingWindow = SettingWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
-        compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
-
-        compareWindow.closeBlock = {
-            self.settingWindow.center()
-            self.settingWindow.makeKeyAndOrderFront(self)
-            self.compareWindow.orderOut(self)
-        }
-        compareWindow.center()
-        compareWindow.makeKeyAndOrderFront(self)
-
-        let alert = NSAlert.init()
-        alert.messageText = "提示"
-        alert.informativeText = "点击确认导入已存在的 hosts 文件, 内容保存在 default 组"
-        alert.alertStyle = .informational
-        alert.beginSheetModal(for: NSApp.mainWindow!) { (modalResponse) in
-            ()
-        }
+//        let alert = NSAlert.init()
+//        alert.messageText = "提示"
+//        alert.informativeText = "点击确认导入已存在的 hosts 文件, 内容保存在 default 组"
+//        alert.alertStyle = .informational
+//        alert.beginSheetModal(for: NSApp.mainWindow!) { (modalResponse) in
+//            ()
+//        }
 
         /*
         guard let user: User = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User else {

@@ -51,6 +51,8 @@ class HostsFileManager: NSObject {
 
     // 验证 hosts 文件的状态
     func checkHostsFile() -> FileState {
+
+        return .fileChanage
         if let oldMD5 = PreferenceManager.sharedInstance.lastHostsFileMD5 {
             if oldMD5 == fileMD5 {
                 return .fileUnchange

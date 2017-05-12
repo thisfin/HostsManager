@@ -99,10 +99,23 @@ class CompareViewController: NSViewController {
         rightTextView.string = "1234567890hahahahahhahahahahhahahahahhahahahahhahahahahhahahahahhahahahah\n1\n2\n3\n4\n5\n6\n7\n8\n8\n8\n8"
     }
 
-    // MARK: - 
+    // MARK: - private
     func leftButtonClicked(_ sender: NSButton) {
-        if let block = self.compareWindowCloseBlock {
-            block()
+        let alert = NSAlert.init()
+        alert.messageText = "注意!"
+        alert.informativeText = "覆盖后, 之前保存的组信息会全部清空"
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "cancel")
+        alert.addButton(withTitle: "ok")
+        alert.beginSheetModal(for: NSApp.mainWindow!) { (modalResponse) in
+            switch modalResponse {
+            case NSAlertSecondButtonReturn:
+                if let block = self.compareWindowCloseBlock {
+                    block()
+                }
+            default:
+                ()
+            }
         }
     }
 
