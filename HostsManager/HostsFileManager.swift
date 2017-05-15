@@ -9,10 +9,8 @@
 import Foundation
 
 class HostsFileManager: NSObject {
-    private static let selfInstance = HostsFileManager()
-
     static var sharedInstance: HostsFileManager {
-        return selfInstance
+        return HostsFileManager()
     }
 
     override private init() {

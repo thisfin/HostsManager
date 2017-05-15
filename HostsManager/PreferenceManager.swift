@@ -9,12 +9,10 @@
 import Foundation
 
 class PreferenceManager: NSObject {
-    private static let selfInstance = PreferenceManager()
-
     private let hostsFileMD5Key = "hostsFileMD5"
 
     public static var sharedInstance: PreferenceManager {
-        return selfInstance
+        return PreferenceManager()
     }
 
     override private init() {

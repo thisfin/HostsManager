@@ -9,10 +9,8 @@
 import Foundation
 
 class HostDataManager: NSObject, XMLParserDelegate {
-    private static let selfInstance = HostDataManager()
-
     static var sharedInstance: HostDataManager {
-        return selfInstance
+        return HostDataManager()
     }
 
     override private init() {
