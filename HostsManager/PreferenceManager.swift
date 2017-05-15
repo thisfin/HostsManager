@@ -11,9 +11,9 @@ import Foundation
 class PreferenceManager: NSObject {
     private let hostsFileMD5Key = "hostsFileMD5"
 
-    public static var sharedInstance: PreferenceManager {
+    static let sharedInstance = {
         return PreferenceManager()
-    }
+    }()
 
     override private init() {
         super.init()
