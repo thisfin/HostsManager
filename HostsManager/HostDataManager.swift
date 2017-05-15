@@ -11,7 +11,7 @@ import Foundation
 class HostDataManager: NSObject, XMLParserDelegate {
     private static let selfInstance = HostDataManager()
 
-    public static var sharedInstance: HostDataManager {
+    static var sharedInstance: HostDataManager {
         return selfInstance
     }
 

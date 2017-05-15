@@ -11,7 +11,7 @@ import Foundation
 class HostsFileManager: NSObject {
     private static let selfInstance = HostsFileManager()
 
-    public static var sharedInstance: HostsFileManager {
+    static var sharedInstance: HostsFileManager {
         return selfInstance
     }
 
@@ -52,14 +52,14 @@ class HostsFileManager: NSObject {
     // 验证 hosts 文件的状态
     func checkHostsFile() -> FileState {
 
-        return .fileChanage
+        return .FileChange
         if let oldMD5 = PreferenceManager.sharedInstance.lastHostsFileMD5 {
             if oldMD5 == fileMD5 {
-                return .fileUnchange
+                return .FileUnchange
             }
-            return .fileChanage
+            return .FileChange
         }
-        return .neverInit
+        return .NeverInit
     }
 
     func writeContentToFile(content: Array<Group>) {
@@ -135,14 +135,20 @@ class HostsFileManager: NSObject {
         return value
     }
 
-    public struct FileState: RawRepresentable {
-        var rawValue: UInt
-        init(rawValue: UInt) {
-            self.rawValue = rawValue
-        }
-
-        public static let neverInit = FileState.init(rawValue: 0)      // 未初始化过, 程序第一次运行
-        public static let fileChanage = FileState.init(rawValue: 1)    // 用户未通过此程序对 hosts 文件进行了修改
-        public static let fileUnchange = FileState.init(rawValue: 2)   // 文件正常
+    public enum FileState {
+        case NeverInit      // 未初始化过, 程序第一次运行
+        case FileChange     // 用户未通过此程序对 hosts 文件进行了修改
+        case FileUnchange   // 文件正常
     }
+
+//    public struct FileState: RawRepresentable {
+//        var rawValue: UInt
+//        init(rawValue: UInt) {
+//            self.rawValue = rawValue
+//        }
+//
+//        public static let neverInit = FileState.init(rawValue: 0)      // 未初始化过, 程序第一次运行
+//        public static let fileChanage = FileState.init(rawValue: 1)    // 用户未通过此程序对 hosts 文件进行了修改
+//        public static let fileUnchange = FileState.init(rawValue: 2)   // 文件正常
+//    }
 }

@@ -47,13 +47,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints") // 布局约束冲突
 
-        switch HostsFileManager.sharedInstance.checkHostsFile().rawValue {
-        case HostsFileManager.FileState.neverInit.rawValue:
+        switch HostsFileManager.sharedInstance.checkHostsFile() {
+        case .NeverInit:
             // 弹出提示对话框
             // 读取hosts文件写入本地缓存
             // 记录hosts的md5
             ()
-        case HostsFileManager.FileState.fileChanage.rawValue:
+        case .FileChange:
             // 弹出对比页面进行处理
             // hosts为主 走上面的流程
             // 缓存为主 则写入hosts, 记录md5
@@ -65,10 +65,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             compareWindow.center()
             compareWindow.makeKeyAndOrderFront(self)
             WYHelp.alert(title: "文件检查", message: "/etc/hosts 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
-        case HostsFileManager.FileState.fileUnchange.rawValue:
+        case .FileUnchange:
             // 正常进入程序
-            ()
-        default:
             ()
         }
 
