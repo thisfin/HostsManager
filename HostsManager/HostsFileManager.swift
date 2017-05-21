@@ -8,51 +8,49 @@
 
 import Foundation
 
-class HostsFileManager: NSObject {
+class HostsFileManager {
     static let sharedInstance = {
         return HostsFileManager()
     }()
 
-    override private init() {
-        super.init()
+    private init() {
     }
 
     private let url = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "etc/hosts1")
 
-    private var fileMD5: String {
-        get {
-            // http://stackoverflow.com/questions/42935148/swift-calculate-md5-checksum-for-large-files
-            let file = try! FileHandle.init(forReadingFrom: url)
+    // hosts 文件的md5
+    func fileMD5() -> String {
+        // http://stackoverflow.com/questions/42935148/swift-calculate-md5-checksum-for-large-files
+        let file = try! FileHandle.init(forReadingFrom: url)
 
-            var context = CC_MD5_CTX()
-            CC_MD5_Init(&context)
+        var context = CC_MD5_CTX()
+        CC_MD5_Init(&context)
 
-            let bufferSize = 1024 * 1024
-            while case let data = file.readData(ofLength: bufferSize), data.count > 0 {
-                data.withUnsafeBytes({ (contentType) -> Void in
-                    _ = CC_MD5_Update(&context, contentType, CC_LONG(data.count))
-                })
-            }
-
-            var digest = Data.init(count: Int(CC_MD5_DIGEST_LENGTH))
-            digest.withUnsafeMutableBytes { (contentType) -> Void in
-                _ = CC_MD5_Final(contentType, &context)
-            }
-
-            let hexDigest = digest.map({ (uInt8) -> String in
-                return String.init(format: "%02hhx", uInt8)
-            }).joined()
-
-            return hexDigest
+        let bufferSize = 1024 * 1024
+        while case let data = file.readData(ofLength: bufferSize), data.count > 0 {
+            data.withUnsafeBytes({ (contentType) -> Void in
+                _ = CC_MD5_Update(&context, contentType, CC_LONG(data.count))
+            })
         }
+
+        var digest = Data.init(count: Int(CC_MD5_DIGEST_LENGTH))
+        digest.withUnsafeMutableBytes { (contentType) -> Void in
+            _ = CC_MD5_Final(contentType, &context)
+        }
+
+        let hexDigest = digest.map({ (uInt8) -> String in
+            return String.init(format: "%02hhx", uInt8)
+        }).joined()
+
+        return hexDigest
     }
 
     // 验证 hosts 文件的状态
     func checkHostsFile() -> FileState {
 
-        return .FileChange
+        return .NeverInit
         if let oldMD5 = PreferenceManager.sharedInstance.lastHostsFileMD5 {
-            if oldMD5 == fileMD5 {
+            if oldMD5 == fileMD5() {
                 return .FileUnchange
             }
             return .FileChange
@@ -60,7 +58,7 @@ class HostsFileManager: NSObject {
         return .NeverInit
     }
 
-    func writeContentToFile(content: Array<Group>) {
+    func writeContentToFile(content: [Group]) {
         // 权限验证
 
         var fileContent = String.init()
@@ -76,14 +74,14 @@ class HostsFileManager: NSObject {
     }
 
     // 返回解析后的 hosts 对象, 如果之前没有被本程序写过, 则读取文件出为一个单一 group, 该 group 的 name 为空
-    func readContentFromFile() -> Array<Group> {
+    func readContentFromFile() -> [Group] {
         let fileContent = try! String.init(contentsOfFile: url.path, encoding: .utf8)
         let regexPrefix = "# _wywywy_ "
         let regex = try! NSRegularExpression.init(pattern: "\(regexPrefix).*\n", options: []) // group 分隔符
 
         var lastLocation: Int = 0
         var groupTemp: Group?
-        var groups: Array<Group> = Array.init()
+        var groups = [Group]()
         regex.enumerateMatches(in: fileContent, options: [], range: NSRange.init(location: 0, length: fileContent.characters.count)) {
             (textCheckingResult, matchingFlags, b) in
             let range = (textCheckingResult?.range)!
@@ -149,4 +147,9 @@ class HostsFileManager: NSObject {
 //        public static let fileChanage = FileState.init(rawValue: 1)    // 用户未通过此程序对 hosts 文件进行了修改
 //        public static let fileUnchange = FileState.init(rawValue: 2)   // 文件正常
 //    }
+
+    // 保存 hosts 文件的md5
+    func saveMD5() {
+        PreferenceManager.sharedInstance.lastHostsFileMD5 = fileMD5()
+    }
 }

@@ -9,10 +9,12 @@
 import AppKit
 
 class Application: NSApplication { // 注册到info.plist
-    let appDelegate = AppDelegate()
+    private let appDelegate: NSApplicationDelegate
 
     override init() {
+        appDelegate = AppDelegate()
         super.init()
+
         self.delegate = appDelegate
     }
 

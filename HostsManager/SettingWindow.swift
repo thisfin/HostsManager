@@ -10,21 +10,16 @@ import AppKit
 import WYKit
 
 class SettingWindow: NSWindow, NSToolbarDelegate {
-    let toolbarItemInfos: [ToolbarItemInfo] = [
+    private let toolbarItemInfos: [ToolbarItemInfo] = [
         ToolbarItemInfo(title: "编辑",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
-                        viewController: EditorViewController(),
-                        identifier: "a"),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: EditorViewController(), identifier: "a"),
         ToolbarItemInfo(title: "查看源文件",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
-                        viewController: SourceViewController(),
-                        identifier: "b"),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SourceViewController(), identifier: "b"),
         ToolbarItemInfo(title: "设置",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
-                        viewController: SettingViewController(),
-                        identifier: "c")]
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SettingViewController(), identifier: "c")
+    ]
 
-    var nowShowItemIdentifier: String = ""
+    private var nowShowItemIdentifier: String = ""
 
     override init(contentRect: NSRect, styleMask style: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: style, backing: bufferingType, defer: flag)
@@ -46,17 +41,21 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
 
     // MARK: - NSToolbarDelegate
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
-        var toolbarItemInfo: ToolbarItemInfo!
+        var toolbarItemInfo: ToolbarItemInfo?
         toolbarItemInfos.forEach { (info) in
             if info.identifier == itemIdentifier {
                 toolbarItemInfo = info
+                return
             }
+        }
+        guard let info = toolbarItemInfo else {
+            return nil
         }
         let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
         toolbarItem.minSize = NSMakeSize(30, 30)
         toolbarItem.maxSize = NSMakeSize(100, 100)
-        toolbarItem.label = toolbarItemInfo.title
-        toolbarItem.image = toolbarItemInfo.image
+        toolbarItem.label = info.title
+        toolbarItem.image = info.image
         toolbarItem.target = self
         toolbarItem.action = #selector(SettingWindow.toolbarItemSelected(_:))
         return toolbarItem
@@ -98,16 +97,9 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
     }
 }
 
-class ToolbarItemInfo {
-    var title: String!
-    var image: NSImage!
-    var viewController: NSViewController!
-    var identifier: String!
-
-    init(title: String, image: NSImage, viewController: NSViewController, identifier: String) {
-        self.title = title
-        self.image = image
-        self.viewController = viewController
-        self.identifier = identifier
-    }
+private struct ToolbarItemInfo {
+    var title: String
+    var image: NSImage
+    var viewController: NSViewController
+    var identifier: String
 }

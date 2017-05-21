@@ -133,11 +133,11 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     // MARK: - NSTableViewDataSource
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return (dataManager.groups?.count)!
+        return dataManager.groups.count
     }
 
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        return dataManager.groups?[row]
+        return dataManager.groups[row]
     }
 
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation { // 拖拽
@@ -157,9 +157,9 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         let rowIndexs: NSIndexSet = NSKeyedUnarchiver.unarchiveObject(with: rowData!) as! NSIndexSet
         let dragRow = rowIndexs.firstIndex
 
-        if (dataManager.groups?.count)! > 1 && dragRow != row { // 数据重新排列
-            dataManager.groups?.insert((dataManager.groups?[dragRow])!, at: row)
-            dataManager.groups?.remove(at: dragRow + (dragRow > row ? 1 : 0))
+        if dataManager.groups.count > 1 && dragRow != row { // 数据重新排列
+            dataManager.groups.insert(dataManager.groups[dragRow], at: row)
+            dataManager.groups.remove(at: dragRow + (dragRow > row ? 1 : 0))
             tableView.noteNumberOfRowsChanged()
             tableView.reloadData()
         }
@@ -173,7 +173,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             let textField = NSTextField(frame: NSMakeRect(50, (subView.frame.height - 20) / 2, subView.frame.width - 20, 20))
             textField.font = NSFont.systemFont(ofSize: 16)
             textField.textColor = NSColor.black
-            textField.stringValue = (dataManager.groups?[row].name!)!
+            textField.stringValue = dataManager.groups[row].name!
             textField.isEditable = true
             textField.isBordered = false
             textField.isBezeled = false

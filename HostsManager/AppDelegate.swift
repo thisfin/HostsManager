@@ -47,12 +47,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints") // 布局约束冲突
 
-        switch HostsFileManager.sharedInstance.checkHostsFile() {
+        // 状态栏
+        rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+        rootStatusItem.title = ""
+        rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(20, 20))
+        rootStatusItem.menu = StatusMenu()
+
+        let hostsFileManager = HostsFileManager.sharedInstance
+
+        switch hostsFileManager.checkHostsFile() {
         case .NeverInit:
-            // 弹出提示对话框
             // 读取hosts文件写入本地缓存
-            // 记录hosts的md5
-            ()
+            let groups = hostsFileManager.readContentFromFile()
+            if groups.count == 1 && groups[0].name == nil {
+                groups[0].name = "Default"
+            }
+
+            HostDataManager.sharedInstance.groups = groups
+
+            // 更新 hosts 文件 md5
+            PreferenceManager.sharedInstance.lastHostsFileMD5 = hostsFileManager.fileMD5()
+
+            settingWindow.center()
+            settingWindow.makeKeyAndOrderFront(self)
+
+            WYHelp.alertInformational(title: "第一次使用初始化", message: "/etc/hosts 文件中的内容已经导入配置, group 为 Default.")
         case .FileChange:
             // 弹出对比页面进行处理
             // hosts为主 走上面的流程
@@ -64,10 +83,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             compareWindow.center()
             compareWindow.makeKeyAndOrderFront(self)
-            WYHelp.alert(title: "文件检查", message: "/etc/hosts 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
+            WYHelp.alertWarning(title: "文件检查", message: "/etc/hosts 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
         case .FileUnchange:
-            // 正常进入程序
-            ()
+            settingWindow.center()
+            settingWindow.makeKeyAndOrderFront(self)
         }
 
         let a = HostsFileManager.sharedInstance.readContentFromFile()
@@ -78,15 +97,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        Application.shared().mainMenu = statusMenu
 //        Mock.context = context
 
-
-
-        rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-        rootStatusItem.title = ""
-        rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom,
-                                                        backgroundColor: .clear,
-                                                        iconColor: .black,
-                                                        size: NSMakeSize(20, 20))
-        rootStatusItem.menu = StatusMenu()
 //
 //        compareWindow.closeBlock = {
 //            self.settingWindow.center()

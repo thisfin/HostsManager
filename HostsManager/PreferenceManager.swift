@@ -8,16 +8,14 @@
 
 import Foundation
 
-class PreferenceManager: NSObject {
+class PreferenceManager {
     private let hostsFileMD5Key = "hostsFileMD5"
 
     static let sharedInstance = {
         return PreferenceManager()
     }()
 
-    override private init() {
-        super.init()
-
+    private init() {
         readPorperty()
     }
 

@@ -9,12 +9,13 @@
 import Foundation
 
 class Host: NSObject {
-    var ip: String?
-    var domain: String?
+    var ip: String
+    var domain: String
 
-    func a() {
-        let a = self.dictionaryWithValues(forKeys: allKeys())
-        NSLog("%@", a)
+    override init() {
+        ip = ""
+        domain = ""
+        super.init()
     }
 
     convenience init(ip: String, domain: String) {
@@ -24,12 +25,8 @@ class Host: NSObject {
         self.domain = domain
     }
 
-//    init(ip: String, domain: String, selected: Bool = false, desc: String? = nil) {
-//        self.ip = ip
-//        self.domain = domain
-//        self.selected = selected
-//        if desc != nil {
-//            self.desc = desc!
-//        }
-//    }
+    func a() {
+        let a = self.dictionaryWithValues(forKeys: allKeys())
+        NSLog("%@", a)
+    }
 }

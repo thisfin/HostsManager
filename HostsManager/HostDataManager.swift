@@ -14,13 +14,14 @@ class HostDataManager: NSObject, XMLParserDelegate {
     }()
 
     override private init() {
-        super.init()
 
         //todo:
         groups = HostsFileManager.sharedInstance.readContentFromFile()
+
+        super.init()
     }
 
-    var groups: [Group]?
+    var groups: [Group]
     var temp: [Group]?
 
     var lastParseElementName: String?
@@ -37,21 +38,14 @@ class HostDataManager: NSObject, XMLParserDelegate {
     func writeToLocalFile() {
         let root = XMLElement.init(name: "root")
 
-//        groups?.forEach({ (group) in
-//            let element = XMLElement.init(name: "group")
-//            element.addChild(XMLElement.init(name: "name", stringValue: group.name))
-//            element.addChild(XMLElement.init(name: "selected", stringValue: "\(group.selected)"))
-//            element.addChild(XMLElement.init(name: "content", stringValue: group.content))
-//            root.addChild(element)
-//        })
-
-        for i in 0 ..< 5 {
+        groups.forEach({ (group) in
             let element = XMLElement.init(name: "group")
-            element.addChild(XMLElement.init(name: "name", stringValue: "name\(i)"))
-            element.addChild(XMLElement.init(name: "selected", stringValue: "\(i % 2 == 0)"))
-            element.addChild(XMLElement.init(name: "content", stringValue: "content\(i)"))
+            element.addChild(XMLElement.init(name: "name", stringValue: group.name))
+            element.addChild(XMLElement.init(name: "selected", stringValue: "\(group.selected)"))
+            element.addChild(XMLElement.init(name: "content", stringValue: group.content))
             root.addChild(element)
-        }
+        })
+
         let document = XMLDocument.init(rootElement: root)
         document.version = "1.0"
         document.characterEncoding = "UTF-8"
@@ -73,7 +67,7 @@ class HostDataManager: NSObject, XMLParserDelegate {
 
     // MARK: - XMLParserDelegate
     func parserDidStartDocument(_ parser: XMLParser) {
-        temp = Array.init()
+        temp = [Group]()
     }
 
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
