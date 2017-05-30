@@ -41,7 +41,11 @@ class PreferenceManager {
         //        NSLog(FileManager.default.homeDirectoryForCurrentUser.absoluteString)
         let infoDictionary = Bundle.main.infoDictionary
         let identifier: String = infoDictionary!["CFBundleIdentifier"] as! String
-        return "\(NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!)/\(identifier)/Preferences"
+        let pathString = "\(NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!)/\(identifier)/Preferences"
+        if !FileManager.default.fileExists(atPath: pathString) {
+            try! FileManager.default.createDirectory(atPath: pathString, withIntermediateDirectories: true)
+        }
+        return pathString
     }()
 
     // MARK: private func
@@ -59,13 +63,13 @@ class PreferenceManager {
     }
 
     private func writeProperty() {
-        let fileManager = FileManager.default
-        if !fileManager.fileExists(atPath: filePathFile()) { // 建目录
-            if !fileManager.fileExists(atPath: filePathDirectory) {
-                try! fileManager.createDirectory(atPath: filePathDirectory, withIntermediateDirectories: true)
-            }
-            fileManager.createFile(atPath: filePathFile(), contents: nil)
-        }
+//        let fileManager = FileManager.default
+//        if !fileManager.fileExists(atPath: filePathFile()) { // 建目录
+//            if !fileManager.fileExists(atPath: filePathDirectory) {
+//                try! fileManager.createDirectory(atPath: filePathDirectory, withIntermediateDirectories: true)
+//            }
+//            fileManager.createFile(atPath: filePathFile(), contents: nil)
+//        }
         var dict: [String: String] = [:]
         if let md5 = propertyInfo.hostsFileMD5 {
             dict[hostsFileMD5Key] = md5

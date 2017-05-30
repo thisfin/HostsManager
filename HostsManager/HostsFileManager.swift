@@ -14,7 +14,8 @@ class HostsFileManager {
     private init() {
     }
 
-    private let url = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "etc/hosts1")
+//    private let url = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "etc/hosts1")
+    private let url = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "Users/fin/hosts1")
 
     // hosts 文件的md5
     func fileMD5() -> String {
@@ -72,6 +73,7 @@ class HostsFileManager {
 
     // 返回解析后的 hosts 对象, 如果之前没有被本程序写过, 则读取文件出为一个单一 group, 该 group 的 name 为空
     func readContentFromFile() -> [Group] {
+//        self.url.startAccessingSecurityScopedResource()
         let fileContent = try! String.init(contentsOfFile: url.path, encoding: .utf8)
         let regexPrefix = Constants.hostsFileGroupPrefix
         let regex = try! NSRegularExpression.init(pattern: "\(regexPrefix).*\n", options: []) // group 分隔符
