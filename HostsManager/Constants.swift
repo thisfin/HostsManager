@@ -30,4 +30,6 @@ class Constants {
     static let iconfontRandom = "\u{f074}"
 
     static let marginWidth: CGFloat = 20
+
+    static let hostsFileGroupPrefix = "# _wywywy_ "
 }

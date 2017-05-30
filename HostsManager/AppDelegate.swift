@@ -63,8 +63,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 groups[0].name = "Default"
             }
 
-            HostDataManager.sharedInstance.groups = groups
-
+            let hostDataManager = HostDataManager.sharedInstance
+            hostDataManager.groups = groups
+            hostDataManager.updateGroupData()
             // 更新 hosts 文件 md5
             PreferenceManager.sharedInstance.lastHostsFileMD5 = hostsFileManager.fileMD5()
 
@@ -77,6 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // hosts为主 走上面的流程
             // 缓存为主 则写入hosts, 记录md5
             compareWindow.closeBlock = {
+                HostDataManager.sharedInstance.loadFile()
                 self.settingWindow.center()
                 self.settingWindow.makeKeyAndOrderFront(self)
                 self.compareWindow.orderOut(self)
@@ -85,6 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             compareWindow.makeKeyAndOrderFront(self)
             WYHelp.alertWarning(title: "文件检查", message: "/etc/hosts 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
         case .FileUnchange:
+            HostDataManager.sharedInstance.loadFile()
             settingWindow.center()
             settingWindow.makeKeyAndOrderFront(self)
         }

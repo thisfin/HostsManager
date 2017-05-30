@@ -9,9 +9,7 @@
 import Foundation
 
 class HostsFileManager {
-    static let sharedInstance = {
-        return HostsFileManager()
-    }()
+    static let sharedInstance = HostsFileManager()
 
     private init() {
     }
@@ -47,8 +45,6 @@ class HostsFileManager {
 
     // 验证 hosts 文件的状态
     func checkHostsFile() -> FileState {
-
-        return .NeverInit
         if let oldMD5 = PreferenceManager.sharedInstance.lastHostsFileMD5 {
             if oldMD5 == fileMD5() {
                 return .FileUnchange
@@ -64,19 +60,20 @@ class HostsFileManager {
         var fileContent = String.init()
         content.forEach { (group) in
             if group.selected {
-                fileContent.append("# _wywywy_ \(group.name!)\n")
+                fileContent.append("\(Constants.hostsFileGroupPrefix)\(group.name!)\n")
                 fileContent.append("\(group.content)\n")
             }
         }
         if fileContent.characters.count > 0 {
             try! fileContent.write(to: url, atomically: true, encoding: .utf8)
         }
+        PreferenceManager.sharedInstance.lastHostsFileMD5 = fileMD5()
     }
 
     // 返回解析后的 hosts 对象, 如果之前没有被本程序写过, 则读取文件出为一个单一 group, 该 group 的 name 为空
     func readContentFromFile() -> [Group] {
         let fileContent = try! String.init(contentsOfFile: url.path, encoding: .utf8)
-        let regexPrefix = "# _wywywy_ "
+        let regexPrefix = Constants.hostsFileGroupPrefix
         let regex = try! NSRegularExpression.init(pattern: "\(regexPrefix).*\n", options: []) // group 分隔符
 
         var lastLocation: Int = 0

@@ -9,15 +9,13 @@
 import Foundation
 
 class PreferenceManager {
-    private let hostsFileMD5Key = "hostsFileMD5"
-
-    static let sharedInstance = {
-        return PreferenceManager()
-    }()
+    static let sharedInstance = PreferenceManager()
 
     private init() {
         readPorperty()
     }
+
+    private let hostsFileMD5Key = "hostsFileMD5"
 
     private var propertyInfo: PropertyInfo = {
         // 之后此处设置属性的 default value
@@ -35,8 +33,10 @@ class PreferenceManager {
         }
     }
 
+    // 非沙箱 / 沙箱 路径不同
     // ~/Library/Application Support/$(PRODUCT_BUNDLE_IDENTIFIER)/Preferences/filePath.plist
-    private let filePathDirectory: String = { // 配置文件目录
+    // ~/Library/Containers/$(PRODUCT_BUNDLE_IDENTIFIER)/Data/Library/Application Support/$(PRODUCT_BUNDLE_IDENTIFIER)/Preferences/filePath.plist
+    let filePathDirectory: String = { // 配置文件目录
         //        NSLog(NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!)
         //        NSLog(FileManager.default.homeDirectoryForCurrentUser.absoluteString)
         let infoDictionary = Bundle.main.infoDictionary
@@ -44,17 +44,16 @@ class PreferenceManager {
         return "\(NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!)/\(identifier)/Preferences"
     }()
 
+    // MARK: private func
     private func filePathFile() -> String  { // 配置文件地址
         return "\(filePathDirectory)/preferences.plist"
     }
 
     private func readPorperty() {
-        if FileManager.default.fileExists(atPath: filePathFile()) {
-            if let dict = NSDictionary(contentsOfFile: filePathFile()) {
-                let d: [String : String] = dict as! [String : String]
-                if let hostsFileMD5 = d[hostsFileMD5Key] {
-                    propertyInfo.hostsFileMD5 = hostsFileMD5
-                }
+        if FileManager.default.fileExists(atPath: filePathFile()), let dict = NSDictionary(contentsOfFile: filePathFile()) {
+            let d: [String : String] = dict as! [String : String]
+            if let hostsFileMD5 = d[hostsFileMD5Key] {
+                propertyInfo.hostsFileMD5 = hostsFileMD5
             }
         }
     }

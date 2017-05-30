@@ -9,40 +9,68 @@
 import Foundation
 
 class HostDataManager: NSObject, XMLParserDelegate {
-    static let sharedInstance = {
-        return HostDataManager()
-    }()
+    static let sharedInstance = HostDataManager()
 
     override private init() {
-
-        //todo:
-        groups = HostsFileManager.sharedInstance.readContentFromFile()
-
+        temp = [Group]()
+        groups = temp
         super.init()
     }
 
     var groups: [Group]
-    var temp: [Group]?
+    private var temp: [Group] // 解析时缓存用
+    private var lastParseElementName: String?
+    private var lastParseElementValue: String?
+    private let fileURL = URL(fileURLWithPath: "\(PreferenceManager.sharedInstance.filePathDirectory)/hosts.xml") // 文件 path
 
-    var lastParseElementName: String?
-    var lastParseElementValue: String?
+    // MARK: - unprivate func
+    // 读取数据
+    func loadFile() {
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            let data = try! Data(contentsOf: fileURL)
+            readFromLocalFile(data: data)
+        }
+    }
 
+    // 数据更新处理
+    func updateGroupData() {
+        writeToLocalFile()
+    }
+
+    // 转换成hosts文件内容
+    func toCompareContent() -> String {
+        var result = String.init()
+        groups.forEach { (group) in
+            result.append("\(Constants.hostsFileGroupPrefix)\(group.name!)\n")
+            var content = group.content
+            if !group.selected { // 未生效加注释
+                content = content.replacingOccurrences(of: "\n", with: "\n# ")
+                content = "#\(content)"
+            }
+            result.append("\(content)\n\n")
+        }
+        return result
+    }
+
+    // MARK: - private func
     // 从本地文件中读取数据
-    func readFromLocalFile(data: Data) {
+    private func readFromLocalFile(data: Data) {
         let xmlParser = XMLParser.init(data: data)
         xmlParser.delegate = self
         xmlParser.parse()
     }
 
     // 将数据写入到本地文件
-    func writeToLocalFile() {
+    private func writeToLocalFile() {
         let root = XMLElement.init(name: "root")
 
         groups.forEach({ (group) in
             let element = XMLElement.init(name: "group")
             element.addChild(XMLElement.init(name: "name", stringValue: group.name))
-            element.addChild(XMLElement.init(name: "selected", stringValue: "\(group.selected)"))
             element.addChild(XMLElement.init(name: "content", stringValue: group.content))
+            if !group.selected { // 默认true
+                element.addChild(XMLElement.init(name: "selected", stringValue: "\(group.selected)"))
+            }
             root.addChild(element)
         })
 
@@ -51,29 +79,22 @@ class HostDataManager: NSObject, XMLParserDelegate {
         document.characterEncoding = "UTF-8"
         NSLog(document.xmlString)
 
-        readFromLocalFile(data: document.xmlData)
-        NSLog("\(String(describing: temp))")
-    }
-
-    // 数据更新处理
-    func updateGroupData() {
-
-    }
-
-    // 转换成hosts文件内容
-    func toHostsFileContent() -> String {
-        return ""
+        try! document.xmlData.write(to: fileURL)
     }
 
     // MARK: - XMLParserDelegate
     func parserDidStartDocument(_ parser: XMLParser) {
-        temp = [Group]()
+        temp.removeAll()
+    }
+
+    func parserDidEndDocument(_ parser: XMLParser) {
+        groups = temp
     }
 
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
         case "group":
-            temp?.append(Group.init())
+            temp.append(Group.init())
         default:
             ()
         }
@@ -81,21 +102,17 @@ class HostDataManager: NSObject, XMLParserDelegate {
     }
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        switch elementName {
-        case "name":
-            if elementName == lastParseElementName {
-                temp?.last?.name = lastParseElementValue
+        if let value = lastParseElementValue, elementName == lastParseElementName {
+            switch elementName {
+            case "name":
+                temp.last?.name = value
+            case "content":
+                temp.last?.content = value
+            case "selected":
+                temp.last?.selected = Bool.init(value)!
+            default:
+                ()
             }
-        case "content":
-            if elementName == lastParseElementName {
-                temp?.last?.content = lastParseElementValue!
-            }
-        case "selected":
-            if elementName == lastParseElementName {
-                temp?.last?.selected = Bool.init(lastParseElementValue!)!
-            }
-        default:
-            ()
         }
     }
 

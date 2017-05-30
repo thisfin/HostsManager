@@ -94,12 +94,11 @@ class CompareViewController: NSViewController {
         rightTextView.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
         rightTextView.textContainer?.containerSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
 
-
         leftTextView.string = "1234567890hahahahahhahahahahhahahahahhahahahahhahahahahhahahahahhahahahah\n1\n2\n3\n4\n5\n6\n7\n8\n8\n8\n8"
-        rightTextView.string = "1234567890hahahahahhahahahahhahahahahhahahahahhahahahahhahahahahhahahahah\n1\n2\n3\n4\n5\n6\n7\n8\n8\n8\n8"
+        rightTextView.string = HostDataManager.sharedInstance.toCompareContent()
     }
 
-    // MARK: - private
+    // MARK: - private func
     func leftButtonClicked(_ sender: NSButton) {
         let alert = NSAlert.init()
         alert.messageText = "注意!"
