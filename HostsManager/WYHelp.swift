@@ -24,4 +24,13 @@ class WYHelp {
         alert.alertStyle = style
         alert.beginSheetModal(for: NSApp.mainWindow!, completionHandler: nil)
     }
+
+    static func authenticationHostsFile() {
+        let command = "sudo chmod 777 \(HostsFileManager.sharedInstance.url.path)"
+        _ = WYAuthentication.sharedInstance.authenticate(command)
+    }
+
+    static func deauthenticationHostFile() {
+        _ = WYAuthentication.sharedInstance.deauthenticate()
+    }
 }

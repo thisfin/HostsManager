@@ -30,6 +30,9 @@ class HostDataManager: NSObject, XMLParserDelegate {
             let data = try! Data(contentsOf: fileURL)
             readFromLocalFile(data: data)
         }
+
+        var a = FileManager.default
+        
     }
 
     // 数据更新处理

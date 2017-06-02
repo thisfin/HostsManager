@@ -53,6 +53,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(20, 20))
         rootStatusItem.menu = StatusMenu()
 
+
+        HostsFileManager.sharedInstance.checkFile()
+//        NSApp.terminate(nil)
+
+//        let a = AuthorizationItem.init(name: <#T##AuthorizationString#>, valueLength: <#T##Int#>, value: <#T##UnsafeMutableRawPointer?#>, flags: <#T##UInt32#>)
+//        WYAuthentication.sharedInstance.authenticate(<#T##command: String##String#>)
+
+//        WYHelp.authenticationHostsFile()
+//        WYHelp.deauthenticateHostFile()
+
+//        NSLog("\(WYAuthentication.sharedInstance.isAuthenticated("ls /.Spotlight-V100/"))")
+//        NSLog("\(WYAuthentication.sharedInstance.authenticate("ls /.Spotlight-V100/"))")
+//        WYAuthentication.sharedInstance.deauthenticate()
+//        NSLog("\(WYAuthentication.sharedInstance.isAuthenticated("ls /.Spotlight-V100/"))")
+
         let hostsFileManager = HostsFileManager.sharedInstance
 
         switch hostsFileManager.checkHostsFile() {
@@ -92,8 +107,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             settingWindow.makeKeyAndOrderFront(self)
         }
 
-        let a = HostsFileManager.sharedInstance.readContentFromFile()
-        NSLog("\(a)")
+//        let a = HostsFileManager.sharedInstance.readContentFromFile()
+//        NSLog("\(a)")
 
 //        HostDataManager.init().writeToLocalFile()
 

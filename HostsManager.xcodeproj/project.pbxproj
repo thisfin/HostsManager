@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		302B4F0A1EDE9846002352CC /* WYAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B4F081EDE9846002352CC /* WYAuthentication.swift */; };
+		302B4F0B1EDE9846002352CC /* WYFileWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B4F091EDE9846002352CC /* WYFileWatch.swift */; };
 		660991661E1B4978008DF493 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660991651E1B4978008DF493 /* CoreData.framework */; };
 		6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6609916E1E1CFBF9008DF493 /* GroupToolView.swift */; };
 		662D1C1B1EB831E1008D2B4D /* HostDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		302B4F081EDE9846002352CC /* WYAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYAuthentication.swift; sourceTree = "<group>"; };
+		302B4F091EDE9846002352CC /* WYFileWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYFileWatch.swift; sourceTree = "<group>"; };
 		660991651E1B4978008DF493 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6609916E1E1CFBF9008DF493 /* GroupToolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupToolView.swift; sourceTree = "<group>"; };
 		6613CCB21ED82EC0007507A2 /* HostsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HostsManager.entitlements; sourceTree = "<group>"; };
@@ -119,6 +123,9 @@
 				66308E3A1E0E59D4000EBBF0 /* Application.swift */,
 				66C383571E12DDF000824982 /* Constants.swift */,
 				66C383311E11071800824982 /* StatusMenu.swift */,
+				302B4F081EDE9846002352CC /* WYAuthentication.swift */,
+				302B4F091EDE9846002352CC /* WYFileWatch.swift */,
+				6641DB041EC5B04F000DA74A /* WYHelp.swift */,
 				66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */,
 				6664357F1E13DD2300047EBD /* Data */,
 				66C3832E1E10F3EE00824982 /* Resource */,
@@ -126,7 +133,6 @@
 				66B2F8EA1E209415001FB418 /* View */,
 				66B2F8E91E209402001FB418 /* ViewController */,
 				6641DB011EBB733A000DA74A /* window */,
-				6641DB041EC5B04F000DA74A /* WYHelp.swift */,
 			);
 			path = HostsManager;
 			sourceTree = "<group>";
@@ -341,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				302B4F0A1EDE9846002352CC /* WYAuthentication.swift in Sources */,
 				6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */,
 				66818C5E1EB9828B00248ABF /* PreferenceManager.swift in Sources */,
 				662D1C1D1EB836BB008D2B4D /* HostsFileManager.swift in Sources */,
@@ -351,6 +358,7 @@
 				662D1C1B1EB831E1008D2B4D /* HostDataManager.swift in Sources */,
 				6641DB051EC5B04F000DA74A /* WYHelp.swift in Sources */,
 				666435851E13E53800047EBD /* Mock.swift in Sources */,
+				302B4F0B1EDE9846002352CC /* WYFileWatch.swift in Sources */,
 				6641DB031EBB73CC000DA74A /* CompareViewController.swift in Sources */,
 				666435811E13DD3D00047EBD /* Host.swift in Sources */,
 				66308E3B1E0E59D4000EBBF0 /* Application.swift in Sources */,
