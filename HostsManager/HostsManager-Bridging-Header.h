@@ -13,3 +13,4 @@
 #endif /* HostsManager_Bridging_Header_h */
 
 #import <CommonCrypto/CommonCrypto.h>
+#include "membership.h"
