@@ -31,5 +31,7 @@ class Constants {
 
     static let marginWidth: CGFloat = 20
 
+    static let hostsFileURL = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "etc/hosts")
+    // static let hostsFileURL = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "Users/fin/hosts")
     static let hostsFileGroupPrefix = "# _wywywy_ "
 }

@@ -127,6 +127,7 @@
 				66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */,
 				66308E3A1E0E59D4000EBBF0 /* Application.swift */,
 				66C383571E12DDF000824982 /* Constants.swift */,
+				66F00B751EEA8E92002B9F28 /* FilePermissions.swift */,
 				66C383311E11071800824982 /* StatusMenu.swift */,
 				302B4F081EDE9846002352CC /* WYAuthentication.swift */,
 				302B4F091EDE9846002352CC /* WYFileWatch.swift */,
@@ -138,7 +139,6 @@
 				66B2F8EA1E209415001FB418 /* View */,
 				66B2F8E91E209402001FB418 /* ViewController */,
 				6641DB011EBB733A000DA74A /* window */,
-				66F00B751EEA8E92002B9F28 /* FilePermissions.swift */,
 			);
 			path = HostsManager;
 			sourceTree = "<group>";

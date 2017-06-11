@@ -9,60 +9,42 @@
 import AppKit
 
 class FilePermissions {
-    func a () {
-        let isWritable = aclHelp.checkACLPermission(userName: NSUserName(), perms: [ACL_READ_DATA, ACL_WRITE_DATA])
+    static let sharedInstance = FilePermissions()
 
-        let alert = NSAlert.init()
-        alert.messageText = "提示"
-        alert.informativeText = "你" + (isWritable ? "有" : "无") + " /etc/hosts 文件的权限"
-        alert.alertStyle = .critical
-        alert.addButton(withTitle: "cancel")
-        alert.addButton(withTitle: isWritable ? "消权" : "加权")
-        let response = alert.runModal()
-        switch response {
-        case NSAlertSecondButtonReturn:
-            var error: NSDictionary?
-            let ope = isWritable ? "-" : "+"
-            var cmd = ""
-            cmd += "tell application \"Terminal\"\n"
-            cmd += "activate (do script \"sudo /bin/chmod \(ope)a \\\"user:\(NSUserName()):allow read,write\\\" /etc/hosts\")\n"
-            cmd += "end tell"
-            let appleScript = NSAppleScript.init(source: cmd)
-            appleScript?.executeAndReturnError(&error)
-            NSLog("\(String(describing: error))")
-        default:
-            ()
-        }
+    private init() {
     }
 
-
-
     func hostsFilePermissionsCheck() {
-        let aclHelp = ACLHelp.init(url: HostsFileManager.sharedInstance.url)
+        let aclHelp = ACLHelp.init(url: Constants.hostsFileURL)
 
         if aclHelp.checkACLPermission(userName: NSUserName(), perms: [ACL_READ_DATA, ACL_WRITE_DATA]) {
             return
         }
 
-        switch ({
+        let response: NSModalResponse = {
             let alert = NSAlert.init()
             alert.alertStyle = .critical
-
-
-
-            alert.addButton(withTitle: "退出程序")
+            alert.messageText = "需要您对 hosts 文件进行权限设置"
+            var text = "为了对 hosts 文件进行读写操作, 需要使用 ACL 对文件增加权限.\n\n"
+            text += "命令为: sudo /bin/chmod +a \"user:\(NSUserName()):allow read,write\" \(Constants.hostsFileURL.path)\n\n"
+            text += "点击 [修改权限] 会唤起 Terminal 执行命令, 请按照提示输入密码, 然后重新启动程序.\n"
+            alert.informativeText = text
             alert.addButton(withTitle: "修改权限")
+            alert.addButton(withTitle: "退出程序")
             return alert.runModal()
-            }()) {
+        }()
+
+        switch response {
         case NSAlertFirstButtonReturn:
             var error: NSDictionary?
             var cmd = "tell application \"Terminal\"\n"
-            cmd += "activate (do script \"sudo /bin/chmod +a \\\"user:\(NSUserName()):allow read,write\\\" /etc/hosts\")\n"
+            cmd += "activate (do script \"sudo /bin/chmod +a \\\"user:\(NSUserName()):allow read,write\\\" \(Constants.hostsFileURL.path)\")\n"
             cmd += "end tell"
             let appleScript = NSAppleScript.init(source: cmd)
-            appleScript.executeAndReturnError(&error)
+            appleScript?.executeAndReturnError(&error)
         default:
             ()
         }
+        NSApp.terminate(self)
     }
 }

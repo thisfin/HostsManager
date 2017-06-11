@@ -26,7 +26,7 @@ class WYHelp {
     }
 
     static func authenticationHostsFile() {
-        let command = "sudo chmod 777 \(HostsFileManager.sharedInstance.url.path)"
+        let command = "sudo chmod 777 \(Constants.hostsFileURL.path)"
         _ = WYAuthentication.sharedInstance.authenticate(command)
     }
 

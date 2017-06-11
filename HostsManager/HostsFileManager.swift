@@ -15,14 +15,10 @@ class HostsFileManager {
     private init() {
     }
 
-    // sudo /bin/chmod +a 'user:fin:allow write' /etc/hosts1
-//    let url = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "etc/hosts1")
-    let url = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "Users/fin/hosts1")
-
     // hosts 文件的md5
     func fileMD5() -> String {
         // http://stackoverflow.com/questions/42935148/swift-calculate-md5-checksum-for-large-files
-        let file = try! FileHandle.init(forReadingFrom: url)
+        let file = try! FileHandle.init(forReadingFrom: Constants.hostsFileURL)
 
         var context = CC_MD5_CTX()
         CC_MD5_Init(&context)
@@ -68,7 +64,7 @@ class HostsFileManager {
             }
         }
         if fileContent.characters.count > 0 {
-            try! fileContent.write(to: url, atomically: true, encoding: .utf8)
+            try! fileContent.write(to: Constants.hostsFileURL, atomically: true, encoding: .utf8)
         }
         PreferenceManager.sharedInstance.lastHostsFileMD5 = fileMD5()
     }
@@ -76,7 +72,7 @@ class HostsFileManager {
     // 返回解析后的 hosts 对象, 如果之前没有被本程序写过, 则读取文件出为一个单一 group, 该 group 的 name 为空
     func readContentFromFile() -> [Group] {
 //        self.url.startAccessingSecurityScopedResource()
-        let fileContent = try! String.init(contentsOfFile: url.path, encoding: .utf8)
+        let fileContent = try! String.init(contentsOfFile: Constants.hostsFileURL.path, encoding: .utf8)
         let regexPrefix = Constants.hostsFileGroupPrefix
         let regex = try! NSRegularExpression.init(pattern: "\(regexPrefix).*\n", options: []) // group 分隔符
 

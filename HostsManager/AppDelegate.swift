@@ -47,6 +47,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints") // 布局约束冲突
 
+        // 文件权限操作
+        FilePermissions.sharedInstance.hostsFilePermissionsCheck()
+
         // 状态栏
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         rootStatusItem.title = ""
@@ -87,7 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             settingWindow.center()
             settingWindow.makeKeyAndOrderFront(self)
 
-            WYHelp.alertInformational(title: "第一次使用初始化", message: "/etc/hosts 文件中的内容已经导入配置, group 为 Default.")
+            WYHelp.alertInformational(title: "第一次使用初始化", message: "\(Constants.hostsFileURL.path) 文件中的内容已经导入配置, group 为 Default.")
         case .FileChange:
             // 弹出对比页面进行处理
             // hosts为主 走上面的流程
@@ -100,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             compareWindow.center()
             compareWindow.makeKeyAndOrderFront(self)
-            WYHelp.alertWarning(title: "文件检查", message: "/etc/hosts 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
+            WYHelp.alertWarning(title: "文件检查", message: "\(Constants.hostsFileURL.path) 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
         case .FileUnchange:
             HostDataManager.sharedInstance.loadFile()
             settingWindow.center()

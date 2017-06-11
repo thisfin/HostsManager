@@ -8,9 +8,7 @@
 
 #ifndef HostsManager_Bridging_Header_h
 #define HostsManager_Bridging_Header_h
-
-
 #endif /* HostsManager_Bridging_Header_h */
 
-#import <CommonCrypto/CommonCrypto.h>
-#include "membership.h"
+#import <CommonCrypto/CommonCrypto.h>   // FileMD5
+#import <membership.h>                  // UUID
