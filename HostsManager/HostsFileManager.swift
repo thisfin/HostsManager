@@ -128,36 +128,6 @@ class HostsFileManager {
         return value
     }
 
-    func checkFile() {
-//        if !(FileManager.default.isWritableFile(atPath: url.path)) {
-            let alert = NSAlert()
-            alert.messageText = "注意!"
-            alert.informativeText = "覆盖后, 之前保存的组信息会全部清空"
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: "退出程序")
-            alert.addButton(withTitle: "打开终端")
-            alert.addButton(withTitle: "重新检查")
-            let response = alert.runModal()
-
-        switch response {
-        case NSAlertFirstButtonReturn:
-            NSApp.terminate(nil)
-        case NSAlertSecondButtonReturn:
-            var dict: NSDictionary?
-//            var umpDict: UnsafeMutablePointer<NSDictionary>? = UnsafeMutablePointer<NSDictionary>.init(&dict)
-//            var errorInfo: AutoreleasingUnsafeMutablePointer<NSDictionary?>? = AutoreleasingUnsafeMutablePointer<NSDictionary>.init(&dict)
-//  to do script \"cd ~\""
-//            let ass = NSAppleScript.init(source: "tell application \"Terminal\" to do script \"cd /etc\"")
-            let ass = NSAppleScript.init(source: "tell application \"终端\" do cd end tell")
-            ass?.executeAndReturnError(&dict)
-            NSLog("a")
-        case NSAlertThirdButtonReturn:
-            checkFile()
-        default:
-            ()
-        }
-    }
-
     public enum FileState {
         case NeverInit      // 未初始化过, 程序第一次运行
         case FileChange     // 用户未通过此程序对 hosts 文件进行了修改

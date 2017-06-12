@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		302B4F0A1EDE9846002352CC /* WYAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B4F081EDE9846002352CC /* WYAuthentication.swift */; };
 		302B4F0B1EDE9846002352CC /* WYFileWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B4F091EDE9846002352CC /* WYFileWatch.swift */; };
 		660991661E1B4978008DF493 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660991651E1B4978008DF493 /* CoreData.framework */; };
 		6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6609916E1E1CFBF9008DF493 /* GroupToolView.swift */; };
@@ -43,7 +42,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		302B4F081EDE9846002352CC /* WYAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYAuthentication.swift; sourceTree = "<group>"; };
 		302B4F091EDE9846002352CC /* WYFileWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYFileWatch.swift; sourceTree = "<group>"; };
 		660991651E1B4978008DF493 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6609916E1E1CFBF9008DF493 /* GroupToolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupToolView.swift; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 				66C383571E12DDF000824982 /* Constants.swift */,
 				66F00B751EEA8E92002B9F28 /* FilePermissions.swift */,
 				66C383311E11071800824982 /* StatusMenu.swift */,
-				302B4F081EDE9846002352CC /* WYAuthentication.swift */,
 				302B4F091EDE9846002352CC /* WYFileWatch.swift */,
 				6641DB041EC5B04F000DA74A /* WYHelp.swift */,
 				66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */,
@@ -353,7 +350,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				302B4F0A1EDE9846002352CC /* WYAuthentication.swift in Sources */,
 				6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */,
 				66818C5E1EB9828B00248ABF /* PreferenceManager.swift in Sources */,
 				662D1C1D1EB836BB008D2B4D /* HostsFileManager.swift in Sources */,

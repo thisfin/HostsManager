@@ -13,39 +13,14 @@ import WYKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     static let windowSize = NSMakeSize(800, 500)
+
     private var rootStatusItem: NSStatusItem!
     private lazy var settingWindow = SettingWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
     private lazy var compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
 
-//    let context: NSManagedObjectContext = { // coredata
-//        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-//        context.persistentStoreCoordinator = {
-//
-//
-//            let bundles = [Bundle(for: AppDelegate.classForCoder())]
-//            guard let model = NSManagedObjectModel.mergedModel(from: bundles) else {
-//                fatalError("model not found")
-//            }
-//            let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
-//            try! psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: {
-//                if let documentURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
-//                    let infoDictionary = Bundle.main.infoDictionary,
-//                    let identifier: String = infoDictionary["CFBundleIdentifier"] as? String {
-//                    var directoryURL = documentURL.appendingPathComponent(identifier).appendingPathComponent("Data")
-//                    if !FileManager.default.fileExists(atPath: directoryURL.path) {
-//                        try! FileManager.default.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true)
-//                    }
-//                    return directoryURL.appendingPathComponent("model").appendingPathExtension("sqlite")
-//                }
-//                return nil
-//            }(), options: nil)
-//            return psc
-//        }()
-//        return context
-//    }()
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints") // 布局约束冲突
+        // 布局约束冲突
+        UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
 
         // 文件权限操作
         FilePermissions.sharedInstance.hostsFilePermissionsCheck()
@@ -56,23 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(20, 20))
         rootStatusItem.menu = StatusMenu()
 
-
-        HostsFileManager.sharedInstance.checkFile()
-//        NSApp.terminate(nil)
-
-//        let a = AuthorizationItem.init(name: <#T##AuthorizationString#>, valueLength: <#T##Int#>, value: <#T##UnsafeMutableRawPointer?#>, flags: <#T##UInt32#>)
-//        WYAuthentication.sharedInstance.authenticate(<#T##command: String##String#>)
-
-//        WYHelp.authenticationHostsFile()
-//        WYHelp.deauthenticateHostFile()
-
-//        NSLog("\(WYAuthentication.sharedInstance.isAuthenticated("ls /.Spotlight-V100/"))")
-//        NSLog("\(WYAuthentication.sharedInstance.authenticate("ls /.Spotlight-V100/"))")
-//        WYAuthentication.sharedInstance.deauthenticate()
-//        NSLog("\(WYAuthentication.sharedInstance.isAuthenticated("ls /.Spotlight-V100/"))")
-
+        // 文件版本校验
         let hostsFileManager = HostsFileManager.sharedInstance
-
         switch hostsFileManager.checkHostsFile() {
         case .NeverInit:
             // 读取hosts文件写入本地缓存

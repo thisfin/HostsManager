@@ -21,7 +21,7 @@ class HostDataManager: NSObject, XMLParserDelegate {
     private var temp: [Group] // 解析时缓存用
     private var lastParseElementName: String?
     private var lastParseElementValue: String?
-    private let fileURL = URL(fileURLWithPath: "\(PreferenceManager.sharedInstance.filePathDirectory)/hosts.xml") // 文件 path
+    private let fileURL = URL(fileURLWithPath: "\(PreferenceManager.sharedInstance.preferencesDirectoryPath)/hosts.xml") // 文件 path
 
     // MARK: - unprivate func
     // 读取数据
