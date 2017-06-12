@@ -7,7 +7,6 @@
 //
 
 import AppKit
-import CoreData
 import WYKit
 
 @NSApplicationMain
@@ -19,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private lazy var compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // 布局约束冲突
+        // 布局约束冲突 visualizeConstraints
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
 
         // 文件权限操作
@@ -35,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let hostsFileManager = HostsFileManager.sharedInstance
         switch hostsFileManager.checkHostsFile() {
         case .NeverInit:
-            // 读取hosts文件写入本地缓存
+            // 读取 hosts 文件写入本地缓存
             let groups = hostsFileManager.readContentFromFile()
             if groups.count == 1 && groups[0].name == nil {
                 groups[0].name = "Default"
@@ -45,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             hostDataManager.groups = groups
             hostDataManager.updateGroupData()
             // 更新 hosts 文件 md5
-            PreferenceManager.sharedInstance.lastHostsFileMD5 = hostsFileManager.fileMD5()
+            PreferenceManager.sharedInstance.propertyInfo.hostsFileMD5 = hostsFileManager.fileMD5()
 
             settingWindow.center()
             settingWindow.makeKeyAndOrderFront(self)
@@ -53,8 +52,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             WYHelp.alertInformational(title: "第一次使用初始化", message: "\(Constants.hostsFileURL.path) 文件中的内容已经导入配置, group 为 Default.")
         case .FileChange:
             // 弹出对比页面进行处理
-            // hosts为主 走上面的流程
-            // 缓存为主 则写入hosts, 记录md5
+            // hosts 为主 走上面的流程
+            // 缓存为主 则写入 hosts, 记录 md5
             compareWindow.closeBlock = {
                 HostDataManager.sharedInstance.loadFile()
                 self.settingWindow.center()
@@ -63,66 +62,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             compareWindow.center()
             compareWindow.makeKeyAndOrderFront(self)
+
             WYHelp.alertWarning(title: "文件检查", message: "\(Constants.hostsFileURL.path) 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
         case .FileUnchange:
             HostDataManager.sharedInstance.loadFile()
             settingWindow.center()
             settingWindow.makeKeyAndOrderFront(self)
         }
-
-//        let a = HostsFileManager.sharedInstance.readContentFromFile()
-//        NSLog("\(a)")
-
-//        HostDataManager.init().writeToLocalFile()
-
-//        Application.shared().mainMenu = statusMenu
-//        Mock.context = context
-
-//
-//        compareWindow.closeBlock = {
-//            self.settingWindow.center()
-//            self.settingWindow.makeKeyAndOrderFront(self)
-//            self.compareWindow.orderOut(self)
-//        }
-//        compareWindow.center()
-//        compareWindow.makeKeyAndOrderFront(self)
-
-//        let alert = NSAlert.init()
-//        alert.messageText = "提示"
-//        alert.informativeText = "点击确认导入已存在的 hosts 文件, 内容保存在 default 组"
-//        alert.alertStyle = .informational
-//        alert.beginSheetModal(for: NSApp.mainWindow!) { (modalResponse) in
-//            ()
-//        }
-
-        /*
-        guard let user: User = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User else {
-            fatalError("Wrong object type")
-        }
-        user.name = "liyi"
-        user.id = 5
-//        try! context.save()
-
-
-        let request = NSFetchRequest<NSFetchRequestResult>()
-        request.entity = NSEntityDescription.entity(forEntityName: "User", in: context)
-        let sort = NSSortDescriptor.init(key: "id", ascending: true)
-        request.sortDescriptors = [sort]
-//        let predicate = NSPredicate.init(format: "")
-//        request.predicate = predicate
-        try! context.fetch(request).forEach { (user) in
-            if let u: User = user as? User {
-                NSLog("%ld %@ %ld", u.id, u.name ?? "", u.objectID)
-            }
-        }
- */
-
-//        let fileManager = FileManager.default
-
-//        let str = try! String.init(contentsOfFile: "/etc/hosts", encoding: .utf8)
-//        NSLog("\(str)")
-
-        _ = FileManager.default
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

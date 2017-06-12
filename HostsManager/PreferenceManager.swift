@@ -17,28 +17,19 @@ class PreferenceManager {
 
     private let hostsFileMD5Key = "hostsFileMD5"
 
-    private var propertyInfo: PropertyInfo = {
+    var propertyInfo: PropertyInfo = {
         // 之后此处设置属性的 default value
         let propertyInfo = PropertyInfo.init()
         return propertyInfo
-        }(){
+        }() {
         didSet {
-            // TODO: 设置属性 如果struct的属性修改后也可以触发这个方法的话(struct是值类型, 估计可以, 待测试下), 将外露的lastmd5属性可以干掉
-        }
-    }
-
-    var lastHostsFileMD5: String? {
-        get {
-            return propertyInfo.hostsFileMD5
-        }
-        set(lastHostsFileMD5) {
-            propertyInfo.hostsFileMD5 = lastHostsFileMD5
+            // PropertyInfo 是 struct, 所以属性修改的时候 didSet 也会调用
             writeProperty()
         }
     }
 
     // 非沙箱 / 沙箱 路径不同
-    // ~/Library/Application Support/$(PRODUCT_BUNDLE_IDENTIFIER)/Preferences/filePath.plist
+    //                                                      ~/Library/Application Support/$(PRODUCT_BUNDLE_IDENTIFIER)/Preferences/filePath.plist
     // ~/Library/Containers/$(PRODUCT_BUNDLE_IDENTIFIER)/Data/Library/Application Support/$(PRODUCT_BUNDLE_IDENTIFIER)/Preferences/filePath.plist
     let preferencesDirectoryPath: String = { // 配置文件目录
         // NSLog(NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!)

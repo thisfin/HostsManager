@@ -16,9 +16,12 @@ class HostsFileManager {
     }
 
     // hosts 文件的md5
+    // http://stackoverflow.com/questions/42935148/swift-calculate-md5-checksum-for-large-files
     func fileMD5() -> String {
-        // http://stackoverflow.com/questions/42935148/swift-calculate-md5-checksum-for-large-files
         let file = try! FileHandle.init(forReadingFrom: Constants.hostsFileURL)
+        defer {
+            file.closeFile()
+        }
 
         var context = CC_MD5_CTX()
         CC_MD5_Init(&context)
@@ -44,7 +47,7 @@ class HostsFileManager {
 
     // 验证 hosts 文件的状态
     func checkHostsFile() -> FileState {
-        if let oldMD5 = PreferenceManager.sharedInstance.lastHostsFileMD5 {
+        if let oldMD5 = PreferenceManager.sharedInstance.propertyInfo.hostsFileMD5 {
             if oldMD5 == fileMD5() {
                 return .FileUnchange
             }
@@ -54,8 +57,6 @@ class HostsFileManager {
     }
 
     func writeContentToFile(content: [Group]) {
-        // 权限验证
-
         var fileContent = String.init()
         content.forEach { (group) in
             if group.selected {
@@ -66,7 +67,7 @@ class HostsFileManager {
         if fileContent.characters.count > 0 {
             try! fileContent.write(to: Constants.hostsFileURL, atomically: true, encoding: .utf8)
         }
-        PreferenceManager.sharedInstance.lastHostsFileMD5 = fileMD5()
+        PreferenceManager.sharedInstance.propertyInfo.hostsFileMD5 = fileMD5()
     }
 
     // 返回解析后的 hosts 对象, 如果之前没有被本程序写过, 则读取文件出为一个单一 group, 该 group 的 name 为空
@@ -147,6 +148,6 @@ class HostsFileManager {
 
     // 保存 hosts 文件的md5
     func saveMD5() {
-        PreferenceManager.sharedInstance.lastHostsFileMD5 = fileMD5()
+        PreferenceManager.sharedInstance.propertyInfo.hostsFileMD5 = fileMD5()
     }
 }
