@@ -20,7 +20,8 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     private var tableView: NSTableView!
     private var scrollView: NSScrollView!
-    private var hostView: HostScrollView!
+//    private var hostView: HostScrollView!
+    private var groupEditView: GroupEditView!
     private var toolView: NSView!
 
     override func loadView() { // 代码实现请务必重载此方法添加view
@@ -119,9 +120,18 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         column.resizingMask = .autoresizingMask
         tableView.addTableColumn(column)
 
-        hostView = HostScrollView()
-        view.addSubview(hostView)
-        hostView.snp.makeConstraints { (make) in
+//        hostView = HostScrollView()
+//        view.addSubview(hostView)
+//        hostView.snp.makeConstraints { (make) in
+//            make.top.equalToSuperview().offset(EditorViewController.marginWidth)
+//            make.bottom.equalToSuperview().offset(0 - EditorViewController.marginWidth)
+//            make.left.equalTo(scrollView.snp.right).offset(EditorViewController.marginWidth)
+//            make.right.equalToSuperview().offset(0 - EditorViewController.marginWidth)
+//        }
+
+        groupEditView = GroupEditView()
+        view.addSubview(groupEditView)
+        groupEditView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(EditorViewController.marginWidth)
             make.bottom.equalToSuperview().offset(0 - EditorViewController.marginWidth)
             make.left.equalTo(scrollView.snp.right).offset(EditorViewController.marginWidth)
