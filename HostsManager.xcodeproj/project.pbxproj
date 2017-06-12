@@ -477,7 +477,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FCFB1EB601438F80C885CC7F /* Pods-HostsManager.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HostsManager/HostsManager.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -496,7 +496,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98BEDC0F0CC65A5E7C7E8462 /* Pods-HostsManager.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HostsManager/HostsManager.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
