@@ -23,6 +23,10 @@ class TextVerticalRulerView: NSRulerView {
     }
 
     override func drawHashMarksAndLabels(in rect: NSRect) {
+        // backgroundColor
+        NSColor.white.set()
+        NSRectFill(rect)
+
         if let textView = clientView as? NSTextView, let layoutManager = textView.layoutManager {
             // textView 内容的高度
             // let contentHeight = layoutManager.usedRect(for: textView.textContainer!).size.height usedRect在光标位置不在尾行的时候不是全部的高度

@@ -229,6 +229,11 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 //            $0.sequence < $1.sequence
 //        }))
 //        hostView.setTableData(Mock.groups[row].hostList!)
+        let row = tableView.selectedRow
+        if row >= 0 && row < dataManager.groups.count {
+            let content = dataManager.groups[row].content
+            groupEditView.setText(text: content)
+        }
     }
 
     // MARK: - private

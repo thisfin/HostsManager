@@ -117,13 +117,13 @@ class HostsFileManager {
         let beginRegex = try! NSRegularExpression.init(pattern: "(\r\n)+|(\n)+", options: []) // 行首换行
         let endRegex = try! NSRegularExpression.init(pattern: "(\r\n)+|(\n)+$", options: []) // 行末换行
         // 去掉头部的换行符
-        if case let result = beginRegex.firstMatch(in: value, options: [], range: NSMakeRange(0, value.characters.count)), result?.range.location == 0 {
-            value = (value as NSString).replacingCharacters(in: (result?.range)!, with: "")
+        if let result = beginRegex.firstMatch(in: value, options: [], range: NSMakeRange(0, value.characters.count)), result.range.location == 0 {
+            value = (value as NSString).replacingCharacters(in: result.range, with: "")
         }
         // 去掉尾部的换行符
         endRegex.enumerateMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count), using: { (textCheckingResult, matchingFlags, b) in
-            if case let result = textCheckingResult?.range, (result?.location)! + (result?.length)! == value.characters.count {
-                value = (value as NSString).replacingCharacters(in: result!, with: "")
+            if let result = textCheckingResult?.range, result.location + result.length == value.characters.count {
+                value = (value as NSString).replacingCharacters(in: result, with: "")
             }
         })
         return value

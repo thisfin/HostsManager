@@ -185,11 +185,11 @@
 		66B2F8EA1E209415001FB418 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				66A72B631EEE967500D4C3A7 /* GroupEditView.swift */,
 				6609916E1E1CFBF9008DF493 /* GroupToolView.swift */,
 				666435881E14D3D100047EBD /* HostScrollView.swift */,
 				666435861E14B9F000047EBD /* ScrollView.swift */,
 				669720B61E1F9B0E0093DDEF /* WYView.swift */,
-				66A72B631EEE967500D4C3A7 /* GroupEditView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";

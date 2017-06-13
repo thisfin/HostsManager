@@ -15,11 +15,6 @@ class GroupEditView: NSView, NSTextViewDelegate {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
 
-        wantsLayer = true
-        layer?.backgroundColor = NSColor.orange.cgColor
-//        view.frame = NSRect(origin: .zero, size: AppDelegate.windowSize)
-
-//        let scrollView = NSScrollView(frame: CGRect(origin: .zero, size: AppDelegate.windowSize))
         let scrollView = NSScrollView(frame: CGRect(origin: .zero, size: frameRect.size))
         scrollView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         self.addSubview(scrollView)
@@ -30,16 +25,16 @@ class GroupEditView: NSView, NSTextViewDelegate {
         scrollView.rulersVisible = true
         scrollView.hasVerticalRuler = true
 
-//        textView = NSTextView(frame: CGRect(origin: .zero, size: scrollView.frame.size))
         textView = NSTextView(frame: CGRect(origin: .zero, size: frameRect.size))
         textView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         scrollView.documentView = textView
 
         textView.delegate = self
+        textView.allowsUndo = true
         textView.font = Constants.hostFont
         textView.textColor = Constants.hostFontColor
         // textView.isRulerVisible = true
-        textView.backgroundColor = .blue//.white
+        textView.backgroundColor = .white
         // textView.usesRuler = true
         textView.isEditable = true
         textView.isSelectable = true
@@ -48,8 +43,8 @@ class GroupEditView: NSView, NSTextViewDelegate {
         textView.layoutManager?.typesetter = WYTypesetter()
         //        textView.string = "1234567890hahahahahhahahahahhahahahahhahahahahhahahahahhahahahahhahahahah\n1\n2\n3\n4\n5\n6\n7\n8\n8\n8\n8"
         //        textView.string = "电风扇\n"
-        textView.string = "d中#sdf"
-        self.textDidChange(Notification.init(name: .NSTextDidChange)) // 显式调用
+//        textView.string = "d中#sdf"
+//        self.textDidChange(Notification.init(name: .NSTextDidChange)) // 显式调用
 
         // let attributedString = NSMutableAttributedString.init(string: "hello")
         // attributedString.addAttributes([NSForegroundColorAttributeName: NSColor.textColor], range: NSRange.init(location: 0, length: attributedString.length))
@@ -92,6 +87,11 @@ class GroupEditView: NSView, NSTextViewDelegate {
 
     func selectorTextDidChange(_ sender: NSTextView) {
         rulerView.needsDisplay = true // 行号渲染
+    }
+
+    func setText(text: String) {
+        textView.string = text
+        textDidChange(Notification.init(name: .NSTextDidChange)) // 显式调用
     }
 
     // MARK: - NSTextViewDelegate
