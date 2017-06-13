@@ -111,6 +111,14 @@ class HostsFileManager {
         return groups
     }
 
+    func readContentStringFromFile() -> String? {
+        let data = try! Data.init(contentsOf: Constants.hostsFileURL)
+        if let string = String.init(data: data, encoding: .utf8) {
+            return string
+        }
+        return nil
+    }
+
     // 去掉头尾的换行符
     func replaceReturn(content: String) -> String {
         var value = content
@@ -134,17 +142,6 @@ class HostsFileManager {
         case FileChange     // 用户未通过此程序对 hosts 文件进行了修改
         case FileUnchange   // 文件正常
     }
-
-//    public struct FileState: RawRepresentable {
-//        var rawValue: UInt
-//        init(rawValue: UInt) {
-//            self.rawValue = rawValue
-//        }
-//
-//        public static let neverInit = FileState.init(rawValue: 0)      // 未初始化过, 程序第一次运行
-//        public static let fileChanage = FileState.init(rawValue: 1)    // 用户未通过此程序对 hosts 文件进行了修改
-//        public static let fileUnchange = FileState.init(rawValue: 2)   // 文件正常
-//    }
 
     // 保存 hosts 文件的md5
     func saveMD5() {

@@ -65,7 +65,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             WYHelp.alertWarning(title: "文件检查", message: "\(Constants.hostsFileURL.path) 文件版本与程序中保存的不一致(可能是因为通过别的编辑器修改过), 请处理")
         case .FileUnchange:
-            HostDataManager.sharedInstance.loadFile()
             settingWindow.center()
             settingWindow.makeKeyAndOrderFront(self)
         }

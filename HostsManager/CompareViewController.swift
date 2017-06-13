@@ -77,6 +77,7 @@ class CompareViewController: NSViewController {
         leftTextView.textContainer?.heightTracksTextView = false
         leftTextView.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
         leftTextView.textContainer?.containerSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
+        leftTextView.font = Constants.hostFont
 
         rightScrollView.documentView = rightTextView
         rightScrollView.hasVerticalScroller = true
@@ -93,9 +94,13 @@ class CompareViewController: NSViewController {
         rightTextView.textContainer?.heightTracksTextView = false
         rightTextView.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
         rightTextView.textContainer?.containerSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
+        rightTextView.font = Constants.hostFont
 
-        leftTextView.string = "1234567890hahahahahhahahahahhahahahahhahahahahhahahahahhahahahahhahahahah\n1\n2\n3\n4\n5\n6\n7\n8\n8\n8\n8"
+        leftTextView.string = HostsFileManager.sharedInstance.readContentStringFromFile()
+        leftTextView.resetFontColorStyle()
+
         rightTextView.string = HostDataManager.sharedInstance.toCompareContent()
+        rightTextView.resetFontColorStyle()
     }
 
     // MARK: - private func
@@ -104,11 +109,21 @@ class CompareViewController: NSViewController {
         alert.messageText = "注意!"
         alert.informativeText = "覆盖后, 之前保存的组信息会全部清空"
         alert.alertStyle = .critical
-        alert.addButton(withTitle: "cancel")
-        alert.addButton(withTitle: "ok")
+        alert.addButton(withTitle: "取消")
+        alert.addButton(withTitle: "确定")
         alert.beginSheetModal(for: NSApp.mainWindow!) { (modalResponse) in
             switch modalResponse {
             case NSAlertSecondButtonReturn:
+                let hostsFileManager = HostsFileManager.sharedInstance
+                let groups = hostsFileManager.readContentFromFile()
+                if groups.count == 1 && groups[0].name == nil {
+                    groups[0].name = "Default"
+                }
+                let hostDataManager = HostDataManager.sharedInstance
+                hostDataManager.groups = groups
+                hostDataManager.updateGroupData()
+                PreferenceManager.sharedInstance.propertyInfo.hostsFileMD5 = hostsFileManager.fileMD5()
+
                 if let block = self.compareWindowCloseBlock {
                     block()
                 }
@@ -119,6 +134,7 @@ class CompareViewController: NSViewController {
     }
 
     func rightButtonClicked(_ sender: NSButton) {
+        HostsFileManager.sharedInstance.writeContentToFile(content: HostDataManager.sharedInstance.groups)
         if let block = self.compareWindowCloseBlock {
             block()
         }

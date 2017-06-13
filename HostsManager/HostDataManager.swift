@@ -15,6 +15,8 @@ class HostDataManager: NSObject, XMLParserDelegate {
         temp = [Group]()
         groups = temp
         super.init()
+
+        loadFile()
     }
 
     var groups: [Group]

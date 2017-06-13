@@ -49,4 +49,26 @@ extension NSTextView {
         }
         return super.performKeyEquivalent(with: event)
     }
+
+    // 注释用其他颜色做渲染 以后用子类来扩展, 用 extension 有点挫
+    func resetFontColorStyle() {
+        if let textStorage = self.textStorage {
+            let string = textStorage.string
+
+            textStorage.beginEditing()
+            textStorage.removeAttribute(NSForegroundColorAttributeName, range: NSMakeRange(0, string.characters.count))
+            textStorage.addAttribute(NSForegroundColorAttributeName, value: Constants.hostFontColor, range: NSMakeRange(0, string.characters.count))
+            textStorage.endEditing()
+
+            let regex = try! NSRegularExpression.init(pattern: "#.*$", options: [.anchorsMatchLines])
+
+            regex.enumerateMatches(in: string, options: [], range: NSRange.init(location: 0, length: string.characters.count)) { (textCheckingResult, matchingFlags, b) in
+                if let range = textCheckingResult?.range {
+                    textStorage.beginEditing()
+                    textStorage.addAttribute(NSForegroundColorAttributeName, value: Constants.hostNoteFontColor, range: range)
+                    textStorage.endEditing()
+                }
+            }
+        }
+    }
 }

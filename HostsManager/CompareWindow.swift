@@ -14,6 +14,7 @@ class CompareWindow: NSWindow, NSWindowDelegate {
         super.init(contentRect: contentRect, styleMask: style, backing: bufferingType, defer: flag)
 
         self.delegate = self
+        self.minSize = NSMakeSize(AppDelegate.windowSize.width, AppDelegate.windowSize.height + 22) // 22 是标题栏的高度
         contentViewController = CompareViewController.init()
     }
 
