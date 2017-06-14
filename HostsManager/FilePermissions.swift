@@ -14,6 +14,53 @@ class FilePermissions {
     private init() {
     }
 
+    func bookmarkCheck() {
+        NSLog("\(Constants.hostsFileURL.startAccessingSecurityScopedResource())")
+        _ = bookmarksCheck()
+//        UserDefaults.standard.removeObject(forKey: Constants.userDefaultsHostsBookmarkKey)
+
+        var isStale: Bool = false
+        if let bookmarkData = UserDefaults.standard.object(forKey: Constants.userDefaultsHostsBookmarkKey),
+            bookmarkData is Data,
+            let url = try! URL.init(resolvingBookmarkData: bookmarkData as! Data, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale) {
+                NSLog("\(url.startAccessingSecurityScopedResource())")
+                url.stopAccessingSecurityScopedResource()
+            NSLog("\(url.startAccessingSecurityScopedResource())")
+            url.stopAccessingSecurityScopedResource()
+        }
+    }
+
+    
+
+    func bookmarksCheck() -> Bool {
+        let panel = NSOpenPanel()
+        panel.directoryURL = Constants.hostsFileURL
+        panel.allowsMultipleSelection = false
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.canCreateDirectories = false
+        panel.allowedFileTypes = []
+        panel.nameFieldLabel = "title"
+        panel.message = "select file"
+
+        var result = false
+        switch panel.runModal() {
+        case NSFileHandlingPanelOKButton:
+            if let url = panel.url, url == Constants.hostsFileURL {
+                NSLog("\(Constants.hostsFileURL.path)")
+
+                let bookmarkData = try! url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+                UserDefaults.standard.set(bookmarkData, forKey: Constants.userDefaultsHostsBookmarkKey)
+                result = true
+            }
+        case NSFileHandlingPanelCancelButton:
+            NSApp.terminate(self)
+        default:
+            ()
+        }
+        return result
+    }
+
     func hostsFilePermissionsCheck() {
         let aclHelp = ACLHelp.init(url: Constants.hostsFileURL)
 

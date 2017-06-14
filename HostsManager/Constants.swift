@@ -31,8 +31,8 @@ class Constants {
 
     static let marginWidth: CGFloat = 20
 
-    static let hostsFileURL = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "etc/hosts")
-    // static let hostsFileURL = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "Users/fin/hosts")
+//    static let hostsFileURL = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "private/etc/hosts")
+     static let hostsFileURL = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "Users/wenyou/Desktop/hosts")
     static let hostsFileGroupPrefix = "# ````` "
 
     
@@ -40,4 +40,6 @@ class Constants {
     static let hostFont = NSFont(name: "PT Mono", size: Constants.hostInfoFontSize)!
     static let hostFontColor = NSColor.colorWithHexValue(0x333333)
     static let hostNoteFontColor = NSColor.brown
+
+    static let userDefaultsHostsBookmarkKey = "userDefaultsHostsBookmarkKey"
 }

@@ -21,6 +21,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // 布局约束冲突 visualizeConstraints
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
 
+        _ = FilePermissions.sharedInstance.bookmarkCheck()
+
+//        while !FilePermissions.sharedInstance.bookmarksCheck() {
+//            ()
+//        }
+
+//        NSLog("\(Constants.hostsFileURL.startAccessingSecurityScopedResource())")
+//        Constants.hostsFileURL.stopAccessingSecurityScopedResource()
+//        return
+
         // 文件权限操作
         FilePermissions.sharedInstance.hostsFilePermissionsCheck()
 
