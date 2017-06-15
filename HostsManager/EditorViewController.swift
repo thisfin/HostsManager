@@ -22,7 +22,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
     private var scrollView: NSScrollView!
 //    private var hostView: HostScrollView!
     private var groupEditView: GroupEditView!
-    private var toolView: NSView!
+    private var toolView: GroupToolView!
 
     override func loadView() { // 代码实现请务必重载此方法添加view
         view = NSView.init()
@@ -43,6 +43,23 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             make.height.equalTo(EditorViewController.toolViewHeight)
             make.bottom.equalToSuperview().offset(0 - EditorViewController.marginWidth)
             make.width.equalTo(EditorViewController.leftSideWidth)
+        }
+        toolView.addGroupBlock = {
+            self.dataManager.groups.append({
+                let group = Group.init()
+                group.name = "new Group"
+                return group
+                }())
+            self.tableView.reloadData()
+            self.tableView.selectRowIndexes(IndexSet(integer: self.dataManager.groups.count - 1), byExtendingSelection: false)
+            self.tableView.scrollRowToVisible(self.dataManager.groups.count - 1)
+        }
+        toolView.removeGroupBlock = {
+            let selectedRow = self.tableView.selectedRow
+            if selectedRow >= 0 && selectedRow < self.dataManager.groups.count {
+                self.dataManager.groups.remove(at: selectedRow)
+                self.tableView.reloadData()
+            }
         }
 
 //        let segment = NSSegmentedControl()
@@ -113,12 +130,14 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         tableView.headerView = nil
         tableView.register(forDraggedTypes: [tableViewDragTypeName])
         tableView.doubleAction = #selector(EditorViewController.doubleClicked(_:)) // 双击
-        scrollView.contentView.documentView = tableView
+
+//        tableView.allowsEmptySelection = false
 
         let column = NSTableColumn(identifier: "column")
         column.width = tableView.frame.width
         column.resizingMask = .autoresizingMask
         tableView.addTableColumn(column)
+        scrollView.contentView.documentView = tableView
 
 //        hostView = HostScrollView()
 //        view.addSubview(hostView)
@@ -138,6 +157,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             make.right.equalToSuperview().offset(0 - EditorViewController.marginWidth)
         }
 
+//        groupEditView.setText(text: nil)
         tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
     }
 
@@ -173,6 +193,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             tableView.noteNumberOfRowsChanged()
             tableView.reloadData()
         }
+        groupEditView.setText(text: nil) // 此处会 deselect, 事件别的地方无法捕获
         return true
     }
 
@@ -224,15 +245,12 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
-//        let row: Int = tableView.selectedRow
-//        hostView.setTableData((Mock.groups[row].hosts!.allObjects as! [Host]).sorted(by: {
-//            $0.sequence < $1.sequence
-//        }))
-//        hostView.setTableData(Mock.groups[row].hostList!)
         let row = tableView.selectedRow
         if row >= 0 && row < dataManager.groups.count {
             let content = dataManager.groups[row].content
             groupEditView.setText(text: content)
+        } else {
+            groupEditView.setText(text: nil)
         }
     }
 

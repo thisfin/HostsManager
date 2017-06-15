@@ -23,6 +23,9 @@ class GroupToolView: NSView {
         initSubview()
     }
 
+    var addGroupBlock: SimpleBlockNoneParameter?
+    var removeGroupBlock: SimpleBlockNoneParameter?
+
     private func initSubview() {
         let addButton = NSButton(image: NSImage(named: NSImageNameAddTemplate)!,
                                  target: self,
@@ -89,11 +92,15 @@ class GroupToolView: NSView {
     }
 
     func addButtonClicked(_ sender: NSButton) {
-        NSLog("add button")
+        if let block = addGroupBlock {
+            block()
+        }
     }
 
     func removeButtonClicked(_ sender: NSButton) {
-        NSLog("remove button")
+        if let block = removeGroupBlock {
+            block()
+        }
     }
 
     func settingButtonClicked(_ sender: NSButton) {

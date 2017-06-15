@@ -19,7 +19,7 @@ class SourceViewController: NSViewController {
         super.viewDidLoad()
 
         view.wantsLayer = true
-        view.layer?.backgroundColor = CGColor.white
+        view.layer?.backgroundColor = NSColor.colorWithHexValue(0xececec).cgColor
         view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
 
         let scrollView = NSScrollView.init()
@@ -38,7 +38,7 @@ class SourceViewController: NSViewController {
         textView.frame = NSRect.init(origin: .zero, size: textView.frame.size)
         textView.autoresizingMask = [.viewHeightSizable, .viewWidthSizable]
         textView.textContainerInset = .zero
-        textView.backgroundColor = .green
+        textView.backgroundColor = .textBackgroundColor
         textView.isEditable = false
         textView.menu = nil
         textView.isVerticallyResizable = true
@@ -47,7 +47,13 @@ class SourceViewController: NSViewController {
         textView.textContainer?.heightTracksTextView = false
         textView.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
         textView.textContainer?.containerSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
+        textView.font = Constants.hostFont
+    }
 
-        textView.string = "1234567890hahahahahhahahahahhahahahahhahahahahhahahahahhahahahahhahahahah\n1\n2\n3\n4\n5\n6\n7\n8\n8\n8\n8"
+    override func viewWillAppear() {
+        super.viewWillAppear()
+
+        textView.string = HostsFileManager.sharedInstance.readContentStringFromFile()
+        textView.resetFontColorStyle()
     }
 }

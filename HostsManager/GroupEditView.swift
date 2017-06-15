@@ -89,13 +89,19 @@ class GroupEditView: NSView, NSTextViewDelegate {
         rulerView.needsDisplay = true // 行号渲染
     }
 
-    func setText(text: String) {
-        textView.string = text
-        textDidChange(Notification.init(name: .NSTextDidChange)) // 显式调用
+    func setText(text: String?) {
+        if let t = text {
+            isHidden = false
+            textView.string = t
+            textDidChange(Notification.init(name: .NSTextDidChange)) // 显式调用
+        } else  {
+            isHidden = true
+        }
     }
 
     // MARK: - NSTextViewDelegate
     func textDidChange(_ notification: Notification) { // 注释用其他颜色做渲染
         textView.resetFontColorStyle()
+        rulerView.needsDisplay = true
     }
 }

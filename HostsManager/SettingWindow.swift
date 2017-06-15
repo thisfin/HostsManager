@@ -11,11 +11,11 @@ import WYKit
 
 class SettingWindow: NSWindow, NSToolbarDelegate {
     private let toolbarItemInfos: [ToolbarItemInfo] = [
-        ToolbarItemInfo(title: "编辑",
+        ToolbarItemInfo(title: "edit",
                         image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: EditorViewController(), identifier: "a"),
-        ToolbarItemInfo(title: "查看源文件",
+        ToolbarItemInfo(title: "hosts",
                         image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SourceViewController(), identifier: "b"),
-        ToolbarItemInfo(title: "设置",
+        ToolbarItemInfo(title: "setting",
                         image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SettingViewController(), identifier: "c")
     ]
 
@@ -24,6 +24,7 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
     override init(contentRect: NSRect, styleMask style: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: style, backing: bufferingType, defer: flag)
 
+        self.minSize = NSMakeSize(AppDelegate.windowSize.width, AppDelegate.windowSize.height + 22) // 22 是标题栏的高度
         // 设置toolbar
         toolbar = {
             let toolbar = NSToolbar(identifier: "WYToolbarIdentifier") // 默认构造函数有问题!!!
