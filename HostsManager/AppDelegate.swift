@@ -21,7 +21,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // 布局约束冲突 visualizeConstraints
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
 
-        _ = FilePermissions.sharedInstance.bookmarkCheck()
+        // 文件权限操作
+        FilePermissions.sharedInstance.hostsFilePermissionsCheck()
+
+//        _ = FilePermissions.sharedInstance.bookmarkCheck()
 
 //        while !FilePermissions.sharedInstance.bookmarksCheck() {
 //            ()
@@ -31,8 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        Constants.hostsFileURL.stopAccessingSecurityScopedResource()
 //        return
 
-        // 文件权限操作
-        FilePermissions.sharedInstance.hostsFilePermissionsCheck()
 
         // 状态栏
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)

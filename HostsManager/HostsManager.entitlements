@@ -4,19 +4,18 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
-	<key>com.apple.security.files.user-selected.read-write</key>
+	<key>com.apple.security.files.user-selected.read-write1</key>
 	<true/>
-	<key>com.apple.security.files.bookmarks.app-scope</key>
+	<key>com.apple.security.files.bookmarks.app-scope1</key>
 	<true/>
 	<key>com.apple.security.temporary-exception.apple-events</key>
 	<array>
 		<string>com.apple.terminal</string>
 	</array>
-	<key>com.apple.security.temporary-exception.files.absolute-path.read-write1</key>
+	<key>com.apple.security.temporary-exception.files.absolute-path.read-write</key>
 	<array>
-		<string>/etc/hosts1</string>
-		<string>/etc/hosts</string>
-		<string>/Users/fin/hosts1</string>
+		<string>/private/etc/hosts</string>
+		<string>/Users/wenyou/Desktop/hosts</string>
 	</array>
 </dict>
 </plist>

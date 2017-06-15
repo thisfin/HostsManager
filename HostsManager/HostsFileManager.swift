@@ -65,16 +65,16 @@ class HostsFileManager {
             }
         }
         if fileContent.characters.count > 0 {
-            var isStale: Bool = false
-            if let bookmarkData = UserDefaults.standard.object(forKey: Constants.userDefaultsHostsBookmarkKey),
-                bookmarkData is Data,
-                let url = try! URL.init(resolvingBookmarkData: bookmarkData as! Data, options: [.withSecurityScope], relativeTo: nil, bookmarkDataIsStale: &isStale) {
-                NSLog("isStale \(isStale)")
-                NSLog("\(url.startAccessingSecurityScopedResource())")
-                try! fileContent.write(to: url, atomically: true, encoding: .utf8)
-                url.stopAccessingSecurityScopedResource()
-            }
-//            try! fileContent.write(to: Constants.hostsFileURL, atomically: true, encoding: .utf8)
+//            var isStale: Bool = false
+//            if let bookmarkData = UserDefaults.standard.object(forKey: Constants.userDefaultsHostsBookmarkKey),
+//                bookmarkData is Data,
+//                let url = try! URL.init(resolvingBookmarkData: bookmarkData as! Data, options: [.withSecurityScope], relativeTo: nil, bookmarkDataIsStale: &isStale) {
+//                NSLog("isStale \(isStale)")
+//                NSLog("\(url.startAccessingSecurityScopedResource())")
+//                try! fileContent.write(to: url, atomically: false, encoding: .utf8)
+//                url.stopAccessingSecurityScopedResource()
+//            }
+            try! fileContent.write(to: Constants.hostsFileURL, atomically: false, encoding: .utf8)
         }
         PreferenceManager.sharedInstance.propertyInfo.hostsFileMD5 = fileMD5()
     }
