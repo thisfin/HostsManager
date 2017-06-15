@@ -24,17 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // 文件权限操作
         FilePermissions.sharedInstance.hostsFilePermissionsCheck()
 
-//        _ = FilePermissions.sharedInstance.bookmarkCheck()
-
-//        while !FilePermissions.sharedInstance.bookmarksCheck() {
-//            ()
-//        }
-
-//        NSLog("\(Constants.hostsFileURL.startAccessingSecurityScopedResource())")
-//        Constants.hostsFileURL.stopAccessingSecurityScopedResource()
-//        return
-
-
         // 状态栏
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         rootStatusItem.title = ""
