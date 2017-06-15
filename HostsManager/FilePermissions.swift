@@ -15,6 +15,10 @@ class FilePermissions {
     }
 
     func hostsFilePermissionsCheck() {
+        if FileManager.default.isReadableFile(atPath: Constants.hostsFileURL.path) && FileManager.default.isWritableFile(atPath: Constants.hostsFileURL.path) {
+            return
+        } // 权限校验, 下面的那个 if 已经不需要了, 但是写都写了...
+
         let aclHelp = ACLHelp.init(url: Constants.hostsFileURL)
 
         if aclHelp.checkACLPermission(userName: NSUserName(), perms: [ACL_READ_DATA, ACL_WRITE_DATA]) {
