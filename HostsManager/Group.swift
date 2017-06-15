@@ -12,7 +12,6 @@ class Group: NSObject {
     var name: String?
     var content: String = ""
     var selected: Bool = true
-
     var hosts: [Host] {
         get {
             // TODO: 根据content的内容做解析

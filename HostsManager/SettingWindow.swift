@@ -62,9 +62,9 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
     }
 
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
-        var identifiers: [String] = []
-        toolbarItemInfos.forEach { (toolbarItemInfo) in
-            identifiers.append(toolbarItemInfo.identifier)
+        // return toolbarItemInfos.map {$0.identifier}
+        let identifiers = toolbarItemInfos.map { (toolbarItemInfo) -> String in
+            return toolbarItemInfo.identifier
         }
         return identifiers
     }
