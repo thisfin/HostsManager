@@ -18,7 +18,7 @@ MacOS hosts编辑管理
 * 设置界面 50%
 * 开机自启动 ?
 * 权限 .8 > 等待迁入
-* 文件编辑状态监控 .8 >等待 迁入
+* 文件编辑状态监控 .8 >等待 迁入v
 * 配置文件io
 * hosts文件读写 50%
 * 打包
@@ -29,3 +29,14 @@ MacOS hosts编辑管理
 * edit流程搞通
 * menu host parse
 * init hosts compare
+
+* 备份
+* json
+* 边框
+* 导出
+* 底部菜单
+
+* 菜单
+* 自启动
+* 配置
+* FileWatch

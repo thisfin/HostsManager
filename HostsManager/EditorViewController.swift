@@ -8,6 +8,7 @@
 
 import AppKit
 import SnapKit
+import WYKit
 
 class EditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     private static let leftSideWidth: CGFloat = 200     // 左边列表宽度
@@ -48,6 +49,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             self.dataManager.groups.append({
                 let group = Group.init()
                 group.name = "new Group"
+                group.selected = false
                 return group
                 }())
             self.tableView.reloadData()
@@ -85,7 +87,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 //            make.width.equalTo(EditorViewController.leftSideWidth)
 //        }
 
-        scrollView = ScrollView()
+        scrollView = WYScrollView()
         scrollView.hasVerticalScroller = true
 //        scrollView.borderType = .lineBorder
         scrollView.wantsLayer = true
@@ -131,12 +133,26 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         tableView.register(forDraggedTypes: [tableViewDragTypeName])
         tableView.doubleAction = #selector(EditorViewController.doubleClicked(_:)) // 双击
 
+        
+
 //        tableView.allowsEmptySelection = false
 
-        let column = NSTableColumn(identifier: "column")
-        column.width = tableView.frame.width
-        column.resizingMask = .autoresizingMask
-        tableView.addTableColumn(column)
+        tableView.addTableColumn({
+            let column = NSTableColumn(identifier: "icon")
+            column.width = EditorViewController.cellHeight
+            return column
+            }())
+        tableView.addTableColumn({
+            let column = NSTableColumn(identifier: "name")
+            column.width = tableView.frame.width - EditorViewController.cellHeight
+            return column
+            }())
+
+//        let column = NSTableColumn(identifier: "column")
+//        column.isEditable = true
+//        column.width = tableView.frame.width
+//        column.resizingMask = .autoresizingMask
+//        tableView.addTableColumn(column)
         scrollView.contentView.documentView = tableView
 
 //        hostView = HostScrollView()
@@ -199,21 +215,71 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     // MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let subView = NSView(frame: NSMakeRect(0, 0, (tableColumn?.width)!, 40))
-        subView.addSubview({
-            let textField = NSTextField(frame: NSMakeRect(50, (subView.frame.height - 20) / 2, subView.frame.width - 20, 20))
-            textField.font = NSFont.systemFont(ofSize: 16)
-            textField.textColor = NSColor.black
-            textField.stringValue = dataManager.groups[row].name!
-            textField.isEditable = true
-            textField.isBordered = false
-            textField.isBezeled = false
-            textField.drawsBackground = false
-            textField.isSelectable = false
-            textField.backgroundColor = NSColor.clear
-            return textField
-            }())
-        return subView
+        if let identifier = tableColumn?.identifier {
+            var subView = tableView.make(withIdentifier: identifier, owner: self)
+            if subView == nil { // create
+                switch identifier {
+                case "icon":
+                    subView = NSView(frame: NSMakeRect(0, 0, (tableColumn?.width)!, EditorViewController.cellHeight))
+                    subView?.addSubview({
+                        let textField = NSTextField(frame: (subView?.frame)!)
+                        textField.cell = WYVerticalCenterTextFieldCell()
+                        textField.font = WYIconfont.fontOfSize(18)
+                        textField.stringValue = "\u{f046}"
+                        textField.isEditable = false
+                        textField.isBordered = false
+                        textField.isBezeled = false
+                        textField.drawsBackground = false
+                        textField.isSelectable = false
+                        textField.alignment = .center
+                        textField.backgroundColor = NSColor.clear
+                        return textField
+                        }())
+                case "name":
+                    subView = NSView(frame: NSMakeRect(0, 0, (tableColumn?.width)!, EditorViewController.cellHeight))
+                    subView?.addSubview({
+                        let textField = NSTextField(frame: (subView?.frame)!)
+                        textField.cell = WYVerticalCenterTextFieldCell()
+                        textField.font = NSFont.systemFont(ofSize: 16)
+                        textField.textColor = NSColor.black
+                        textField.stringValue = dataManager.groups[row].name!
+                        textField.isEditable = true
+                        textField.isBordered = false
+                        textField.isBezeled = false
+                        textField.drawsBackground = false
+                        textField.isSelectable = true
+                        textField.backgroundColor = NSColor.clear
+                        return textField
+                        }())
+                default:
+                    ()
+                }
+            }
+
+            if let view = subView, view.subviews.count > 0 {
+                switch identifier {
+                case "icon":
+                    if view.subviews[0] is NSTextField {
+                        let textField = view.subviews[0] as! NSTextField
+                        let isSelected = dataManager.groups[row].selected
+                        textField.textColor = isSelected ? NSColor.colorWithHexValue(0x00cc00) : .clear
+                    }
+                    return view
+                case "name":
+                    if view.subviews[0] is NSTextField {
+                        let textField = view.subviews[0] as! NSTextField
+                        let isSelected = dataManager.groups[row].selected
+                        textField.textColor = isSelected ? NSColor.colorWithHexValue(0x00cc00) : .black
+                        textField.font = isSelected ? NSFont.boldSystemFont(ofSize: 16) : NSFont.systemFont(ofSize: 16)
+                        textField.stringValue = dataManager.groups[row].name!
+                    }
+                    return view
+                default:
+                    ()
+                }
+            }
+        }
+        return nil
     }
 
 //    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
@@ -257,6 +323,10 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
     // MARK: - private
     func doubleClicked(_ sender: NSTableView) {
         let row: Int = sender.clickedRow
-        NSLog("%ld", row)
+        if row >= 0 && row < dataManager.groups.count {
+            let group = dataManager.groups[row]
+            group.selected = !group.selected
+            tableView.reloadData()
+        }
     }
 }

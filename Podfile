@@ -4,7 +4,7 @@ use_frameworks!
 
 def pods
     pod 'SnapKit'
-    pod 'WYKit',    :path => '~/Documents/git/WYKit'
+    pod 'WYKit',    :path => '~/Documents/work/git/WYKit'
 end
 
 target 'HostsManager' do

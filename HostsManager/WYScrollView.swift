@@ -8,7 +8,7 @@
 
 import AppKit
 
-class ScrollView: NSScrollView {
+class WYScrollView: NSScrollView {
     override func draw(_ dirtyRect: NSRect) { // 不重写不出边框...
         super.draw(dirtyRect)
     }
