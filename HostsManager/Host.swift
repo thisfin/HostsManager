@@ -15,6 +15,7 @@ class Host: NSObject {
     override init() {
         ip = ""
         domain = ""
+
         super.init()
     }
 

@@ -31,6 +31,10 @@ class HostDataManager: NSObject, XMLParserDelegate {
         if FileManager.default.fileExists(atPath: fileURL.path) {
             let data = try! Data(contentsOf: fileURL)
             readFromLocalFile(data: data)
+
+            groups.forEach({ (group) in
+                _ = group.hosts
+            })
         }
     }
 
