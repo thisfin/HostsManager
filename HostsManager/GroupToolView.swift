@@ -10,21 +10,31 @@ import AppKit
 import WYKit
 
 class GroupToolView: NSView {
+    let toolMenu: ToolMenu
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override public init(frame frameRect: NSRect) {
+        toolMenu = ToolMenu()
+
         super.init(frame: frameRect)
 
         wantsLayer = true
 //        layer?.backgroundColor = NSColor.yellow.cgColor
         layer?.addBorder(edges: [.minX, .maxX, .minY], color: Constants.colorTableBorder, thickness: 1)
         initSubview()
+
+        toolMenu.handle = self
     }
 
     var addGroupBlock: SimpleBlockNoneParameter?
     var removeGroupBlock: SimpleBlockNoneParameter?
+    var saveBlock: SimpleBlockNoneParameter?
+    var revertBlock: SimpleBlockNoneParameter?
+    var exportConfigBlock: SimpleBlockNoneParameter?
+    var importConfigBlock: SimpleBlockNoneParameter?
 
     private func initSubview() {
         let addButton = NSButton(image: NSImage(named: NSImageNameAddTemplate)!,
@@ -76,14 +86,14 @@ class GroupToolView: NSView {
             make.width.equalTo(addButton)
         }
 
-        let statusButton = NSButton(title: "生效",
+        let saveButton = NSButton(title: "应用更改",
                                     target: self,
-                                    action: #selector(GroupToolView.statusButtonClicked(_:)))
-        statusButton.setButtonType(.momentaryPushIn)
-        statusButton.bezelStyle = .smallSquare
-        statusButton.isBordered = false
-        addSubview(statusButton)
-        statusButton.snp.makeConstraints { (make) in
+                                    action: #selector(GroupToolView.saveButtonClicked(_:)))
+        saveButton.setButtonType(.momentaryPushIn)
+        saveButton.bezelStyle = .smallSquare
+        saveButton.isBordered = false
+        addSubview(saveButton)
+        saveButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
             make.left.equalTo(settingButton.snp.right)
@@ -105,11 +115,13 @@ class GroupToolView: NSView {
 
     func settingButtonClicked(_ sender: NSButton) {
         if let event = NSApplication.shared().currentEvent {
-            NSMenu.popUpContextMenu(StatusMenu(), with: event, for: sender)
+            NSMenu.popUpContextMenu(toolMenu, with: event, for: sender)
         }
     }
 
-    func statusButtonClicked(_ sender: NSButton) {
-        NSLog("status button")
+    func saveButtonClicked(_ sender: NSButton) {
+        if let block = saveBlock {
+            block()
+        }
     }
 }

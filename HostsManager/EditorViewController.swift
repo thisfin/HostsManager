@@ -63,6 +63,35 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
                 self.tableView.reloadData()
             }
         }
+        toolView.saveBlock = {
+        }
+        toolView.revertBlock = {
+            self.dataManager.loadFile()
+            self.tableView.reloadData()
+            self.tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+        }
+        toolView.exportConfigBlock = {
+            let savePanel = NSSavePanel.init()
+            savePanel.allowedFileTypes = ["xml"]
+            savePanel.nameFieldStringValue = "hosts_config_backup"
+            savePanel.showsTagField = false
+            savePanel.directoryURL = URL.init(fileURLWithPath: NSHomeDirectory(), isDirectory: true)
+            savePanel.beginSheetModal(for: self.view.window!, completionHandler: { (response) in
+                if response == NSFileHandlingPanelOKButton, let url = savePanel.url {
+                    NSLog("\(url.path)")
+                }
+            })
+        }
+        toolView.importConfigBlock = {
+            let openPanel = NSOpenPanel.init()
+            openPanel.allowedFileTypes = ["xml"]
+            openPanel.directoryURL = URL.init(fileURLWithPath: NSHomeDirectory(), isDirectory: true)
+            openPanel.beginSheetModal(for: self.view.window!, completionHandler: { (response) in
+                if response == NSFileHandlingPanelOKButton, let url = openPanel.url {
+                    NSLog("\(url.path)")
+                }
+            })
+        }
 
 //        let segment = NSSegmentedControl()
 //        let segment = NSSegmentedControl.init(frame: NSMakeRect(EditorViewController.marginWidth,

@@ -19,6 +19,7 @@
 		6641DB001EBB7333000DA74A /* CompareWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641DAFF1EBB7333000DA74A /* CompareWindow.swift */; };
 		6641DB031EBB73CC000DA74A /* CompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641DB021EBB73CC000DA74A /* CompareViewController.swift */; };
 		6641DB051EC5B04F000DA74A /* WYHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641DB041EC5B04F000DA74A /* WYHelp.swift */; };
+		666084021EF66B30000D1B9C /* ToolMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666084011EF66B30000D1B9C /* ToolMenu.swift */; };
 		6661588C1EF3D348007D650B /* WYVerticalCenterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */; };
 		666435811E13DD3D00047EBD /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435801E13DD3D00047EBD /* Host.swift */; };
 		666435831E13E45800047EBD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435821E13E45800047EBD /* Group.swift */; };
@@ -34,7 +35,6 @@
 		66C383321E11071800824982 /* StatusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383311E11071800824982 /* StatusMenu.swift */; };
 		66C383341E11282400824982 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383331E11282400824982 /* EditorViewController.swift */; };
 		66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3834E1E1250D900824982 /* SettingWindow.swift */; };
-		66C383531E1297D900824982 /* fontawesome-webfont_4.6.3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66C383521E1297D900824982 /* fontawesome-webfont_4.6.3.ttf */; };
 		66C383561E12980A00824982 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C383551E12980A00824982 /* CoreText.framework */; };
 		66C383581E12DDF000824982 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383571E12DDF000824982 /* Constants.swift */; };
 		66C3835D1E138B0200824982 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3835C1E138B0200824982 /* SourceViewController.swift */; };
@@ -63,6 +63,7 @@
 		6641DB021EBB73CC000DA74A /* CompareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareViewController.swift; sourceTree = "<group>"; };
 		6641DB041EC5B04F000DA74A /* WYHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYHelp.swift; sourceTree = "<group>"; };
 		6654654C1EB0A5E5007D8B89 /* WYKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WYKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/HostsManager-eqwlfwjfkqllmlbenogohwkyoipy/Build/Products/Debug/WYKit/WYKit.framework"; sourceTree = "<group>"; };
+		666084011EF66B30000D1B9C /* ToolMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolMenu.swift; sourceTree = "<group>"; };
 		6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYVerticalCenterTextField.swift; sourceTree = "<group>"; };
 		666435801E13DD3D00047EBD /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		666435821E13E45800047EBD /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		66C383311E11071800824982 /* StatusMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenu.swift; sourceTree = "<group>"; };
 		66C383331E11282400824982 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		66C3834E1E1250D900824982 /* SettingWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingWindow.swift; sourceTree = "<group>"; };
-		66C383521E1297D900824982 /* fontawesome-webfont_4.6.3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "fontawesome-webfont_4.6.3.ttf"; path = "Resource/fontawesome-webfont_4.6.3.ttf"; sourceTree = "<group>"; };
 		66C383551E12980A00824982 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		66C383571E12DDF000824982 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		66C3835C1E138B0200824982 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +193,7 @@
 				666435861E14B9F000047EBD /* WYScrollView.swift */,
 				6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */,
 				669720B61E1F9B0E0093DDEF /* WYView.swift */,
+				666084011EF66B30000D1B9C /* ToolMenu.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -200,7 +201,6 @@
 		66C3832E1E10F3EE00824982 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				66C383521E1297D900824982 /* fontawesome-webfont_4.6.3.ttf */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -303,7 +303,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */,
-				66C383531E1297D900824982 /* fontawesome-webfont_4.6.3.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +389,7 @@
 				66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */,
 				66A72B601EEE964B00D4C3A7 /* NSTextViewEx.swift in Sources */,
 				66C383341E11282400824982 /* EditorViewController.swift in Sources */,
+				666084021EF66B30000D1B9C /* ToolMenu.swift in Sources */,
 				6641DB001EBB7333000DA74A /* CompareWindow.swift in Sources */,
 				66308E2C1E0D14F9000EBBF0 /* AppDelegate.swift in Sources */,
 				66C383581E12DDF000824982 /* Constants.swift in Sources */,
