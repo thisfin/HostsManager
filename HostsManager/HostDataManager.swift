@@ -31,10 +31,6 @@ class HostDataManager: NSObject, XMLParserDelegate {
         if FileManager.default.fileExists(atPath: fileURL.path) {
             let data = try! Data(contentsOf: fileURL)
             readFromLocalFile(data: data)
-
-            groups.forEach({ (group) in
-                _ = group.hosts
-            })
         }
     }
 
@@ -66,10 +62,9 @@ class HostDataManager: NSObject, XMLParserDelegate {
         xmlParser.parse()
     }
 
-    // 将数据写入到本地文件
-    private func writeToLocalFile() {
+    // to xml document
+    private func toDocument() -> XMLDocument {
         let root = XMLElement.init(name: "root")
-
         groups.forEach({ (group) in
             let element = XMLElement.init(name: "group")
             element.addChild(XMLElement.init(name: "name", stringValue: group.name))
@@ -79,13 +74,24 @@ class HostDataManager: NSObject, XMLParserDelegate {
             }
             root.addChild(element)
         })
-
         let document = XMLDocument.init(rootElement: root)
         document.version = "1.0"
         document.characterEncoding = "UTF-8"
-        NSLog(document.xmlString)
+        return document
+    }
 
-        try! document.xmlData.write(to: fileURL)
+    // 将数据写入到本地文件
+    private func writeToLocalFile() {
+        let options: XMLNode.Options = [.nodePrettyPrint]
+        let document = toDocument()
+        let xmlData = document.xmlData(withOptions: Int(options.rawValue))
+        try! xmlData.write(to: fileURL)
+    }
+
+    func toXMLString() -> String {
+        let options: XMLNode.Options = [.nodePrettyPrint]
+        let document = toDocument()
+        return document.xmlString(withOptions: Int(options.rawValue))
     }
 
     // MARK: - XMLParserDelegate

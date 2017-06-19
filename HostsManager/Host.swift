@@ -26,8 +26,7 @@ class Host: NSObject {
         self.domain = domain
     }
 
-    func a() {
-        let a = self.dictionaryWithValues(forKeys: allKeys())
-        NSLog("%@", a)
+    func toString() -> String {
+        return "\(self.dictionaryWithValues(forKeys: allKeys()))"
     }
 }

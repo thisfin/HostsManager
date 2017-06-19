@@ -8,36 +8,33 @@
 
 import Foundation
 
-class Group: NSObject {
+class Group {
     var name: String?
     var content: String = ""
     var selected: Bool = true
     var hosts: [Host] {
         get {
-            let hosts = [Host]()
-
-            let regex = try! NSRegularExpression.init(pattern: "^[^#]*", options: [.anchorsMatchLines])
-            let lineRegex = try! NSRegularExpression.init(pattern: "\\s+", options: [.anchorsMatchLines])
-
-            NSLog("\(content)")
+            var hosts = [Host]()
+            let regex = try! NSRegularExpression.init(pattern: "^[^#\r\n]*", options: [.anchorsMatchLines])
+            let lineRegex = try! NSRegularExpression.init(pattern: "[^\\s]+", options: [.anchorsMatchLines])
+            // parse line
             regex.enumerateMatches(in: content, options: [], range: NSRange.init(location: 0, length: content.characters.count)) { (textCheckingResult, matchingFlags, b) in
                 if let range = textCheckingResult?.range {
-                    var s = (content as NSString).substring(with: range)
-                    s = s.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                    let textCheckingResults = lineRegex.matches(in: s as String, options: [], range: NSRange.init(location: 0, length: s.characters.count))
-                    NSLog("\(textCheckingResults.count)")
-
-
+                    var line = (content as NSString).substring(with: range)
+                    line = line.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    // parse space
+                    let textCheckingResults = lineRegex.matches(in: line, options: [], range: NSRange.init(location: 0, length: line.characters.count))
+                    if textCheckingResults.count >= 2 {
+                        let ip = (line as NSString).substring(with: textCheckingResults[0].range)
+                        for i in 1 ..< textCheckingResults.count {
+                            let domain = (line as NSString).substring(with: textCheckingResults[i].range)
+                            let host = Host(ip: ip, domain: domain)
+                            hosts.append(host)
+                        }
+                    }
                 }
             }
-
-            // TODO: 根据content的内容做解析
             return hosts
         }
-    }
-
-    func a() {
-        let a = self.dictionaryWithValues(forKeys: allKeys())
-        NSLog("%@", a)
     }
 }
