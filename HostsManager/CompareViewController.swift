@@ -122,7 +122,7 @@ class CompareViewController: NSViewController {
                 let hostDataManager = HostDataManager.sharedInstance
                 hostDataManager.groups = groups
                 hostDataManager.updateGroupData()
-                PreferenceManager.sharedInstance.propertyInfo.hostsFileMD5 = hostsFileManager.fileMD5()
+                hostsFileManager.saveMD5()
 
                 if let block = self.compareWindowCloseBlock {
                     block()

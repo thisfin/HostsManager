@@ -46,6 +46,12 @@ class StatusMenu: NSMenu {
 
         addItem(NSMenuItem.separator())
 
+        HostDataManager.sharedInstance.groups.forEach { (group) in
+            ()
+        }
+
+        addItem(NSMenuItem.separator())
+
         let quitMenuItem = NSMenuItem()
         quitMenuItem.title = "Quit HostsManager"
         quitMenuItem.target = self

@@ -11,6 +11,7 @@ import AppKit
 class GroupEditView: NSView, NSTextViewDelegate {
     var rulerView: TextVerticalRulerView!
     var textView: NSTextView!
+    var index: Int?
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -89,7 +90,8 @@ class GroupEditView: NSView, NSTextViewDelegate {
         rulerView.needsDisplay = true // 行号渲染
     }
 
-    func setText(text: String?) {
+    func setText(text: String?, index: Int? = nil) {
+        self.index = index
         if let t = text {
             isHidden = false
             textView.string = t
@@ -103,5 +105,9 @@ class GroupEditView: NSView, NSTextViewDelegate {
     func textDidChange(_ notification: Notification) { // 注释用其他颜色做渲染
         textView.resetFontColorStyle()
         rulerView.needsDisplay = true
+        if let row = index, let value = textView.string {
+            let group = HostDataManager.sharedInstance.groups[row]
+            group.content = value
+        }
     }
 }

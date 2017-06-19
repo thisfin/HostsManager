@@ -10,7 +10,7 @@ import AppKit
 import SnapKit
 import WYKit
 
-class EditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class EditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
     private static let leftSideWidth: CGFloat = 200     // 左边列表宽度
     private static let marginWidth: CGFloat = 20        // 边距
     private static let toolViewHeight: CGFloat = 25     // 工具条高度
@@ -21,7 +21,6 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     private var tableView: NSTableView!
     private var scrollView: NSScrollView!
-//    private var hostView: HostScrollView!
     private var groupEditView: GroupEditView!
     private var toolView: GroupToolView!
 
@@ -31,7 +30,6 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.preferredContentSize = AppDelegate.windowSize
 
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.colorWithHexValue(0xececec).cgColor
@@ -46,24 +44,48 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             make.width.equalTo(EditorViewController.leftSideWidth)
         }
         toolView.addGroupBlock = {
-            self.dataManager.groups.append({
+            let newGroup: Group = {
                 let group = Group.init()
                 group.name = "new Group"
                 group.selected = false
+                group.content = {
+                    var str = ""
+                    str += "127.0.0.1 localhost\n"
+                    str += "255.255.255.255 broadcasthost\n"
+                    str += "::1 localhost\n"
+                    return str
+                }()
                 return group
-                }())
+            }()
+
+            var selectedRow = self.tableView.selectedRow
+            if selectedRow >= 0 && selectedRow < self.dataManager.groups.count {
+                selectedRow += 1
+                self.dataManager.groups.insert(newGroup, at: selectedRow)
+            } else {
+                self.dataManager.groups.append(newGroup)
+                selectedRow = self.dataManager.groups.count - 1
+            }
             self.tableView.reloadData()
-            self.tableView.selectRowIndexes(IndexSet(integer: self.dataManager.groups.count - 1), byExtendingSelection: false)
-            self.tableView.scrollRowToVisible(self.dataManager.groups.count - 1)
+            self.tableView.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
+            self.tableView.scrollRowToVisible(selectedRow)
         }
         toolView.removeGroupBlock = {
             let selectedRow = self.tableView.selectedRow
             if selectedRow >= 0 && selectedRow < self.dataManager.groups.count {
                 self.dataManager.groups.remove(at: selectedRow)
                 self.tableView.reloadData()
+                self.groupEditView.setText(text: nil)
             }
         }
         toolView.saveBlock = {
+            self.dataManager.updateGroupData()
+            HostsFileManager.sharedInstance.writeContentToFile(content: self.dataManager.groups)
+            let alert = NSAlert.init()
+            alert.messageText = "保存成功"
+            alert.informativeText = "所有修改已经同步至 hosts 文件"
+            alert.alertStyle = .critical
+            alert.beginSheetModal(for: NSApp.mainWindow!, completionHandler: nil)
         }
         toolView.revertBlock = {
             self.dataManager.loadFile()
@@ -78,7 +100,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             savePanel.directoryURL = URL.init(fileURLWithPath: NSHomeDirectory(), isDirectory: true)
             savePanel.beginSheetModal(for: self.view.window!, completionHandler: { (response) in
                 if response == NSFileHandlingPanelOKButton, let url = savePanel.url {
-                    NSLog("\(url.path)")
+                    self.dataManager.exportXMLData(url: url)
                 }
             })
         }
@@ -88,70 +110,27 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             openPanel.directoryURL = URL.init(fileURLWithPath: NSHomeDirectory(), isDirectory: true)
             openPanel.beginSheetModal(for: self.view.window!, completionHandler: { (response) in
                 if response == NSFileHandlingPanelOKButton, let url = openPanel.url {
-                    NSLog("\(url.path)")
+                    self.dataManager.importXMLData(url: url)
+                    self.tableView.reloadData()
+                    self.tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
                 }
             })
         }
 
-//        let segment = NSSegmentedControl()
-//        let segment = NSSegmentedControl.init(frame: NSMakeRect(EditorViewController.marginWidth,
-//                                                                EditorViewController.marginWidth,
-//                                                                EditorViewController.leftSideWidth,
-//                                                                EditorViewController.toolViewHeight))
-//        segment.segmentStyle = .smallSquare
-//        segment.trackingMode = .momentaryAccelerator
-//        segment.segmentCount = 3
-//        segment.setImage(NSImage(named: NSImageNameAddTemplate), forSegment: 0)
-//        segment.setImageScaling(.scaleNone, forSegment: 0)
-//        segment.setImage(NSImage(named: NSImageNameRemoveTemplate), forSegment: 0)
-//        segment.setImageScaling(.scaleNone, forSegment: 0)
-//        segment.setWidth(0, forSegment: 2)
-//        view.addSubview(segment)
-//
-//        segment.snp.makeConstraints { (make) in
-//            make.left.equalToSuperview().offset(EditorViewController.marginWidth)
-//            //            make.top.equalTo(scrollView.snp_bottomMargin)
-//            make.height.equalTo(EditorViewController.toolViewHeight)
-//            make.bottom.equalToSuperview().offset(0 - EditorViewController.marginWidth)
-//            make.width.equalTo(EditorViewController.leftSideWidth)
-//        }
-
         scrollView = WYScrollView()
         scrollView.hasVerticalScroller = true
-//        scrollView.borderType = .lineBorder
+        // scrollView.borderType = .lineBorder
         scrollView.wantsLayer = true
         scrollView.layer?.masksToBounds = true
         scrollView.layer?.borderWidth = 1
         scrollView.layer?.borderColor = Constants.colorTableBorder.cgColor
         view.addSubview(scrollView)
-
         scrollView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(EditorViewController.marginWidth)
             make.bottom.equalTo(toolView.snp.top)
             make.left.equalTo(toolView)
             make.width.equalTo(toolView)
         }
-
-
-
-
-
-//        let addButton = NSButton.init(frame: NSMakeRect(EditorViewController.marginWidth,
-//                                                        EditorViewController.marginWidth - 1,
-//                                                        EditorViewController.leftSideWidth,
-//                                                        EditorViewController.toolViewHeight + 2))
-//        addButton.title = "+"
-//        //        addButton.font = WYIconfont.fontOfSize(14)
-//        addButton.font = NSFont.systemFont(ofSize: 16)
-//        addButton.alignment = .center
-//        view.addSubview(addButton)
-
-        //        addButton.layer?.borderWidth = 1
-        //        addButton.layer?.borderColor = Constants.colorTableBorder.cgColor
-        //        addButton.wantsLayer = false
-        //        addButton.layer?.backgroundColor = NSColor.blue.cgColor
-//        addButton.setButtonType(.momentaryPushIn)
-//        addButton.bezelStyle = .smallSquare
 
         tableView = NSTableView(frame: NSRect(origin: NSPoint.zero, size: scrollView.frame.size))
         tableView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
@@ -161,11 +140,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         tableView.headerView = nil
         tableView.register(forDraggedTypes: [tableViewDragTypeName])
         tableView.doubleAction = #selector(EditorViewController.doubleClicked(_:)) // 双击
-
-        
-
-//        tableView.allowsEmptySelection = false
-
+        // tableView.allowsEmptySelection = false
         tableView.addTableColumn({
             let column = NSTableColumn(identifier: "icon")
             column.width = EditorViewController.cellHeight
@@ -176,12 +151,6 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             column.width = tableView.frame.width - EditorViewController.cellHeight
             return column
             }())
-
-//        let column = NSTableColumn(identifier: "column")
-//        column.isEditable = true
-//        column.width = tableView.frame.width
-//        column.resizingMask = .autoresizingMask
-//        tableView.addTableColumn(column)
         scrollView.contentView.documentView = tableView
 
 //        hostView = HostScrollView()
@@ -278,6 +247,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
                         textField.drawsBackground = false
                         textField.isSelectable = true
                         textField.backgroundColor = NSColor.clear
+                        textField.delegate = self
                         return textField
                         }())
                 default:
@@ -301,6 +271,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
                         textField.textColor = isSelected ? NSColor.colorWithHexValue(0x00cc00) : .black
                         textField.font = isSelected ? NSFont.boldSystemFont(ofSize: 16) : NSFont.systemFont(ofSize: 16)
                         textField.stringValue = dataManager.groups[row].name!
+                        textField.tag = row
                     }
                     return view
                 default:
@@ -310,26 +281,6 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         }
         return nil
     }
-
-//    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-//        let rowView = NSTableRowView(frame: NSRect(x: 0, y: 0, width: 150, height: 50))
-//        rowView.backgroundColor = NSColor.red// row % 2 == 0 ? NSColor.white : NSColor.colorWithHexValue(0xf5f5f5)
-////        rowView.addSubview({
-////            let textField = NSTextField(frame: view.frame)
-////            textField.textColor = NSColor.black
-////            textField.stringValue = Mock.groups[row].name!
-////            textField.isEditable = false
-////            textField.isBordered = false
-////
-////            textField.isBezeled = false
-////            textField.drawsBackground = false
-////            textField.isSelectable = false
-////
-////            //            textField.backgroundColor = NSColor.clear
-////            return textField
-////            }())
-//        return rowView
-//    }
 
     func tableView(_ tableView: NSTableView, didAdd rowView: NSTableRowView, forRow row: Int) {
         rowView.backgroundColor = row % 2 == 0 ? Constants.colorTableBackgroundLight : Constants.colorTableBackground
@@ -343,10 +294,19 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         let row = tableView.selectedRow
         if row >= 0 && row < dataManager.groups.count {
             let content = dataManager.groups[row].content
-            groupEditView.setText(text: content)
+            groupEditView.setText(text: content, index: row)
         } else {
             groupEditView.setText(text: nil)
         }
+    }
+
+    // MARK: - NSTextFieldDelegate
+    func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        if let string = fieldEditor.string {
+            let group = dataManager.groups[control.tag]
+            group.name = string
+        }
+        return true
     }
 
     // MARK: - private

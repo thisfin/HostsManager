@@ -28,10 +28,7 @@ class HostDataManager: NSObject, XMLParserDelegate {
     // MARK: - unprivate func
     // 读取数据
     func loadFile() {
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            let data = try! Data(contentsOf: fileURL)
-            readFromLocalFile(data: data)
-        }
+        importXMLData(url: fileURL)
     }
 
     // 数据更新处理
@@ -52,6 +49,26 @@ class HostDataManager: NSObject, XMLParserDelegate {
             result.append("\(content)\n\n")
         }
         return result
+    }
+
+    func toXMLString() -> String {
+        let options: XMLNode.Options = [.nodePrettyPrint]
+        let document = toDocument()
+        return document.xmlString(withOptions: Int(options.rawValue))
+    }
+
+    func exportXMLData(url: URL) {
+        let options: XMLNode.Options = [.nodePrettyPrint]
+        let document = toDocument()
+        let xmlData = document.xmlData(withOptions: Int(options.rawValue))
+        try! xmlData.write(to: url)
+    }
+
+    func importXMLData(url: URL) {
+        if FileManager.default.fileExists(atPath: url.path) {
+            let data = try! Data(contentsOf: url)
+            readFromLocalFile(data: data)
+        }
     }
 
     // MARK: - private func
@@ -86,12 +103,6 @@ class HostDataManager: NSObject, XMLParserDelegate {
         let document = toDocument()
         let xmlData = document.xmlData(withOptions: Int(options.rawValue))
         try! xmlData.write(to: fileURL)
-    }
-
-    func toXMLString() -> String {
-        let options: XMLNode.Options = [.nodePrettyPrint]
-        let document = toDocument()
-        return document.xmlString(withOptions: Int(options.rawValue))
     }
 
     // MARK: - XMLParserDelegate

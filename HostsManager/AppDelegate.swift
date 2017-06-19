@@ -43,8 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let hostDataManager = HostDataManager.sharedInstance
             hostDataManager.groups = groups
             hostDataManager.updateGroupData()
-            // 更新 hosts 文件 md5
-            PreferenceManager.sharedInstance.propertyInfo.hostsFileMD5 = hostsFileManager.fileMD5()
+            hostsFileManager.saveMD5()
 
             settingWindow.center()
             settingWindow.makeKeyAndOrderFront(self)
