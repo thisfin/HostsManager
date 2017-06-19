@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		302B4F0B1EDE9846002352CC /* WYFileWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B4F091EDE9846002352CC /* WYFileWatch.swift */; };
-		660991661E1B4978008DF493 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660991651E1B4978008DF493 /* CoreData.framework */; };
 		6609916F1E1CFBF9008DF493 /* GroupToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6609916E1E1CFBF9008DF493 /* GroupToolView.swift */; };
 		662D1C1B1EB831E1008D2B4D /* HostDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */; };
 		662D1C1D1EB836BB008D2B4D /* HostsFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */; };
@@ -20,6 +19,12 @@
 		6641DB031EBB73CC000DA74A /* CompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641DB021EBB73CC000DA74A /* CompareViewController.swift */; };
 		6641DB051EC5B04F000DA74A /* WYHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641DB041EC5B04F000DA74A /* WYHelp.swift */; };
 		666084021EF66B30000D1B9C /* ToolMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666084011EF66B30000D1B9C /* ToolMenu.swift */; };
+		6660841D1EF818A8000D1B9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660841C1EF818A8000D1B9C /* AppDelegate.swift */; };
+		6660841F1EF818A8000D1B9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660841E1EF818A8000D1B9C /* ViewController.swift */; };
+		666084211EF818A8000D1B9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 666084201EF818A8000D1B9C /* Assets.xcassets */; };
+		6660842A1EF81A3C000D1B9C /* HostsManagerHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6660841A1EF818A8000D1B9C /* HostsManagerHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6660842D1EF82244000D1B9C /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660842C1EF82244000D1B9C /* Application.swift */; };
+		666084301EF826E4000D1B9C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6660842E1EF826C4000D1B9C /* ServiceManagement.framework */; };
 		6661588C1EF3D348007D650B /* WYVerticalCenterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */; };
 		666435811E13DD3D00047EBD /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435801E13DD3D00047EBD /* Host.swift */; };
 		666435831E13E45800047EBD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435821E13E45800047EBD /* Group.swift */; };
@@ -45,6 +50,19 @@
 		993CF837A4E8F6AD11CC295C /* Pods_HostsManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50B083621E7C5CDBAA5A741 /* Pods_HostsManager.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		666084291EF819EC000D1B9C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				6660842A1EF81A3C000D1B9C /* HostsManagerHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		302B4F091EDE9846002352CC /* WYFileWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYFileWatch.swift; sourceTree = "<group>"; };
 		660991651E1B4978008DF493 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -64,6 +82,14 @@
 		6641DB041EC5B04F000DA74A /* WYHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYHelp.swift; sourceTree = "<group>"; };
 		6654654C1EB0A5E5007D8B89 /* WYKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WYKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/HostsManager-eqwlfwjfkqllmlbenogohwkyoipy/Build/Products/Debug/WYKit/WYKit.framework"; sourceTree = "<group>"; };
 		666084011EF66B30000D1B9C /* ToolMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolMenu.swift; sourceTree = "<group>"; };
+		6660841A1EF818A8000D1B9C /* HostsManagerHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HostsManagerHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6660841C1EF818A8000D1B9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6660841E1EF818A8000D1B9C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		666084201EF818A8000D1B9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		666084251EF818A8000D1B9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6660842B1EF81A9B000D1B9C /* HostsManagerHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HostsManagerHelper.entitlements; sourceTree = "<group>"; };
+		6660842C1EF82244000D1B9C /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		6660842E1EF826C4000D1B9C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYVerticalCenterTextField.swift; sourceTree = "<group>"; };
 		666435801E13DD3D00047EBD /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		666435821E13E45800047EBD /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -96,9 +122,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				660991661E1B4978008DF493 /* CoreData.framework in Frameworks */,
+				666084301EF826E4000D1B9C /* ServiceManagement.framework in Frameworks */,
 				66C383561E12980A00824982 /* CoreText.framework in Frameworks */,
 				993CF837A4E8F6AD11CC295C /* Pods_HostsManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		666084171EF818A8000D1B9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				66308E2A1E0D14F9000EBBF0 /* HostsManager */,
+				6660841B1EF818A8000D1B9C /* HostsManagerHelper */,
 				66308E291E0D14F9000EBBF0 /* Products */,
 				66C383541E12980A00824982 /* Frameworks */,
 				B48E8CD069E5841DDA479E19 /* Pods */,
@@ -119,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				66308E281E0D14F9000EBBF0 /* HostsManager.app */,
+				6660841A1EF818A8000D1B9C /* HostsManagerHelper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,6 +193,19 @@
 				66C3834E1E1250D900824982 /* SettingWindow.swift */,
 			);
 			name = window;
+			sourceTree = "<group>";
+		};
+		6660841B1EF818A8000D1B9C /* HostsManagerHelper */ = {
+			isa = PBXGroup;
+			children = (
+				6660842B1EF81A9B000D1B9C /* HostsManagerHelper.entitlements */,
+				666084251EF818A8000D1B9C /* Info.plist */,
+				6660841C1EF818A8000D1B9C /* AppDelegate.swift */,
+				6660842C1EF82244000D1B9C /* Application.swift */,
+				6660841E1EF818A8000D1B9C /* ViewController.swift */,
+				666084201EF818A8000D1B9C /* Assets.xcassets */,
+			);
+			path = HostsManagerHelper;
 			sourceTree = "<group>";
 		};
 		6664357F1E13DD2300047EBD /* Data */ = {
@@ -208,6 +256,7 @@
 		66C383541E12980A00824982 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6660842E1EF826C4000D1B9C /* ServiceManagement.framework */,
 				6654654C1EB0A5E5007D8B89 /* WYKit.framework */,
 				660991651E1B4978008DF493 /* CoreData.framework */,
 				66C383551E12980A00824982 /* CoreText.framework */,
@@ -247,6 +296,7 @@
 				66308E261E0D14F9000EBBF0 /* Resources */,
 				F729C8C13114B487346E986C /* [CP] Embed Pods Frameworks */,
 				C2A8CDA1D08CE1F6897C6295 /* [CP] Copy Pods Resources */,
+				666084291EF819EC000D1B9C /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -257,13 +307,30 @@
 			productReference = 66308E281E0D14F9000EBBF0 /* HostsManager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		666084191EF818A8000D1B9C /* HostsManagerHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 666084261EF818A8000D1B9C /* Build configuration list for PBXNativeTarget "HostsManagerHelper" */;
+			buildPhases = (
+				666084161EF818A8000D1B9C /* Sources */,
+				666084171EF818A8000D1B9C /* Frameworks */,
+				666084181EF818A8000D1B9C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HostsManagerHelper;
+			productName = HostsManagerHelper;
+			productReference = 6660841A1EF818A8000D1B9C /* HostsManagerHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		66308E201E0D14F9000EBBF0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = wenyou;
 				TargetAttributes = {
@@ -272,6 +339,19 @@
 						DevelopmentTeam = CY25956VB2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+					666084191EF818A8000D1B9C = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = CY25956VB2;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -293,6 +373,7 @@
 			projectRoot = "";
 			targets = (
 				66308E271E0D14F9000EBBF0 /* HostsManager */,
+				666084191EF818A8000D1B9C /* HostsManagerHelper */,
 			);
 		};
 /* End PBXProject section */
@@ -303,6 +384,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		666084181EF818A8000D1B9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				666084211EF818A8000D1B9C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +482,16 @@
 				6641DB001EBB7333000DA74A /* CompareWindow.swift in Sources */,
 				66308E2C1E0D14F9000EBBF0 /* AppDelegate.swift in Sources */,
 				66C383581E12DDF000824982 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		666084161EF818A8000D1B9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6660842D1EF82244000D1B9C /* Application.swift in Sources */,
+				6660841F1EF818A8000D1B9C /* ViewController.swift in Sources */,
+				6660841D1EF818A8000D1B9C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +602,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = win.sourcecode.HostsManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "HostsManager/HostsManager-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -522,7 +622,46 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = win.sourcecode.HostsManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "HostsManager/HostsManager-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		666084271EF818A8000D1B9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = HostsManagerHelper/HostsManagerHelper.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = CY25956VB2;
+				INFOPLIST_FILE = HostsManagerHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = win.sourcecode.HostsManagerHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		666084281EF818A8000D1B9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = HostsManagerHelper/HostsManagerHelper.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = CY25956VB2;
+				INFOPLIST_FILE = HostsManagerHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = win.sourcecode.HostsManagerHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -547,6 +686,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		666084261EF818A8000D1B9C /* Build configuration list for PBXNativeTarget "HostsManagerHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				666084271EF818A8000D1B9C /* Debug */,
+				666084281EF818A8000D1B9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

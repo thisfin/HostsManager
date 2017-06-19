@@ -49,8 +49,7 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
                 group.name = "new Group"
                 group.selected = false
                 group.content = {
-                    var str = ""
-                    str += "127.0.0.1 localhost\n"
+                    var str = "127.0.0.1 localhost\n"
                     str += "255.255.255.255 broadcasthost\n"
                     str += "::1 localhost\n"
                     return str
