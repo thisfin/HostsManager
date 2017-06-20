@@ -5,7 +5,7 @@ MacOS hosts编辑管理
 
 * linenumber
 * 自启动  待测试
-* 右上菜单及浮动  notification & 联动
+* 右上菜单及浮动  notification
 * 配置界面 启动, 更新确认, 状态栏图标
 * 程序菜单
 * touch bar

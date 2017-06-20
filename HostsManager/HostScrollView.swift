@@ -177,6 +177,7 @@ class HostScrollView: WYScrollView, NSTableViewDataSource, NSTableViewDelegate {
                 }).forEach({ (t) in
                     (t as! NSTextField).isEditable = true
                     self.window?.makeFirstResponder(t)
+                    return
                 })
             }
         }

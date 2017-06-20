@@ -9,7 +9,6 @@
 import AppKit
 
 class StatusMenu: NSMenu, NSMenuDelegate {
-    var testMenuItem: NSMenuItem!
     weak var statusItem: NSStatusItem?
 
     var popover: NSPopover = {
@@ -37,7 +36,7 @@ class StatusMenu: NSMenu, NSMenuDelegate {
     func addDefaultItem() {
         addItem(NSMenuItem.separator())
         addItem({
-            let menuItem = NSMenuItem.init(title: "Preferences...", action: #selector(StatusMenu.settingClicked(_:)), keyEquivalent: "")
+            let menuItem = NSMenuItem.init(title: "Preferences", action: #selector(StatusMenu.settingClicked(_:)), keyEquivalent: "")
             menuItem.target = self
             return menuItem
             }())
@@ -64,8 +63,15 @@ class StatusMenu: NSMenu, NSMenuDelegate {
         NSApplication.shared().terminate(self)
     }
 
-    func settingClicked(_ sender: NSMenuItem) {
-        // TODO: - 唤起 window
+    func settingClicked(_ sender: NSMenuItem) { // 唤起 window 切换至 setting controller
+        NSRunningApplication.current().activate(options: [.activateIgnoringOtherApps])
+        NSApp.windows.forEach { (window) in
+            if let win = window as? SettingWindow {
+                win.toolbarItemSelected(identifier: .setting)
+                win.makeKeyAndOrderFront(self)
+                return
+            }
+        }
     }
 
     func groupClicked(_ sender: NSMenuItem) {
@@ -78,7 +84,7 @@ class StatusMenu: NSMenu, NSMenuDelegate {
     }
 
     // MARK: - NSMenuDelegate
-    func menuWillOpen(_ menu: NSMenu) {
+    func menuWillOpen(_ menu: NSMenu) { // 开启时初始化 menu
         removeAllItems()
 
         let dataManager = HostDataManager.sharedInstance
@@ -98,13 +104,13 @@ class StatusMenu: NSMenu, NSMenuDelegate {
         addDefaultItem()
     }
 
-    func menuDidClose(_ menu: NSMenu) {
+    func menuDidClose(_ menu: NSMenu) { // 关闭时关闭浮层
         if popover.isShown {
             popover.performClose(nil)
         }
     }
 
-    func menu(_ menu: NSMenu, willHighlight item: NSMenuItem?) {
+    func menu(_ menu: NSMenu, willHighlight item: NSMenuItem?) { // 鼠标浮动变更时改变浮层显示内容
         if let menuItem = item, menuItem.tag >= 100, let button = statusItem?.button {
             let group = HostDataManager.sharedInstance.groups[(menuItem.tag - 100)]
             var string = ""
@@ -115,9 +121,9 @@ class StatusMenu: NSMenu, NSMenuDelegate {
             if !popover.isShown {
                 popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minX)
             }
-            // 此行代码放在下边是因为第一次时, viewWillApper 之前调用 fittingSize, 结果不对
-            if let controller = popover.contentViewController, controller is PopoverViewController {
-                (controller as! PopoverViewController).setText(string: string)
+            // 此行代码放在下边是因为第一次时, controller viewWillApper 之前调用 fittingSize 返回结果不对
+            if let controller = popover.contentViewController as? PopoverViewController {
+                controller.setText(string: string)
             }
         } else {
             if popover.isShown {

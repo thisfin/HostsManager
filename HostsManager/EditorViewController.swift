@@ -257,15 +257,13 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             if let view = subView, view.subviews.count > 0 {
                 switch identifier {
                 case "icon":
-                    if view.subviews[0] is NSTextField {
-                        let textField = view.subviews[0] as! NSTextField
+                    if let textField = view.subviews[0] as? NSTextField {
                         let isSelected = dataManager.groups[row].selected
                         textField.textColor = isSelected ? NSColor.colorWithHexValue(0x00cc00) : .clear
                     }
                     return view
                 case "name":
-                    if view.subviews[0] is NSTextField {
-                        let textField = view.subviews[0] as! NSTextField
+                    if let textField = view.subviews[0] as? NSTextField {
                         let isSelected = dataManager.groups[row].selected
                         textField.textColor = isSelected ? NSColor.colorWithHexValue(0x00cc00) : .black
                         textField.font = isSelected ? NSFont.boldSystemFont(ofSize: 16) : NSFont.systemFont(ofSize: 16)

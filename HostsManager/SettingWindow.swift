@@ -10,20 +10,27 @@ import AppKit
 import WYKit
 
 class SettingWindow: NSWindow, NSToolbarDelegate {
+    enum SettingWindowViewControllerIdentifier: String {
+        case edit, hosts, setting
+    }
+
     private let toolbarItemInfos: [ToolbarItemInfo] = [
-        ToolbarItemInfo(title: "edit",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: EditorViewController(), identifier: "a"),
-        ToolbarItemInfo(title: "hosts",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SourceViewController(), identifier: "b"),
-        ToolbarItemInfo(title: "setting",
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SettingViewController(), identifier: "c")
-    ]
+        ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.edit.rawValue,
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: EditorViewController(),
+                        identifier: SettingWindowViewControllerIdentifier.edit.rawValue),
+        ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.hosts.rawValue,
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SourceViewController(),
+                        identifier: SettingWindowViewControllerIdentifier.hosts.rawValue),
+        ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.setting.rawValue,
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SettingViewController(),
+                        identifier: SettingWindowViewControllerIdentifier.setting.rawValue)]
 
     private var nowShowItemIdentifier: String = ""
 
     override init(contentRect: NSRect, styleMask style: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: style, backing: bufferingType, defer: flag)
 
+        self.isReleasedWhenClosed = false
         self.minSize = NSMakeSize(AppDelegate.windowSize.width, AppDelegate.windowSize.height + 22) // 22 是标题栏的高度
         // 设置toolbar
         toolbar = {
@@ -36,8 +43,7 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
             return toolbar
         }()
         // 设置默认值
-        toolbar?.selectedItemIdentifier = toolbarItemInfos[0].identifier
-        itemSelected(selectedItemIdentifier: toolbarItemInfos[0].identifier)
+        toolbarItemSelected(identifier: .edit)
     }
 
     // MARK: - NSToolbarDelegate
@@ -78,11 +84,16 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
         return toolbarDefaultItemIdentifiers(toolbar)
     }
 
-    // MARK: - private
+    func toolbarItemSelected(identifier: SettingWindowViewControllerIdentifier) {
+        toolbar?.selectedItemIdentifier = identifier.rawValue
+        itemSelected(selectedItemIdentifier: identifier.rawValue)
+    }
+
     func toolbarItemSelected(_ sender: NSToolbarItem) {
         itemSelected(selectedItemIdentifier: sender.itemIdentifier)
     }
 
+    // MARK: - private
     private func itemSelected(selectedItemIdentifier: String) {
         if nowShowItemIdentifier == selectedItemIdentifier {
             return

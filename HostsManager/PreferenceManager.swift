@@ -35,7 +35,7 @@ class PreferenceManager {
         // NSLog(NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!)
         // NSLog(FileManager.default.homeDirectoryForCurrentUser.absoluteString)
         let infoDictionary = Bundle.main.infoDictionary
-        let identifier: String = infoDictionary!["CFBundleIdentifier"] as! String
+        let identifier = infoDictionary!["CFBundleIdentifier"] as! String
         let pathString = "\(NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!)/\(identifier)/Preferences"
         if !FileManager.default.fileExists(atPath: pathString) {
             try! FileManager.default.createDirectory(atPath: pathString, withIntermediateDirectories: true)
@@ -50,8 +50,9 @@ class PreferenceManager {
 
     private func readPorperty() {
         if FileManager.default.fileExists(atPath: filePathFile()), let dict = NSDictionary(contentsOfFile: filePathFile()) {
-            let d: [String : String] = dict as! [String : String]
-            propertyInfo.hostsFileMD5 = d[hostsFileMD5Key]
+            if let d = dict as? [String : String] {
+                propertyInfo.hostsFileMD5 = d[hostsFileMD5Key]
+            }
         }
     }
 

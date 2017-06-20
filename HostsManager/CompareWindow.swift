@@ -20,14 +20,14 @@ class CompareWindow: NSWindow, NSWindowDelegate {
 
     var closeBlock: SimpleBlockNoneParameter? {
         get {
-            if let controller = contentViewController, controller is CompareViewController {
-                return (controller as! CompareViewController).compareWindowCloseBlock
+            if let controller = contentViewController as? CompareViewController {
+                return controller.compareWindowCloseBlock
             }
             return nil
         }
         set (closeBlock) {
-            if let controller = contentViewController, controller is CompareViewController {
-                (controller as! CompareViewController).compareWindowCloseBlock = closeBlock
+            if let controller = contentViewController as? CompareViewController {
+                controller.compareWindowCloseBlock = closeBlock
             }
         }
     }
