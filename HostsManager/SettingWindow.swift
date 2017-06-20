@@ -43,7 +43,7 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
             return toolbar
         }()
         // 设置默认值
-        toolbarItemSelected(identifier: .edit)
+        toolbarItemSelected(identifier: .setting)
     }
 
     // MARK: - NSToolbarDelegate

@@ -36,19 +36,19 @@ class StatusMenu: NSMenu, NSMenuDelegate {
     func addDefaultItem() {
         addItem(NSMenuItem.separator())
         addItem({
-            let menuItem = NSMenuItem.init(title: "Preferences", action: #selector(StatusMenu.settingClicked(_:)), keyEquivalent: "")
+            let menuItem = NSMenuItem.init(title: "Preferences...", action: #selector(StatusMenu.settingClicked(_:)), keyEquivalent: "")
             menuItem.target = self
             return menuItem
             }())
 
         addItem(NSMenuItem.separator())
         addItem({
-            let menuItem = NSMenuItem.init(title: "About HostsManager", action: #selector(StatusMenu.aboutClicked(_:)), keyEquivalent: "")
+            let menuItem = NSMenuItem.init(title: "About \(ProcessInfo.processInfo.processName)", action: #selector(StatusMenu.aboutClicked(_:)), keyEquivalent: "")
             menuItem.target = self
             return menuItem
             }())
         addItem({
-            let menuItem = NSMenuItem.init(title: "Quit HostsManager", action: #selector(StatusMenu.quitClicked(_:)), keyEquivalent: "")
+            let menuItem = NSMenuItem.init(title: "Quit \(ProcessInfo.processInfo.processName)", action: #selector(StatusMenu.quitClicked(_:)), keyEquivalent: "")
             menuItem.target = self
             return menuItem
             }())
@@ -60,7 +60,7 @@ class StatusMenu: NSMenu, NSMenuDelegate {
     }
 
     func quitClicked(_ sender: NSMenuItem) {
-        NSApplication.shared().terminate(self)
+        NSApp.terminate(self)
     }
 
     func settingClicked(_ sender: NSMenuItem) { // 唤起 window 切换至 setting controller
@@ -68,6 +68,7 @@ class StatusMenu: NSMenu, NSMenuDelegate {
         NSApp.windows.forEach { (window) in
             if let win = window as? SettingWindow {
                 win.toolbarItemSelected(identifier: .setting)
+                win.center()
                 win.makeKeyAndOrderFront(self)
                 return
             }

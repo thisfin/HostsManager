@@ -114,7 +114,7 @@ class GroupToolView: NSView {
     }
 
     func settingButtonClicked(_ sender: NSButton) {
-        if let event = NSApplication.shared().currentEvent {
+        if let event = NSApp.currentEvent {
             NSMenu.popUpContextMenu(toolMenu, with: event, for: sender)
         }
     }

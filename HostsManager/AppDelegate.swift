@@ -17,12 +17,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private lazy var settingWindow = SettingWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
     private lazy var compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
 
+    func applicationWillBecomeActive(_ notification: Notification) {
+        ()
+    }
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+
+
         // 布局约束冲突 visualizeConstraints
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
 
         // 文件权限操作
         FilePermissions.sharedInstance.hostsFilePermissionsCheck()
+
+        // 菜单
+        NSApp.menu = {
+            let menu = NSMenu()
+            menu.addItem({
+                let iconfontPreviewItem = NSMenuItem()
+                iconfontPreviewItem.submenu = {
+                    let submenu = NSMenu()
+                    submenu.addItem(NSMenuItem(title: "About \(ProcessInfo.processInfo.processName)", action: #selector(AppDelegate.about(_:)), keyEquivalent: ""))
+                    submenu.addItem(NSMenuItem.separator())
+                    submenu.addItem(NSMenuItem(title: "Quit \(ProcessInfo.processInfo.processName)", action: #selector(AppDelegate.quit(_:)), keyEquivalent: ""))
+                    return submenu
+                }()
+                return iconfontPreviewItem
+                }())
+            return menu
+        }()
 
         // 状态栏
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
@@ -67,9 +90,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             settingWindow.center()
             settingWindow.makeKeyAndOrderFront(self)
         }
+
+
+        if PreferenceManager.sharedInstance.propertyInfo.dockIconShow { // 详见 SettingViewController
+//                        NSApp.mainWindow?.canHide = false
+            _ = NSApp.setActivationPolicy(.regular)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+
+    func about(_ sender: NSMenuItem) {
+        NSApp.orderFrontStandardAboutPanel(self)
+    }
+
+    func quit(_ sender: NSMenuItem) {
+        NSApp.terminate(self)
     }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2017年 wenyou. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 class PreferenceManager {
     static let sharedInstance = PreferenceManager()
@@ -16,6 +16,8 @@ class PreferenceManager {
     }
 
     private let hostsFileMD5Key = "hostsFileMD5"
+    private let startupLoginKey = "startupLogin"
+    private let dockIconShowKey = "dockIconShow"
 
     var propertyInfo: PropertyInfo = {
         // 之后此处设置属性的 default value
@@ -52,6 +54,12 @@ class PreferenceManager {
         if FileManager.default.fileExists(atPath: filePathFile()), let dict = NSDictionary(contentsOfFile: filePathFile()) {
             if let d = dict as? [String : String] {
                 propertyInfo.hostsFileMD5 = d[hostsFileMD5Key]
+                if let startupLoginString = d[startupLoginKey], let startupLoginBool = Bool.init(startupLoginString) {
+                    propertyInfo.startupLogin = startupLoginBool
+                }
+                if let dockIconShowString = d[dockIconShowKey], let dockIconShowBool = Bool.init(dockIconShowString) {
+                    propertyInfo.dockIconShow = dockIconShowBool
+                }
             }
         }
     }
@@ -61,10 +69,14 @@ class PreferenceManager {
         if let md5 = propertyInfo.hostsFileMD5 {
             dict[hostsFileMD5Key] = md5
         }
+        dict[startupLoginKey] = propertyInfo.startupLogin.description
+        dict[dockIconShowKey] = propertyInfo.dockIconShow.description
         (dict as NSDictionary).write(toFile: filePathFile(), atomically: false)
     }
 }
 
 struct PropertyInfo {
     var hostsFileMD5: String?
+    var startupLogin: Bool = false
+    var dockIconShow: Bool = true
 }
