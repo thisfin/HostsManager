@@ -10,16 +10,22 @@ import AppKit
 
 class StatusMenu: NSMenu, NSMenuDelegate {
     var testMenuItem: NSMenuItem!
+    weak var statusItem: NSStatusItem?
 
     var popover: NSPopover = {
         let popover = NSPopover.init()
-        popover.contentViewController = SourceViewController()
+        popover.contentViewController = {
+            let controller = PopoverViewController()
+            controller.popover = popover
+            return controller
+            }()
         return popover
     }()
 
-    init() {
+    init(statusItem: NSStatusItem?) {
         super.init(title: "")
 
+        self.statusItem = statusItem
         delegate = self
     }
 
@@ -64,7 +70,7 @@ class StatusMenu: NSMenu, NSMenuDelegate {
 
     func groupClicked(_ sender: NSMenuItem) {
         let dataManager = HostDataManager.sharedInstance
-        let group = dataManager.groups[sender.tag]
+        let group = dataManager.groups[sender.tag - 100]
         group.selected = !group.selected
         dataManager.updateGroupData()
         HostsFileManager.sharedInstance.writeContentToFile(content: dataManager.groups)
@@ -80,7 +86,7 @@ class StatusMenu: NSMenu, NSMenuDelegate {
             let group = dataManager.groups[index]
             addItem({
                 let menuItem = NSMenuItem.init(title: group.name!, action: #selector(StatusMenu.groupClicked(_:)), keyEquivalent: "")
-                menuItem.tag = index
+                menuItem.tag = index + 100
                 menuItem.target = self
                 if group.selected {
                     menuItem.state = NSOnState
@@ -92,10 +98,31 @@ class StatusMenu: NSMenu, NSMenuDelegate {
         addDefaultItem()
     }
 
+    func menuDidClose(_ menu: NSMenu) {
+        if popover.isShown {
+            popover.performClose(nil)
+        }
+    }
+
     func menu(_ menu: NSMenu, willHighlight item: NSMenuItem?) {
-        if let menuItem = item, menuItem.tag >= 0 {
-            // TODO:
-            popover.show(relativeTo: (menuItem.view?.bounds)!, of: menuItem.view!, preferredEdge: .maxY)
+        if let menuItem = item, menuItem.tag >= 100, let button = statusItem?.button {
+            let group = HostDataManager.sharedInstance.groups[(menuItem.tag - 100)]
+            var string = ""
+            group.hosts.forEach({ (host) in
+                string.append((string.characters.count == 0 ? "" : "\n") +  "\(host.ip) \(host.domain)")
+            })
+
+            if !popover.isShown {
+                popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minX)
+            }
+            // 此行代码放在下边是因为第一次时, viewWillApper 之前调用 fittingSize, 结果不对
+            if let controller = popover.contentViewController, controller is PopoverViewController {
+                (controller as! PopoverViewController).setText(string: string)
+            }
+        } else {
+            if popover.isShown {
+                popover.performClose(nil)
+            }
         }
     }
 }

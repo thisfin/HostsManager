@@ -91,6 +91,9 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
         toolbarItemInfos.forEach { (toolbarItemInfo) in
             if selectedItemIdentifier == toolbarItemInfo.identifier {
                 title = toolbarItemInfo.title
+                if let controller = contentViewController { // 多 controller 切换 window 的 size 保持一致
+                    toolbarItemInfo.viewController.view.frame = controller.view.frame
+                }
                 contentViewController = toolbarItemInfo.viewController
                 return
             }

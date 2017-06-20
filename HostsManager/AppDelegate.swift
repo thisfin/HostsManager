@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         rootStatusItem.title = ""
         rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(20, 20))
-        rootStatusItem.menu = StatusMenu()
+        rootStatusItem.menu = StatusMenu(statusItem: rootStatusItem)
 
         // 文件版本校验
         let hostsFileManager = HostsFileManager.sharedInstance

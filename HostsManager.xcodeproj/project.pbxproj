@@ -26,6 +26,7 @@
 		6660842D1EF82244000D1B9C /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660842C1EF82244000D1B9C /* Application.swift */; };
 		666084301EF826E4000D1B9C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6660842E1EF826C4000D1B9C /* ServiceManagement.framework */; };
 		6661588C1EF3D348007D650B /* WYVerticalCenterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */; };
+		666158A11EF90373007D650B /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666158A01EF90373007D650B /* PopoverViewController.swift */; };
 		666435811E13DD3D00047EBD /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435801E13DD3D00047EBD /* Host.swift */; };
 		666435831E13E45800047EBD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435821E13E45800047EBD /* Group.swift */; };
 		666435871E14B9F000047EBD /* WYScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435861E14B9F000047EBD /* WYScrollView.swift */; };
@@ -91,6 +92,7 @@
 		6660842C1EF82244000D1B9C /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		6660842E1EF826C4000D1B9C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYVerticalCenterTextField.swift; sourceTree = "<group>"; };
+		666158A01EF90373007D650B /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		666435801E13DD3D00047EBD /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		666435821E13E45800047EBD /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		666435861E14B9F000047EBD /* WYScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYScrollView.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				6641DB021EBB73CC000DA74A /* CompareViewController.swift */,
 				66C383331E11282400824982 /* EditorViewController.swift */,
+				666158A01EF90373007D650B /* PopoverViewController.swift */,
 				66C3835E1E138B8D00824982 /* SettingViewController.swift */,
 				66C3835C1E138B0200824982 /* SourceViewController.swift */,
 				66308E2D1E0D14F9000EBBF0 /* ViewController.swift */,
@@ -457,6 +460,7 @@
 				66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */,
 				66C3835F1E138B8D00824982 /* SettingViewController.swift in Sources */,
 				66C383321E11071800824982 /* StatusMenu.swift in Sources */,
+				666158A11EF90373007D650B /* PopoverViewController.swift in Sources */,
 				66D6A8441E67111600C055D4 /* NSObjectEx.swift in Sources */,
 				662D1C1B1EB831E1008D2B4D /* HostDataManager.swift in Sources */,
 				6641DB051EC5B04F000DA74A /* WYHelp.swift in Sources */,
@@ -694,6 +698,7 @@
 				666084281EF818A8000D1B9C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
