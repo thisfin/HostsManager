@@ -8,7 +8,7 @@
 
 import AppKit
 
-class GroupEditView: NSView, NSTextViewDelegate {
+class GroupEditView: NSView {
     var rulerView: TextVerticalRulerView!
     var textView: NSTextView!
     var index: Int?
@@ -104,8 +104,9 @@ class GroupEditView: NSView, NSTextViewDelegate {
             isHidden = true
         }
     }
+}
 
-    // MARK: - NSTextViewDelegate
+extension GroupEditView: NSTextViewDelegate {
     func textDidChange(_ notification: Notification) { // 注释用其他颜色做渲染
         textView.resetFontColorStyle()
         rulerView.needsDisplay = true

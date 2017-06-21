@@ -9,7 +9,7 @@
 import AppKit
 import SnapKit
 
-class CompareWindow: NSWindow, NSWindowDelegate {
+class CompareWindow: NSWindow {
     override init(contentRect: NSRect, styleMask style: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: style, backing: bufferingType, defer: flag)
 
@@ -31,8 +31,9 @@ class CompareWindow: NSWindow, NSWindowDelegate {
             }
         }
     }
+}
 
-    //MARK: - NSWindowDelegate
+extension CompareWindow: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) { // 点击关闭退出程序
         NSApp.terminate(notification)
     }

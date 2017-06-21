@@ -57,7 +57,14 @@ class SettingViewController: NSViewController {
     }
 
     func startupButtonClicked(_ sender: NSButton) {
-
+        switch sender.state {
+        case NSOnState:
+            PreferenceManager.sharedInstance.propertyInfo.startupLogin = true
+        case NSOffState:
+            PreferenceManager.sharedInstance.propertyInfo.startupLogin = false
+        default:
+            ()
+        }
     }
 
     func dockIconButtonClicked(_ sender: NSButton) {

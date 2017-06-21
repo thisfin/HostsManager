@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HostDataManager: NSObject, XMLParserDelegate {
+class HostDataManager: NSObject {
     static let sharedInstance = HostDataManager()
 
     override private init() {
@@ -20,9 +20,9 @@ class HostDataManager: NSObject, XMLParserDelegate {
     }
 
     var groups: [Group]
-    private var temp: [Group] // 解析时缓存用
-    private var lastParseElementName: String?
-    private var lastParseElementValue: String?
+    fileprivate var temp: [Group] // 解析时缓存用
+    fileprivate var lastParseElementName: String?
+    fileprivate var lastParseElementValue: String?
     private let fileURL = URL(fileURLWithPath: "\(PreferenceManager.sharedInstance.preferencesDirectoryPath)/hosts.xml") // 文件 path
 
     // MARK: - unprivate func
@@ -104,8 +104,9 @@ class HostDataManager: NSObject, XMLParserDelegate {
         let xmlData = document.xmlData(withOptions: Int(options.rawValue))
         try! xmlData.write(to: fileURL)
     }
+}
 
-    // MARK: - XMLParserDelegate
+extension HostDataManager: XMLParserDelegate {
     func parserDidStartDocument(_ parser: XMLParser) {
         temp.removeAll()
     }

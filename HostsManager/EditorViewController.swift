@@ -10,18 +10,18 @@ import AppKit
 import SnapKit
 import WYKit
 
-class EditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
-    private static let leftSideWidth: CGFloat = 200     // 左边列表宽度
-    private static let marginWidth: CGFloat = 20        // 边距
-    private static let toolViewHeight: CGFloat = 25     // 工具条高度
-    private static let cellHeight: CGFloat = 40
+class EditorViewController: NSViewController {
+    fileprivate static let leftSideWidth: CGFloat = 200     // 左边列表宽度
+    fileprivate static let marginWidth: CGFloat = 20        // 边距
+    fileprivate static let toolViewHeight: CGFloat = 25     // 工具条高度
+    fileprivate static let cellHeight: CGFloat = 40
 
-    private let tableViewDragTypeName = "DragTypeName"
-    private let dataManager = HostDataManager.sharedInstance
+    fileprivate let tableViewDragTypeName = "DragTypeName"
+    fileprivate let dataManager = HostDataManager.sharedInstance
 
-    private var tableView: NSTableView!
+    fileprivate var tableView: NSTableView!
     private var scrollView: NSScrollView!
-    private var groupEditView: GroupEditView!
+    fileprivate var groupEditView: GroupEditView!
     private var toolView: GroupToolView!
 
     override func loadView() { // 代码实现请务必重载此方法添加view
@@ -189,7 +189,18 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         NotificationCenter.default.removeObserver(self, name: .WYStatusMenuUpdateHosts, object: nil)
     }
 
-    // MARK: - NSTableViewDataSource
+    // MARK: - private
+    func doubleClicked(_ sender: NSTableView) {
+        let row: Int = sender.clickedRow
+        if row >= 0 && row < dataManager.groups.count {
+            let group = dataManager.groups[row]
+            group.selected = !group.selected
+            tableView.reloadData()
+        }
+    }
+}
+
+extension EditorViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return dataManager.groups.count
     }
@@ -224,8 +235,9 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         groupEditView.setText(text: nil) // 此处会 deselect, 事件别的地方无法捕获
         return true
     }
+}
 
-    // MARK: - NSTableViewDelegate
+extension EditorViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let identifier = tableColumn?.identifier {
             var subView = tableView.make(withIdentifier: identifier, owner: self)
@@ -311,23 +323,14 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
             groupEditView.setText(text: nil)
         }
     }
+}
 
-    // MARK: - NSTextFieldDelegate
+extension EditorViewController: NSTextFieldDelegate {
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
         if let string = fieldEditor.string {
             let group = dataManager.groups[control.tag]
             group.name = string
         }
         return true
-    }
-
-    // MARK: - private
-    func doubleClicked(_ sender: NSTableView) {
-        let row: Int = sender.clickedRow
-        if row >= 0 && row < dataManager.groups.count {
-            let group = dataManager.groups[row]
-            group.selected = !group.selected
-            tableView.reloadData()
-        }
     }
 }

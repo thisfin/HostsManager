@@ -8,7 +8,7 @@
 
 import AppKit
 
-class StatusMenu: NSMenu, NSMenuDelegate {
+class StatusMenu: NSMenu {
     weak var statusItem: NSStatusItem?
 
     var popover: NSPopover = {
@@ -100,8 +100,9 @@ class StatusMenu: NSMenu, NSMenuDelegate {
         HostsFileManager.sharedInstance.writeContentToFile(content: dataManager.groups)
         NotificationCenter.default.post(name: .WYStatusMenuUpdateHosts, object: nil)
     }
+}
 
-    // MARK: - NSMenuDelegate
+extension StatusMenu: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) { // 开启时初始化 menu
         removeAllItems()
 

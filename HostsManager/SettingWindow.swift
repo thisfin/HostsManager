@@ -9,12 +9,12 @@
 import AppKit
 import WYKit
 
-class SettingWindow: NSWindow, NSToolbarDelegate {
+class SettingWindow: NSWindow {
     enum SettingWindowViewControllerIdentifier: String {
         case edit, hosts, setting
     }
 
-    private let toolbarItemInfos: [ToolbarItemInfo] = [
+    fileprivate let toolbarItemInfos: [ToolbarItemInfo] = [
         ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.edit.rawValue,
                         image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: EditorViewController(),
                         identifier: SettingWindowViewControllerIdentifier.edit.rawValue),
@@ -43,10 +43,29 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
             return toolbar
         }()
         // 设置默认值
-        toolbarItemSelected(identifier: .setting)
+        toolbarItemSelected(identifier: .edit)
     }
 
-    // MARK: - NSToolbarDelegate
+    // MARK: - private
+    fileprivate func itemSelected(selectedItemIdentifier: String) {
+        if nowShowItemIdentifier == selectedItemIdentifier {
+            return
+        }
+        nowShowItemIdentifier = selectedItemIdentifier
+        toolbarItemInfos.forEach { (toolbarItemInfo) in
+            if selectedItemIdentifier == toolbarItemInfo.identifier {
+                title = toolbarItemInfo.title
+                if let controller = contentViewController { // 多 controller 切换 window 的 size 保持一致
+                    toolbarItemInfo.viewController.view.frame = controller.view.frame
+                }
+                contentViewController = toolbarItemInfo.viewController
+                return
+            }
+        }
+    }
+}
+
+extension SettingWindow: NSToolbarDelegate {
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         var toolbarItemInfo: ToolbarItemInfo?
         toolbarItemInfos.forEach { (info) in
@@ -91,24 +110,6 @@ class SettingWindow: NSWindow, NSToolbarDelegate {
 
     func toolbarItemSelected(_ sender: NSToolbarItem) {
         itemSelected(selectedItemIdentifier: sender.itemIdentifier)
-    }
-
-    // MARK: - private
-    private func itemSelected(selectedItemIdentifier: String) {
-        if nowShowItemIdentifier == selectedItemIdentifier {
-            return
-        }
-        nowShowItemIdentifier = selectedItemIdentifier
-        toolbarItemInfos.forEach { (toolbarItemInfo) in
-            if selectedItemIdentifier == toolbarItemInfo.identifier {
-                title = toolbarItemInfo.title
-                if let controller = contentViewController { // 多 controller 切换 window 的 size 保持一致
-                    toolbarItemInfo.viewController.view.frame = controller.view.frame
-                }
-                contentViewController = toolbarItemInfo.viewController
-                return
-            }
-        }
     }
 }
 
