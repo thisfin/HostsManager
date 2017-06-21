@@ -62,7 +62,7 @@ class SettingViewController: NSViewController {
 
     func dockIconButtonClicked(_ sender: NSButton) {
         // 另外重新启动的时候需要读取配置重新设置一下, 下面两种方法都可以实现功能
-
+        // 启动的时候如果通过代码禁掉 icon, dock 会闪动, 所以通过 info.plist 里设置 LSUIElement 为 false 默认关闭 dock 里的 icon, 在启动时人工开始 icon (applicationDidFinishLaunching)
         switch sender.state {
         case NSOnState:
             _ = NSApp.setActivationPolicy(.regular)

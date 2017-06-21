@@ -36,6 +36,11 @@ class StatusMenu: NSMenu, NSMenuDelegate {
     func addDefaultItem() {
         addItem(NSMenuItem.separator())
         addItem({
+            let menuItem = NSMenuItem.init(title: "Edit Hosts", action: #selector(StatusMenu.editClicked(_:)), keyEquivalent: "")
+            menuItem.target = self
+            return menuItem
+            }())
+        addItem({
             let menuItem = NSMenuItem.init(title: "Preferences...", action: #selector(StatusMenu.settingClicked(_:)), keyEquivalent: "")
             menuItem.target = self
             return menuItem
@@ -61,6 +66,18 @@ class StatusMenu: NSMenu, NSMenuDelegate {
 
     func quitClicked(_ sender: NSMenuItem) {
         NSApp.terminate(self)
+    }
+
+    func editClicked(_ sender: NSMenuItem) {
+        NSRunningApplication.current().activate(options: [.activateIgnoringOtherApps])
+        NSApp.windows.forEach { (window) in
+            if let win = window as? SettingWindow {
+                win.toolbarItemSelected(identifier: .edit)
+                win.center()
+                win.makeKeyAndOrderFront(self)
+                return
+            }
+        }
     }
 
     func settingClicked(_ sender: NSMenuItem) { // 唤起 window 切换至 setting controller
