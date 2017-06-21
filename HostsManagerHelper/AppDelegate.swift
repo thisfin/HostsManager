@@ -10,8 +10,9 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    private let mainAppIdentifier = "win.sourcecode.HostsManager"
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let mainAppIdentifier = "win.sourcecode.HostsManager"
         var alreadyRunning = false
         NSWorkspace.shared().runningApplications.forEach { (runningApplication) in
             if let bundleIdentifier = runningApplication.bundleIdentifier, bundleIdentifier == mainAppIdentifier {
@@ -20,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         if !alreadyRunning {
-            DistributedNotificationCenter.default().addObserver(self, selector: #selector(AppDelegate.terminate), name: NSNotification.Name.init("killhelper"), object: mainAppIdentifier)
+            DistributedNotificationCenter.default().addObserver(self, selector: #selector(AppDelegate.terminate), name: .WYKillHelper, object: mainAppIdentifier)
             var components = (Bundle.main.bundlePath as NSString).pathComponents
             components.removeLast()
             components.removeLast()
@@ -37,10 +38,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        DistributedNotificationCenter.default().removeObserver(self, name: .WYKillHelper, object: mainAppIdentifier)
     }
 
     func terminate() {
         NSApp.terminate(nil)
     }
+}
+
+extension Notification.Name {
+    static let WYKillHelper = Notification.Name("KillHelper")
 }

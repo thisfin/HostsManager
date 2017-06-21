@@ -98,7 +98,7 @@ class StatusMenu: NSMenu, NSMenuDelegate {
         group.selected = !group.selected
         dataManager.updateGroupData()
         HostsFileManager.sharedInstance.writeContentToFile(content: dataManager.groups)
-        // TODO: - 消息更新 window
+        NotificationCenter.default.post(name: .WYStatusMenuUpdateHosts, object: nil)
     }
 
     // MARK: - NSMenuDelegate
@@ -149,4 +149,8 @@ class StatusMenu: NSMenu, NSMenuDelegate {
             }
         }
     }
+}
+
+extension Notification.Name {
+    static let WYStatusMenuUpdateHosts = Notification.Name("StatusMenuUpdateHosts")
 }

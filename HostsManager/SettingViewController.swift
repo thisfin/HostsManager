@@ -106,7 +106,7 @@ class SettingViewController: NSViewController {
             }
         }
         if startedAtLogin {
-            DistributedNotificationCenter.default().post(name: NSNotification.Name.init("killhelper"), object: Bundle.main.bundleIdentifier)
+            DistributedNotificationCenter.default().post(name: NSNotification.Name.init("KillHelper"), object: Bundle.main.bundleIdentifier)
         }
     }
 }

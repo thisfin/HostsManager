@@ -82,6 +82,10 @@ class GroupEditView: NSView, NSTextViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func selectorFrameDidChange(_ sender: NSTextView) {
         rulerView.needsDisplay = true // 行号渲染
     }

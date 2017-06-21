@@ -174,6 +174,21 @@ class EditorViewController: NSViewController, NSTableViewDataSource, NSTableView
         tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
     }
 
+    override func viewWillAppear() {
+        super.viewWillAppear()
+
+        NotificationCenter.default.addObserver(forName: .WYStatusMenuUpdateHosts, object: nil, queue: nil) { (notification) in
+            self.tableView.reloadData()
+            self.groupEditView.setText(text: nil)
+        }
+    }
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+
+        NotificationCenter.default.removeObserver(self, name: .WYStatusMenuUpdateHosts, object: nil)
+    }
+
     // MARK: - NSTableViewDataSource
     func numberOfRows(in tableView: NSTableView) -> Int {
         return dataManager.groups.count
