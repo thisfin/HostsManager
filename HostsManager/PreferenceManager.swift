@@ -19,6 +19,12 @@ class PreferenceManager {
     private let startupLoginKey = "startupLogin"
     private let dockIconShowKey = "dockIconShow"
 
+    struct PropertyInfo {
+        var hostsFileMD5: String?
+        var startupLogin: Bool = false
+        var dockIconShow: Bool = true
+    }
+
     var propertyInfo: PropertyInfo = {
         // 之后此处设置属性的 default value
         let propertyInfo = PropertyInfo.init()
@@ -45,7 +51,7 @@ class PreferenceManager {
         return pathString
     }()
 
-    // MARK: private func
+    // MARK: - private
     private func filePathFile() -> String  { // 配置文件地址
         return "\(preferencesDirectoryPath)/preferences.plist"
     }
@@ -73,10 +79,4 @@ class PreferenceManager {
         dict[dockIconShowKey] = propertyInfo.dockIconShow.description
         (dict as NSDictionary).write(toFile: filePathFile(), atomically: false)
     }
-}
-
-struct PropertyInfo {
-    var hostsFileMD5: String?
-    var startupLogin: Bool = false
-    var dockIconShow: Bool = true
 }

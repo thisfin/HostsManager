@@ -14,6 +14,13 @@ class SettingWindow: NSWindow {
         case edit, hosts, setting
     }
 
+    fileprivate struct ToolbarItemInfo {
+        var title: String
+        var image: NSImage
+        var viewController: NSViewController
+        var identifier: String
+    }
+
     fileprivate let toolbarItemInfos: [ToolbarItemInfo] = [
         ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.edit.rawValue,
                         image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: EditorViewController(),
@@ -111,11 +118,4 @@ extension SettingWindow: NSToolbarDelegate {
     func toolbarItemSelected(_ sender: NSToolbarItem) {
         itemSelected(selectedItemIdentifier: sender.itemIdentifier)
     }
-}
-
-private struct ToolbarItemInfo {
-    var title: String
-    var image: NSImage
-    var viewController: NSViewController
-    var identifier: String
 }
