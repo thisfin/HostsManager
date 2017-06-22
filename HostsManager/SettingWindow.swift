@@ -21,6 +21,8 @@ class SettingWindow: NSWindow {
         var identifier: String
     }
 
+    fileprivate var segmentedControl: NSSegmentedControl!
+
     fileprivate let toolbarItemInfos: [ToolbarItemInfo] = [
         ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.edit.rawValue,
                         image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: EditorViewController(),
@@ -49,8 +51,23 @@ class SettingWindow: NSWindow {
             toolbar.delegate = self
             return toolbar
         }()
+
+        segmentedControl = NSSegmentedControl.init(labels: toolbarItemInfos.map({ (toolbarItemInfo) -> String in
+            return toolbarItemInfo.title
+        }), trackingMode: .selectOne, target: self, action: #selector(SettingWindow.segmentSelected(_:)))
+        segmentedControl.trackingMode = .selectOne
+
         // 设置默认值
         toolbarItemSelected(identifier: .edit)
+    }
+
+    @available(OSX 10.12.2, *)
+    override func makeTouchBar() -> NSTouchBar? {
+        let touchBar = NSTouchBar()
+        touchBar.delegate = self
+        touchBar.customizationIdentifier = NSTouchBarCustomizationIdentifier.create(type: SettingWindow.self)
+        touchBar.defaultItemIdentifiers = [.segment]
+        return touchBar
     }
 
     // MARK: - private
@@ -69,6 +86,38 @@ class SettingWindow: NSWindow {
                 return
             }
         }
+    }
+
+    func toolbarItemSelected(identifier: SettingWindowViewControllerIdentifier) {
+        toolbar?.selectedItemIdentifier = identifier.rawValue
+        if #available(OSX 10.12.2, *) {
+            segmentedControl.selectedSegment = getIndex(title: identifier.rawValue)
+            touchBar = nil
+        }
+        itemSelected(selectedItemIdentifier: identifier.rawValue)
+    }
+
+    func toolbarItemSelected(_ sender: NSToolbarItem) {
+        if #available(OSX 10.12.2, *) {
+            segmentedControl.selectedSegment = getIndex(title: sender.itemIdentifier)
+            touchBar = nil
+        }
+        itemSelected(selectedItemIdentifier: sender.itemIdentifier)
+    }
+
+    func segmentSelected(_ sender: NSSegmentedControl) {
+        let identifier = toolbarItemInfos[sender.selectedSegment].identifier
+        toolbar?.selectedItemIdentifier = identifier
+        itemSelected(selectedItemIdentifier: identifier)
+    }
+
+    private func getIndex(title: String) -> Int {
+        for i in 0 ..< toolbarItemInfos.count {
+            if toolbarItemInfos[i].identifier == title {
+                return i
+            }
+        }
+        return 0
     }
 }
 
@@ -109,13 +158,22 @@ extension SettingWindow: NSToolbarDelegate {
     func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
         return toolbarDefaultItemIdentifiers(toolbar)
     }
+}
 
-    func toolbarItemSelected(identifier: SettingWindowViewControllerIdentifier) {
-        toolbar?.selectedItemIdentifier = identifier.rawValue
-        itemSelected(selectedItemIdentifier: identifier.rawValue)
+extension SettingWindow: NSTouchBarDelegate {
+    @available(OSX 10.12.2, *)
+    func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItemIdentifier) -> NSTouchBarItem? {
+        let touchBarItem = NSCustomTouchBarItem.init(identifier: identifier)
+        switch identifier {
+        case NSTouchBarItemIdentifier.segment:
+            touchBarItem.view = segmentedControl
+        default:
+            ()
+        }
+        return touchBarItem
     }
+}
 
-    func toolbarItemSelected(_ sender: NSToolbarItem) {
-        itemSelected(selectedItemIdentifier: sender.itemIdentifier)
-    }
+private extension NSTouchBarItemIdentifier {
+    static let segment = create(type: SettingWindow.self, suffix: "segment")
 }
