@@ -22,7 +22,7 @@ class EditorViewController: NSViewController {
     fileprivate var tableView: NSTableView!
     private var scrollView: NSScrollView!
     fileprivate var groupEditView: GroupEditView!
-    private var toolView: GroupToolView!
+    var toolView: GroupToolView!
 
     override func loadView() { // 代码实现请务必重载此方法添加view
         view = NSView.init()

@@ -49,12 +49,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return menu
         }()
 
-        // 状态栏
-        rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-        rootStatusItem.title = ""
-        rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(20, 20))
-        rootStatusItem.menu = StatusMenu(statusItem: rootStatusItem)
-
         // 文件版本校验
         let hostsFileManager = HostsFileManager.sharedInstance
         switch hostsFileManager.checkHostsFile() {
@@ -92,6 +86,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             settingWindow.center()
             settingWindow.makeKeyAndOrderFront(self)
         }
+
+        // 状态栏 放在后面, 因为前面有文件版本校验的逻辑
+        rootStatusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+        rootStatusItem.title = ""
+        rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(20, 20))
+        rootStatusItem.menu = StatusMenu(statusItem: rootStatusItem)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

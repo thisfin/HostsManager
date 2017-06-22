@@ -25,13 +25,16 @@ class SettingWindow: NSWindow {
 
     fileprivate let toolbarItemInfos: [ToolbarItemInfo] = [
         ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.edit.rawValue,
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: EditorViewController(),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontEdit, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
+                        viewController: EditorViewController(),
                         identifier: SettingWindowViewControllerIdentifier.edit.rawValue),
         ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.hosts.rawValue,
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SourceViewController(),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontText, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
+                        viewController: SourceViewController(),
                         identifier: SettingWindowViewControllerIdentifier.hosts.rawValue),
         ToolbarItemInfo(title: SettingWindowViewControllerIdentifier.setting.rawValue,
-                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)), viewController: SettingViewController(),
+                        image: WYIconfont.imageWithIcon(content: Constants.iconfontCog, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(40, 40)),
+                        viewController: SettingViewController(),
                         identifier: SettingWindowViewControllerIdentifier.setting.rawValue)]
 
     private var nowShowItemIdentifier: String = ""
@@ -55,7 +58,6 @@ class SettingWindow: NSWindow {
         segmentedControl = NSSegmentedControl.init(labels: toolbarItemInfos.map({ (toolbarItemInfo) -> String in
             return toolbarItemInfo.title
         }), trackingMode: .selectOne, target: self, action: #selector(SettingWindow.segmentSelected(_:)))
-        segmentedControl.trackingMode = .selectOne
 
         // 设置默认值
         toolbarItemSelected(identifier: .edit)
@@ -66,7 +68,12 @@ class SettingWindow: NSWindow {
         let touchBar = NSTouchBar()
         touchBar.delegate = self
         touchBar.customizationIdentifier = NSTouchBarCustomizationIdentifier.create(type: SettingWindow.self)
-        touchBar.defaultItemIdentifiers = [.segment]
+        touchBar.defaultItemIdentifiers = {
+            if contentViewController is EditorViewController {
+                return [.segment, .add, .revert, .save]
+            }
+            return [.segment]
+        }()
         return touchBar
     }
 
@@ -88,32 +95,38 @@ class SettingWindow: NSWindow {
         }
     }
 
+    // 本地初始化 & 状态栏菜单用
     func toolbarItemSelected(identifier: SettingWindowViewControllerIdentifier) {
         toolbar?.selectedItemIdentifier = identifier.rawValue
-        if #available(OSX 10.12.2, *) {
-            segmentedControl.selectedSegment = getIndex(title: identifier.rawValue)
-            touchBar = nil
-        }
         itemSelected(selectedItemIdentifier: identifier.rawValue)
-    }
-
-    func toolbarItemSelected(_ sender: NSToolbarItem) {
         if #available(OSX 10.12.2, *) {
-            segmentedControl.selectedSegment = getIndex(title: sender.itemIdentifier)
+            segmentedControl.selectedSegment = getIndex(identifier: identifier.rawValue)
             touchBar = nil
         }
-        itemSelected(selectedItemIdentifier: sender.itemIdentifier)
     }
 
+    // toolbar 点击事件
+    func toolbarItemSelected(_ sender: NSToolbarItem) {
+        itemSelected(selectedItemIdentifier: sender.itemIdentifier)
+        if #available(OSX 10.12.2, *) {
+            segmentedControl.selectedSegment = getIndex(identifier: sender.itemIdentifier)
+            touchBar = nil // touchbar 更新放在 contentViewController 更新后, 因为 touchbar 需要根据 contentViewController 的类型做判断
+        }
+    }
+
+    // touchbar 点击事件
     func segmentSelected(_ sender: NSSegmentedControl) {
         let identifier = toolbarItemInfos[sender.selectedSegment].identifier
         toolbar?.selectedItemIdentifier = identifier
         itemSelected(selectedItemIdentifier: identifier)
+        if #available(OSX 10.12.2, *) {
+            touchBar = nil
+        }
     }
 
-    private func getIndex(title: String) -> Int {
+    private func getIndex(identifier: String) -> Int {
         for i in 0 ..< toolbarItemInfos.count {
-            if toolbarItemInfos[i].identifier == title {
+            if toolbarItemInfos[i].identifier == identifier {
                 return i
             }
         }
@@ -167,6 +180,12 @@ extension SettingWindow: NSTouchBarDelegate {
         switch identifier {
         case NSTouchBarItemIdentifier.segment:
             touchBarItem.view = segmentedControl
+        case NSTouchBarItemIdentifier.add:
+            touchBarItem.view = NSButton.init(title: "增加 Group", target: (contentViewController as! EditorViewController).toolView, action: #selector(GroupToolView.addButtonClicked(_:)))
+        case NSTouchBarItemIdentifier.revert:
+            touchBarItem.view = NSButton.init(title: "回退至上次保存", target: (contentViewController as! EditorViewController).toolView.toolMenu, action: #selector(ToolMenu.revertClicked(_:)))
+        case NSTouchBarItemIdentifier.save:
+            touchBarItem.view = NSButton.init(title: "应用更改", target: (contentViewController as! EditorViewController).toolView, action: #selector(GroupToolView.saveButtonClicked(_:)))
         default:
             ()
         }
@@ -176,4 +195,7 @@ extension SettingWindow: NSTouchBarDelegate {
 
 private extension NSTouchBarItemIdentifier {
     static let segment = create(type: SettingWindow.self, suffix: "segment")
+    static let add = create(type: SettingWindow.self, suffix: "add")
+    static let save = create(type: SettingWindow.self, suffix: "save")
+    static let revert = create(type: SettingWindow.self, suffix: "revert")
 }
