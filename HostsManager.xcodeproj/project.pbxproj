@@ -27,17 +27,19 @@
 		666084301EF826E4000D1B9C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6660842E1EF826C4000D1B9C /* ServiceManagement.framework */; };
 		6661588C1EF3D348007D650B /* WYVerticalCenterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */; };
 		666158A11EF90373007D650B /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666158A01EF90373007D650B /* PopoverViewController.swift */; };
+		666158A61EFBA974007D650B /* NSTouchBarItemIdentifier+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666158A51EFBA974007D650B /* NSTouchBarItemIdentifier+Helper.swift */; };
+		666158A81EFBAC96007D650B /* NSTouchBarCustomizationIdentifier+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666158A71EFBAC96007D650B /* NSTouchBarCustomizationIdentifier+Helper.swift */; };
 		666435811E13DD3D00047EBD /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435801E13DD3D00047EBD /* Host.swift */; };
 		666435831E13E45800047EBD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435821E13E45800047EBD /* Group.swift */; };
 		666435871E14B9F000047EBD /* WYScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435861E14B9F000047EBD /* WYScrollView.swift */; };
 		666435891E14D3D100047EBD /* HostScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435881E14D3D100047EBD /* HostScrollView.swift */; };
 		66818C5E1EB9828B00248ABF /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66818C5D1EB9828B00248ABF /* PreferenceManager.swift */; };
 		669720B71E1F9B0E0093DDEF /* WYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669720B61E1F9B0E0093DDEF /* WYView.swift */; };
-		66A72B601EEE964B00D4C3A7 /* NSTextViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A72B5D1EEE964B00D4C3A7 /* NSTextViewEx.swift */; };
+		66A72B601EEE964B00D4C3A7 /* NSTextView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A72B5D1EEE964B00D4C3A7 /* NSTextView+Helper.swift */; };
 		66A72B611EEE964B00D4C3A7 /* TextVerticalRulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A72B5E1EEE964B00D4C3A7 /* TextVerticalRulerView.swift */; };
 		66A72B621EEE964B00D4C3A7 /* WYTypesetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A72B5F1EEE964B00D4C3A7 /* WYTypesetter.swift */; };
 		66A72B641EEE967500D4C3A7 /* GroupEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A72B631EEE967500D4C3A7 /* GroupEditView.swift */; };
-		66B2F8EC1E209E9F001FB418 /* CALayerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B2F8EB1E209E9F001FB418 /* CALayerEx.swift */; };
+		66B2F8EC1E209E9F001FB418 /* CALayer+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B2F8EB1E209E9F001FB418 /* CALayer+Helper.swift */; };
 		66C383321E11071800824982 /* StatusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383311E11071800824982 /* StatusMenu.swift */; };
 		66C383341E11282400824982 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383331E11282400824982 /* EditorViewController.swift */; };
 		66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3834E1E1250D900824982 /* SettingWindow.swift */; };
@@ -45,7 +47,7 @@
 		66C383581E12DDF000824982 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C383571E12DDF000824982 /* Constants.swift */; };
 		66C3835D1E138B0200824982 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3835C1E138B0200824982 /* SourceViewController.swift */; };
 		66C3835F1E138B8D00824982 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3835E1E138B8D00824982 /* SettingViewController.swift */; };
-		66D6A8441E67111600C055D4 /* NSObjectEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D6A8431E67111600C055D4 /* NSObjectEx.swift */; };
+		66D6A8441E67111600C055D4 /* NSObject+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D6A8431E67111600C055D4 /* NSObject+Helper.swift */; };
 		66F00B741EEA8DC4002B9F28 /* ACLHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F00B731EEA8DC4002B9F28 /* ACLHelp.swift */; };
 		66F00B761EEA8E92002B9F28 /* FilePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F00B751EEA8E92002B9F28 /* FilePermissions.swift */; };
 		993CF837A4E8F6AD11CC295C /* Pods_HostsManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50B083621E7C5CDBAA5A741 /* Pods_HostsManager.framework */; };
@@ -93,17 +95,19 @@
 		6660842E1EF826C4000D1B9C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYVerticalCenterTextField.swift; sourceTree = "<group>"; };
 		666158A01EF90373007D650B /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		666158A51EFBA974007D650B /* NSTouchBarItemIdentifier+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTouchBarItemIdentifier+Helper.swift"; sourceTree = "<group>"; };
+		666158A71EFBAC96007D650B /* NSTouchBarCustomizationIdentifier+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTouchBarCustomizationIdentifier+Helper.swift"; sourceTree = "<group>"; };
 		666435801E13DD3D00047EBD /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		666435821E13E45800047EBD /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		666435861E14B9F000047EBD /* WYScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYScrollView.swift; sourceTree = "<group>"; };
 		666435881E14D3D100047EBD /* HostScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostScrollView.swift; sourceTree = "<group>"; };
 		66818C5D1EB9828B00248ABF /* PreferenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		669720B61E1F9B0E0093DDEF /* WYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYView.swift; sourceTree = "<group>"; };
-		66A72B5D1EEE964B00D4C3A7 /* NSTextViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTextViewEx.swift; sourceTree = "<group>"; };
+		66A72B5D1EEE964B00D4C3A7 /* NSTextView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTextView+Helper.swift"; sourceTree = "<group>"; };
 		66A72B5E1EEE964B00D4C3A7 /* TextVerticalRulerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextVerticalRulerView.swift; sourceTree = "<group>"; };
 		66A72B5F1EEE964B00D4C3A7 /* WYTypesetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYTypesetter.swift; sourceTree = "<group>"; };
 		66A72B631EEE967500D4C3A7 /* GroupEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupEditView.swift; sourceTree = "<group>"; };
-		66B2F8EB1E209E9F001FB418 /* CALayerEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerEx.swift; sourceTree = "<group>"; };
+		66B2F8EB1E209E9F001FB418 /* CALayer+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Helper.swift"; sourceTree = "<group>"; };
 		66C383311E11071800824982 /* StatusMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenu.swift; sourceTree = "<group>"; };
 		66C383331E11282400824982 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		66C3834E1E1250D900824982 /* SettingWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingWindow.swift; sourceTree = "<group>"; };
@@ -111,7 +115,7 @@
 		66C383571E12DDF000824982 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		66C3835C1E138B0200824982 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		66C3835E1E138B8D00824982 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		66D6A8431E67111600C055D4 /* NSObjectEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectEx.swift; sourceTree = "<group>"; };
+		66D6A8431E67111600C055D4 /* NSObject+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Helper.swift"; sourceTree = "<group>"; };
 		66F00B731EEA8DC4002B9F28 /* ACLHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACLHelp.swift; sourceTree = "<group>"; };
 		66F00B751EEA8E92002B9F28 /* FilePermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePermissions.swift; sourceTree = "<group>"; };
 		98BEDC0F0CC65A5E7C7E8462 /* Pods-HostsManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostsManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-HostsManager/Pods-HostsManager.release.xcconfig"; sourceTree = "<group>"; };
@@ -171,7 +175,6 @@
 				66308E3A1E0E59D4000EBBF0 /* Application.swift */,
 				66C383571E12DDF000824982 /* Constants.swift */,
 				66F00B751EEA8E92002B9F28 /* FilePermissions.swift */,
-				66A72B5D1EEE964B00D4C3A7 /* NSTextViewEx.swift */,
 				66C383311E11071800824982 /* StatusMenu.swift */,
 				66A72B5E1EEE964B00D4C3A7 /* TextVerticalRulerView.swift */,
 				302B4F091EDE9846002352CC /* WYFileWatch.swift */,
@@ -179,8 +182,8 @@
 				66A72B5F1EEE964B00D4C3A7 /* WYTypesetter.swift */,
 				66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */,
 				6664357F1E13DD2300047EBD /* Data */,
+				666158A41EFBA93D007D650B /* Extension */,
 				66C3832E1E10F3EE00824982 /* Resource */,
-				66C3835B1E135B1000824982 /* Tools */,
 				66B2F8EA1E209415001FB418 /* View */,
 				66B2F8E91E209402001FB418 /* ViewController */,
 				6641DB011EBB733A000DA74A /* window */,
@@ -208,6 +211,18 @@
 				666084201EF818A8000D1B9C /* Assets.xcassets */,
 			);
 			path = HostsManagerHelper;
+			sourceTree = "<group>";
+		};
+		666158A41EFBA93D007D650B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				66B2F8EB1E209E9F001FB418 /* CALayer+Helper.swift */,
+				66D6A8431E67111600C055D4 /* NSObject+Helper.swift */,
+				66A72B5D1EEE964B00D4C3A7 /* NSTextView+Helper.swift */,
+				666158A71EFBAC96007D650B /* NSTouchBarCustomizationIdentifier+Helper.swift */,
+				666158A51EFBA974007D650B /* NSTouchBarItemIdentifier+Helper.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 		6664357F1E13DD2300047EBD /* Data */ = {
@@ -266,15 +281,6 @@
 				C50B083621E7C5CDBAA5A741 /* Pods_HostsManager.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		66C3835B1E135B1000824982 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				66B2F8EB1E209E9F001FB418 /* CALayerEx.swift */,
-				66D6A8431E67111600C055D4 /* NSObjectEx.swift */,
-			);
-			name = Tools;
 			sourceTree = "<group>";
 		};
 		B48E8CD069E5841DDA479E19 /* Pods */ = {
@@ -458,10 +464,11 @@
 				66818C5E1EB9828B00248ABF /* PreferenceManager.swift in Sources */,
 				662D1C1D1EB836BB008D2B4D /* HostsFileManager.swift in Sources */,
 				66C3834F1E1250D900824982 /* SettingWindow.swift in Sources */,
+				666158A81EFBAC96007D650B /* NSTouchBarCustomizationIdentifier+Helper.swift in Sources */,
 				66C3835F1E138B8D00824982 /* SettingViewController.swift in Sources */,
 				66C383321E11071800824982 /* StatusMenu.swift in Sources */,
 				666158A11EF90373007D650B /* PopoverViewController.swift in Sources */,
-				66D6A8441E67111600C055D4 /* NSObjectEx.swift in Sources */,
+				66D6A8441E67111600C055D4 /* NSObject+Helper.swift in Sources */,
 				662D1C1B1EB831E1008D2B4D /* HostDataManager.swift in Sources */,
 				6641DB051EC5B04F000DA74A /* WYHelp.swift in Sources */,
 				302B4F0B1EDE9846002352CC /* WYFileWatch.swift in Sources */,
@@ -474,13 +481,14 @@
 				66F00B761EEA8E92002B9F28 /* FilePermissions.swift in Sources */,
 				666435891E14D3D100047EBD /* HostScrollView.swift in Sources */,
 				666435831E13E45800047EBD /* Group.swift in Sources */,
-				66B2F8EC1E209E9F001FB418 /* CALayerEx.swift in Sources */,
+				66B2F8EC1E209E9F001FB418 /* CALayer+Helper.swift in Sources */,
+				666158A61EFBA974007D650B /* NSTouchBarItemIdentifier+Helper.swift in Sources */,
 				6661588C1EF3D348007D650B /* WYVerticalCenterTextField.swift in Sources */,
 				669720B71E1F9B0E0093DDEF /* WYView.swift in Sources */,
 				666435871E14B9F000047EBD /* WYScrollView.swift in Sources */,
 				66C3835D1E138B0200824982 /* SourceViewController.swift in Sources */,
 				66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */,
-				66A72B601EEE964B00D4C3A7 /* NSTextViewEx.swift in Sources */,
+				66A72B601EEE964B00D4C3A7 /* NSTextView+Helper.swift in Sources */,
 				66C383341E11282400824982 /* EditorViewController.swift in Sources */,
 				666084021EF66B30000D1B9C /* ToolMenu.swift in Sources */,
 				6641DB001EBB7333000DA74A /* CompareWindow.swift in Sources */,

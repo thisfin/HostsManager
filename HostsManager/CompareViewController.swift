@@ -139,4 +139,36 @@ class CompareViewController: NSViewController {
             block()
         }
     }
+
+    @available(OSX 10.12.2, *)
+    override func makeTouchBar() -> NSTouchBar? {
+        let touchBar = NSTouchBar()
+        touchBar.delegate = self
+        touchBar.customizationIdentifier = NSTouchBarCustomizationIdentifier.create(type: CompareViewController.self)
+        touchBar.defaultItemIdentifiers = [.file, .record]
+        return touchBar
+    }
+}
+
+extension CompareViewController: NSTouchBarDelegate {
+    @available(OSX 10.12.2, *)
+    func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItemIdentifier) -> NSTouchBarItem? {
+        let touchBarItem = NSCustomTouchBarItem.init(identifier: identifier)
+        switch identifier {
+        case NSTouchBarItemIdentifier.file:
+            let button = NSButton(title: "以 hosts 文件为主", target: self, action: #selector(leftButtonClicked(_:)))
+            touchBarItem.view = button
+        case NSTouchBarItemIdentifier.record:
+            let button = NSButton(title: "以本程序配置为主", target: self, action: #selector(rightButtonClicked(_:)))
+            touchBarItem.view = button
+        default:
+            ()
+        }
+        return touchBarItem
+    }
+}
+
+private extension NSTouchBarItemIdentifier {
+    static let file = create(type: CompareViewController.self, suffix: "file")
+    static let record = create(type: CompareViewController.self, suffix: "record")
 }
