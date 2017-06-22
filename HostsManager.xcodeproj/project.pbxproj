@@ -144,6 +144,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		662E1DC81EFBCC80005A72BB /* Extends */ = {
+			isa = PBXGroup;
+			children = (
+				666435861E14B9F000047EBD /* WYScrollView.swift */,
+				66A72B5F1EEE964B00D4C3A7 /* WYTypesetter.swift */,
+				6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */,
+				669720B61E1F9B0E0093DDEF /* WYView.swift */,
+			);
+			name = Extends;
+			sourceTree = "<group>";
+		};
+		662E1DC91EFBCCFD005A72BB /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				66F00B731EEA8DC4002B9F28 /* ACLHelp.swift */,
+				66F00B751EEA8E92002B9F28 /* FilePermissions.swift */,
+				662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */,
+				662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */,
+				66818C5D1EB9828B00248ABF /* PreferenceManager.swift */,
+				302B4F091EDE9846002352CC /* WYFileWatch.swift */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
 		66308E1F1E0D14F9000EBBF0 = {
 			isa = PBXGroup;
 			children = (
@@ -170,34 +194,30 @@
 				6613CCB21ED82EC0007507A2 /* HostsManager.entitlements */,
 				662D1C1E1EB8537E008D2B4D /* HostsManager-Bridging-Header.h */,
 				66308E341E0D14F9000EBBF0 /* Info.plist */,
-				66F00B731EEA8DC4002B9F28 /* ACLHelp.swift */,
 				66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */,
 				66308E3A1E0E59D4000EBBF0 /* Application.swift */,
 				66C383571E12DDF000824982 /* Constants.swift */,
-				66F00B751EEA8E92002B9F28 /* FilePermissions.swift */,
-				66C383311E11071800824982 /* StatusMenu.swift */,
-				66A72B5E1EEE964B00D4C3A7 /* TextVerticalRulerView.swift */,
-				302B4F091EDE9846002352CC /* WYFileWatch.swift */,
 				6641DB041EC5B04F000DA74A /* WYHelp.swift */,
-				66A72B5F1EEE964B00D4C3A7 /* WYTypesetter.swift */,
 				66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */,
-				6664357F1E13DD2300047EBD /* Data */,
+				662E1DC81EFBCC80005A72BB /* Extends */,
 				666158A41EFBA93D007D650B /* Extension */,
+				662E1DC91EFBCCFD005A72BB /* Manager */,
+				6664357F1E13DD2300047EBD /* Model */,
 				66C3832E1E10F3EE00824982 /* Resource */,
 				66B2F8EA1E209415001FB418 /* View */,
 				66B2F8E91E209402001FB418 /* ViewController */,
-				6641DB011EBB733A000DA74A /* window */,
+				6641DB011EBB733A000DA74A /* Window */,
 			);
 			path = HostsManager;
 			sourceTree = "<group>";
 		};
-		6641DB011EBB733A000DA74A /* window */ = {
+		6641DB011EBB733A000DA74A /* Window */ = {
 			isa = PBXGroup;
 			children = (
 				6641DAFF1EBB7333000DA74A /* CompareWindow.swift */,
 				66C3834E1E1250D900824982 /* SettingWindow.swift */,
 			);
-			name = window;
+			name = Window;
 			sourceTree = "<group>";
 		};
 		6660841B1EF818A8000D1B9C /* HostsManagerHelper */ = {
@@ -225,16 +245,13 @@
 			name = Extension;
 			sourceTree = "<group>";
 		};
-		6664357F1E13DD2300047EBD /* Data */ = {
+		6664357F1E13DD2300047EBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				666435821E13E45800047EBD /* Group.swift */,
 				666435801E13DD3D00047EBD /* Host.swift */,
-				662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */,
-				662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */,
-				66818C5D1EB9828B00248ABF /* PreferenceManager.swift */,
 			);
-			name = Data;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		66B2F8E91E209402001FB418 /* ViewController */ = {
@@ -256,9 +273,8 @@
 				66A72B631EEE967500D4C3A7 /* GroupEditView.swift */,
 				6609916E1E1CFBF9008DF493 /* GroupToolView.swift */,
 				666435881E14D3D100047EBD /* HostScrollView.swift */,
-				666435861E14B9F000047EBD /* WYScrollView.swift */,
-				6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */,
-				669720B61E1F9B0E0093DDEF /* WYView.swift */,
+				66C383311E11071800824982 /* StatusMenu.swift */,
+				66A72B5E1EEE964B00D4C3A7 /* TextVerticalRulerView.swift */,
 				666084011EF66B30000D1B9C /* ToolMenu.swift */,
 			);
 			name = View;
