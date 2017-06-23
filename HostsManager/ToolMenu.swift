@@ -9,7 +9,6 @@
 import AppKit
 
 class ToolMenu: NSMenu {
-    var testMenuItem: NSMenuItem!
     weak var handle: GroupToolView?
 
     init() {

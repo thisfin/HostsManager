@@ -19,7 +19,7 @@ class EditorViewController: NSViewController {
     fileprivate let tableViewDragTypeName = "DragTypeName"
     fileprivate let dataManager = HostDataManager.sharedInstance
 
-    fileprivate var tableView: NSTableView!
+    fileprivate var tableView: WYTableView!
     private var scrollView: NSScrollView!
     fileprivate var groupEditView: GroupEditView!
     var toolView: GroupToolView!
@@ -131,7 +131,7 @@ class EditorViewController: NSViewController {
             make.width.equalTo(toolView)
         }
 
-        tableView = NSTableView(frame: NSRect(origin: NSPoint.zero, size: scrollView.frame.size))
+        tableView = WYTableView(frame: NSRect(origin: NSPoint.zero, size: scrollView.frame.size))
         tableView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         tableView.dataSource = self
         tableView.delegate = self
@@ -150,16 +150,30 @@ class EditorViewController: NSViewController {
             column.width = tableView.frame.width - EditorViewController.cellHeight
             return column
             }())
+        tableView.rightMouseDownAtRowBlock = { (index) in
+            if index < 0 || index >= self.dataManager.groups.count {
+                return
+            }
+            if let row = self.tableView.rowView(atRow: index, makeIfNecessary: false), let event = NSApp.currentEvent {
+                NSMenu.popUpContextMenu({
+                    let menu = NSMenu.init()
+                    menu.addItem({
+                        let menuItem = NSMenuItem(title: "编辑名称", action: #selector(EditorViewController.rightClickedSetGroupName(_:)), keyEquivalent: "")
+                        menuItem.target = self
+                        menuItem.tag = index
+                        return menuItem
+                        }())
+                    menu.addItem({
+                        let menuItem = NSMenuItem(title: self.dataManager.groups[index].selected ? "设为失效" : "设为活动", action: #selector(EditorViewController.rightClickedSetStatus(_:)), keyEquivalent: "")
+                        menuItem.target = self
+                        menuItem.tag = index
+                        return menuItem
+                        }())
+                    return menu
+                }(), with: event, for: row)
+            }
+        }
         scrollView.contentView.documentView = tableView
-
-//        hostView = HostScrollView()
-//        view.addSubview(hostView)
-//        hostView.snp.makeConstraints { (make) in
-//            make.top.equalToSuperview().offset(EditorViewController.marginWidth)
-//            make.bottom.equalToSuperview().offset(0 - EditorViewController.marginWidth)
-//            make.left.equalTo(scrollView.snp.right).offset(EditorViewController.marginWidth)
-//            make.right.equalToSuperview().offset(0 - EditorViewController.marginWidth)
-//        }
 
         groupEditView = GroupEditView()
         view.addSubview(groupEditView)
@@ -170,7 +184,6 @@ class EditorViewController: NSViewController {
             make.right.equalToSuperview().offset(0 - EditorViewController.marginWidth)
         }
 
-//        groupEditView.setText(text: nil)
         tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
     }
 
@@ -190,10 +203,27 @@ class EditorViewController: NSViewController {
     }
 
     // MARK: - private
-    func doubleClicked(_ sender: NSTableView) {
-        let row: Int = sender.clickedRow
-        if row >= 0 && row < dataManager.groups.count {
-            let group = dataManager.groups[row]
+    func rightClickedSetGroupName(_ sender: NSMenuItem) { // 右键设置名称
+        let index = sender.tag
+        if let row = self.tableView.rowView(atRow: index, makeIfNecessary: false) , let textField = (row.view(atColumn: 1) as? NSView)?.subviews[0] as? NSTextField {
+            if self.tableView.selectedRow != index {
+                self.tableView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+            }
+            textField.becomeFirstResponder()
+        }
+    }
+
+    func doubleClicked(_ sender: NSTableView) { // 双击改变状态
+        changeRowStatus(index: sender.clickedRow)
+    }
+
+    func rightClickedSetStatus(_ sender: NSMenuItem) { // 右键改变状态
+        changeRowStatus(index: sender.tag)
+    }
+
+    func changeRowStatus(index: Int) {
+        if index >= 0 && index < dataManager.groups.count {
+            let group = dataManager.groups[index]
             group.selected = !group.selected
             tableView.reloadData()
         }

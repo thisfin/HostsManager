@@ -8,6 +8,7 @@
 
 import AppKit
 
+@available(*, deprecated)
 class HostScrollView: WYScrollView, NSTableViewDataSource, NSTableViewDelegate {
     private let rowHeight: CGFloat = 30
     private let tableViewDragTypeName = "DragTypeName"
