@@ -17,10 +17,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private lazy var settingWindow = SettingWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
     private lazy var compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
 
-    func applicationWillBecomeActive(_ notification: Notification) {
-        ()
-    }
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // 布局约束冲突 visualizeConstraints
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
