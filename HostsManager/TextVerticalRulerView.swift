@@ -20,6 +20,9 @@ class TextVerticalRulerView: NSRulerView {
 
         needsDisplay = true
         clientView = textView
+
+        wantsLayer = true
+        layer?.addBorder(edges: [.maxX], color: NSColor.colorWithHexValue(0xececec), thickness: 1)
     }
 
     override func drawHashMarksAndLabels(in rect: NSRect) {
@@ -78,7 +81,10 @@ class TextVerticalRulerView: NSRulerView {
             }
 
             // 调整行号区域的宽度
-            ruleThickness = CGFloat(String(lineCount).characters.count) * NSString.init(string: "8").size(withAttributes: [NSFontAttributeName: Constants.hostFont]).width + padding * 2
+            var width = NSString.init(string: "8").size(withAttributes: [NSFontAttributeName: Constants.hostFont]).width // 字符宽度
+            width *= CGFloat(lineCount.string.characters.count) // 字符宽度 * 字符数
+            width += padding * 2 // 加边距
+            ruleThickness = ceilf(width.float).cgFloat // 归一法
         }
     }
 }

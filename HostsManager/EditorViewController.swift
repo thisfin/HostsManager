@@ -344,6 +344,15 @@ extension EditorViewController: NSTableViewDelegate {
         return EditorViewController.cellHeight
     }
 
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        if let rowView = tableView.make(withIdentifier: "row", owner: self) as? NSTableRowView {
+            return rowView
+        }
+        let rowView = WYTableRowView.init()
+        rowView.identifier = "row"
+        return rowView
+    }
+
     func tableViewSelectionDidChange(_ notification: Notification) {
         let row = tableView.selectedRow
         if row >= 0 && row < dataManager.groups.count {

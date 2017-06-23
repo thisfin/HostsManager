@@ -12,6 +12,8 @@
 		662D1C1B1EB831E1008D2B4D /* HostDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D1C1A1EB831E1008D2B4D /* HostDataManager.swift */; };
 		662D1C1D1EB836BB008D2B4D /* HostsFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */; };
 		662E1DCC1EFCBE9B005A72BB /* WYTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E1DCB1EFCBE9B005A72BB /* WYTableView.swift */; };
+		662E1DCE1EFD10E1005A72BB /* Number+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E1DCD1EFD10E1005A72BB /* Number+Helper.swift */; };
+		662E1DD41EFD19D2005A72BB /* WYTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E1DD31EFD19D2005A72BB /* WYTableRowView.swift */; };
 		66308E2C1E0D14F9000EBBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */; };
 		66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2D1E0D14F9000EBBF0 /* ViewController.swift */; };
 		66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */; };
@@ -76,6 +78,8 @@
 		662D1C1C1EB836BB008D2B4D /* HostsFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsFileManager.swift; sourceTree = "<group>"; };
 		662D1C1E1EB8537E008D2B4D /* HostsManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HostsManager-Bridging-Header.h"; sourceTree = "<group>"; };
 		662E1DCB1EFCBE9B005A72BB /* WYTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYTableView.swift; sourceTree = "<group>"; };
+		662E1DCD1EFD10E1005A72BB /* Number+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Helper.swift"; sourceTree = "<group>"; };
+		662E1DD31EFD19D2005A72BB /* WYTableRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYTableRowView.swift; sourceTree = "<group>"; };
 		66308E281E0D14F9000EBBF0 /* HostsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HostsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66308E2D1E0D14F9000EBBF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 			children = (
 				666435861E14B9F000047EBD /* WYScrollView.swift */,
 				662E1DCB1EFCBE9B005A72BB /* WYTableView.swift */,
+				662E1DD31EFD19D2005A72BB /* WYTableRowView.swift */,
 				66A72B5F1EEE964B00D4C3A7 /* WYTypesetter.swift */,
 				6661588B1EF3D348007D650B /* WYVerticalCenterTextField.swift */,
 				669720B61E1F9B0E0093DDEF /* WYView.swift */,
@@ -244,6 +249,7 @@
 				66A72B5D1EEE964B00D4C3A7 /* NSTextView+Helper.swift */,
 				666158A71EFBAC96007D650B /* NSTouchBarCustomizationIdentifier+Helper.swift */,
 				666158A51EFBA974007D650B /* NSTouchBarItemIdentifier+Helper.swift */,
+				662E1DCD1EFD10E1005A72BB /* Number+Helper.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -497,8 +503,10 @@
 				66F00B741EEA8DC4002B9F28 /* ACLHelp.swift in Sources */,
 				66308E3B1E0E59D4000EBBF0 /* Application.swift in Sources */,
 				66A72B611EEE964B00D4C3A7 /* TextVerticalRulerView.swift in Sources */,
+				662E1DD41EFD19D2005A72BB /* WYTableRowView.swift in Sources */,
 				66F00B761EEA8E92002B9F28 /* FilePermissions.swift in Sources */,
 				666435891E14D3D100047EBD /* HostScrollView.swift in Sources */,
+				662E1DCE1EFD10E1005A72BB /* Number+Helper.swift in Sources */,
 				666435831E13E45800047EBD /* Group.swift in Sources */,
 				66B2F8EC1E209E9F001FB418 /* CALayer+Helper.swift in Sources */,
 				666158A61EFBA974007D650B /* NSTouchBarItemIdentifier+Helper.swift in Sources */,
