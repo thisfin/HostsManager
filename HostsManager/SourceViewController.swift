@@ -9,7 +9,7 @@
 import AppKit
 
 class SourceViewController: NSViewController {
-    private let textView = NSTextView.init()
+    private let textView = NSTextView()
 
     override func loadView() {
         view = NSView()
@@ -24,7 +24,6 @@ class SourceViewController: NSViewController {
 
         let scrollView = NSScrollView.init()
         view.addSubview(scrollView)
-
         scrollView.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(Constants.marginWidth)
             maker.top.equalToSuperview().offset(Constants.marginWidth)
@@ -35,6 +34,7 @@ class SourceViewController: NSViewController {
         scrollView.documentView = textView
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = true
+
         textView.frame = NSRect.init(origin: .zero, size: textView.frame.size)
         textView.autoresizingMask = [.viewHeightSizable, .viewWidthSizable]
         textView.textContainerInset = .zero
@@ -48,6 +48,10 @@ class SourceViewController: NSViewController {
         textView.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
         textView.textContainer?.containerSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
         textView.font = Constants.hostFont
+
+        scrollView.rulersVisible = true
+        scrollView.hasVerticalRuler = true
+        scrollView.verticalRulerView = TextVerticalRulerView(textView: textView)
     }
 
     override func viewWillAppear() {

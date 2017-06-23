@@ -32,7 +32,7 @@ class Constants {
     static let marginWidth: CGFloat = 20
 
     static let hostsFileURL = URL.init(fileURLWithPath: NSOpenStepRootDirectory() + "etc/hosts")
-    static let hostsFileGroupPrefix = "# ````` "
+    static let hostsFileGroupPrefix = "# ``` "
 
     static let hostInfoFontSize: CGFloat = 14
     static let hostFont = NSFont(name: "PT Mono", size: Constants.hostInfoFontSize)!

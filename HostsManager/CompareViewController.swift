@@ -96,9 +96,15 @@ class CompareViewController: NSViewController {
         rightTextView.textContainer?.containerSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
         rightTextView.font = Constants.hostFont
 
+        leftScrollView.rulersVisible = true
+        leftScrollView.hasVerticalRuler = true
+        leftScrollView.verticalRulerView = TextVerticalRulerView(textView: leftTextView)
         leftTextView.string = HostsFileManager.sharedInstance.readContentStringFromFile()
         leftTextView.resetFontColorStyle()
 
+        rightScrollView.rulersVisible = true
+        rightScrollView.hasVerticalRuler = true
+        rightScrollView.verticalRulerView = TextVerticalRulerView(textView: rightTextView)
         rightTextView.string = HostDataManager.sharedInstance.toCompareContent()
         rightTextView.resetFontColorStyle()
     }

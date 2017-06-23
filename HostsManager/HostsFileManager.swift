@@ -41,9 +41,7 @@ class HostsFileManager {
                 fileContent.append("\(group.content)\n")
             }
         }
-//        if fileContent.characters.count > 0 {
-            try! fileContent.write(to: Constants.hostsFileURL, atomically: false, encoding: .utf8)
-//        }
+        try! fileContent.write(to: Constants.hostsFileURL, atomically: false, encoding: .utf8)
         saveMD5()
     }
 
