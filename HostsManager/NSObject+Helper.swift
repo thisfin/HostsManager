@@ -29,4 +29,16 @@ extension NSObject {
     func toDictionary() -> Dictionary<String, Any> {
         return self.dictionaryWithValues(forKeys: self.allKeys())
     }
+
+    func allIvar() -> [String] {
+        var temp: UInt32 = 0
+        let count: UnsafeMutablePointer<UInt32> = withUnsafeMutablePointer(to: &temp, {$0})
+        let ivars: UnsafeMutablePointer<Ivar?> = class_copyIvarList(self.classForCoder, count)
+        var ivarArray = [String]()
+        for i in 0 ..< Int(count.pointee) {
+            let ivarName = String.init(cString: ivar_getName(ivars[i]))
+            ivarArray.append(String.init(cString: propertyName!))
+        }
+        return ivarArray
+    }
 }
