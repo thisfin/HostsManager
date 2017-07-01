@@ -9,9 +9,9 @@
 import AppKit
 
 class GroupEditView: NSView {
-    var rulerView: TextVerticalRulerView!
-    var textView: NSTextView!
-    var index: Int?
+    fileprivate var rulerView: TextVerticalRulerView!
+    fileprivate var textView: NSTextView!
+    fileprivate var index: Int?
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

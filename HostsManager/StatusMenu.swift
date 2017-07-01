@@ -36,36 +36,18 @@ class StatusMenu: NSMenu {
     func addDefaultItem() {
         addItem(NSMenuItem.separator())
         addItem({
-            let menuItem = NSMenuItem.init(title: "Edit Hosts", action: #selector(StatusMenu.editClicked(_:)), keyEquivalent: "")
+            let menuItem = NSMenuItem(title: "Edit Hosts", action: #selector(StatusMenu.editClicked(_:)), keyEquivalent: "")
             menuItem.target = self
             return menuItem
             }())
         addItem({
-            let menuItem = NSMenuItem.init(title: "Preferences...", action: #selector(StatusMenu.settingClicked(_:)), keyEquivalent: "")
+            let menuItem = NSMenuItem(title: "Preferences...", action: #selector(StatusMenu.settingClicked(_:)), keyEquivalent: "")
             menuItem.target = self
             return menuItem
             }())
-
         addItem(NSMenuItem.separator())
-        addItem({
-            let menuItem = NSMenuItem.init(title: "About \(ProcessInfo.processInfo.processName)", action: #selector(StatusMenu.aboutClicked(_:)), keyEquivalent: "")
-            menuItem.target = self
-            return menuItem
-            }())
-        addItem({
-            let menuItem = NSMenuItem.init(title: "Quit \(ProcessInfo.processInfo.processName)", action: #selector(StatusMenu.quitClicked(_:)), keyEquivalent: "")
-            menuItem.target = self
-            return menuItem
-            }())
-    }
-
-    // MARK: - action
-    func aboutClicked(_ sender: NSMenuItem) {
-        NSApp.orderFrontStandardAboutPanel(self)
-    }
-
-    func quitClicked(_ sender: NSMenuItem) {
-        NSApp.terminate(self)
+        addItem(withTitle: "About \(ProcessInfo.processInfo.processName)", action: #selector(NSApp.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
+        addItem(withTitle: "Quit \(ProcessInfo.processInfo.processName)", action: #selector(NSApp.terminate(_:)), keyEquivalent: "")
     }
 
     func editClicked(_ sender: NSMenuItem) {
@@ -120,7 +102,6 @@ extension StatusMenu: NSMenuDelegate {
                 return menuItem
                 }())
         }
-
         addDefaultItem()
     }
 

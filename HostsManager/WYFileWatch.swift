@@ -11,7 +11,7 @@ import Foundation
 // https://github.com/soh335/FileWatch
 public class WYFileWatch {
     // wrap FSEventStreamEventFlags as  OptionSetType
-    public struct EventFlag: OptionSet {
+    struct EventFlag: OptionSet {
         public let rawValue: FSEventStreamEventFlags
 
         public init(rawValue: FSEventStreamEventFlags) {
@@ -44,7 +44,7 @@ public class WYFileWatch {
     }
 
     // wrap FSEventStreamCreateFlags as OptionSetType
-    public struct CreateFlag: OptionSet {
+    struct CreateFlag: OptionSet {
         public let rawValue: FSEventStreamCreateFlags
 
         public init(rawValue: FSEventStreamCreateFlags) {
@@ -60,24 +60,24 @@ public class WYFileWatch {
         public static let MarkSelf      = CreateFlag(rawValue: FSEventStreamCreateFlags(kFSEventStreamCreateFlagMarkSelf))
     }
 
-    public struct Event {
+    struct Event {
         public let path: String
         public let flag: EventFlag
         public let eventID: FSEventStreamEventId
     }
 
-    public enum Error: Swift.Error {
+    enum Error: Swift.Error {
         case startFailed
         case streamCreateFailed
         case notContainUseCFTypes
     }
 
-    public typealias EventHandler = (Event) -> Void
+    typealias EventHandler = (Event) -> Void
 
-    open let eventHandler: EventHandler
+    let eventHandler: EventHandler
     private var eventStream: FSEventStreamRef?
 
-    public init(paths: [String], createFlag: CreateFlag, runLoop: RunLoop, latency: CFTimeInterval, eventHandler: @escaping EventHandler) throws {
+    init(paths: [String], createFlag: CreateFlag, runLoop: RunLoop, latency: CFTimeInterval, eventHandler: @escaping EventHandler) throws {
         self.eventHandler = eventHandler
 
         var ctx = FSEventStreamContext(version: 0, info: UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque()), retain: nil, release: nil, copyDescription: nil)

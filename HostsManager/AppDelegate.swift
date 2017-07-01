@@ -10,13 +10,27 @@ import AppKit
 import WYKit
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject {
     static let windowSize = NSMakeSize(800, 500)
 
-    private var rootStatusItem: NSStatusItem!
-    private lazy var settingWindow = SettingWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
-    private lazy var compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
+    fileprivate var rootStatusItem: NSStatusItem!
+    fileprivate lazy var settingWindow = SettingWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
+    fileprivate lazy var compareWindow = CompareWindow.init(contentRect: NSRect.zero, styleMask: [.closable, .resizable, .miniaturizable, .titled], backing: .buffered, defer: false)
 
+    func applicationWillTerminate(_ aNotification: Notification) {
+        // Insert code here to tear down your application
+    }
+
+    func about(_ sender: NSMenuItem) {
+        NSApp.orderFrontStandardAboutPanel(self)
+    }
+
+    func quit(_ sender: NSMenuItem) {
+        NSApp.terminate(self)
+    }
+}
+
+extension AppDelegate: NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // 布局约束冲突 visualizeConstraints
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
@@ -35,9 +49,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let iconfontPreviewItem = NSMenuItem()
                 iconfontPreviewItem.submenu = {
                     let submenu = NSMenu()
-                    submenu.addItem(NSMenuItem(title: "About \(ProcessInfo.processInfo.processName)", action: #selector(AppDelegate.about(_:)), keyEquivalent: ""))
+                    submenu.addItem(withTitle: "About \(ProcessInfo.processInfo.processName)", action: #selector(AppDelegate.about(_:)), keyEquivalent: "")
                     submenu.addItem(NSMenuItem.separator())
-                    submenu.addItem(NSMenuItem(title: "Quit \(ProcessInfo.processInfo.processName)", action: #selector(AppDelegate.quit(_:)), keyEquivalent: ""))
+                    submenu.addItem(withTitle: "Quit \(ProcessInfo.processInfo.processName)", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
                     return submenu
                 }()
                 return iconfontPreviewItem
@@ -88,17 +102,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         rootStatusItem.title = ""
         rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(20, 20))
         rootStatusItem.menu = StatusMenu(statusItem: rootStatusItem)
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
-    func about(_ sender: NSMenuItem) {
-        NSApp.orderFrontStandardAboutPanel(self)
-    }
-
-    func quit(_ sender: NSMenuItem) {
-        NSApp.terminate(self)
     }
 }

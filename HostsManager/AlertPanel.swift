@@ -10,7 +10,7 @@ import AppKit
 import SnapKit
 
 class AlertPanel  {
-    class func show(_ content: String, fontSize: CGFloat = 32) {
+    static func show(_ content: String, fontSize: CGFloat = 32) {
         let font = NSFont.systemFont(ofSize: fontSize)
         let size = (content as NSString).size(withAttributes: [NSFontAttributeName: font])
         let panel = NSPanel(contentRect: NSMakeRect(0, 0, size.width + 100, size.height + 40), styleMask: [.borderless, .hudWindow], backing: .buffered, defer: true)

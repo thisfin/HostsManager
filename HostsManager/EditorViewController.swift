@@ -31,7 +31,7 @@ class EditorViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.wantsLayer = true
+        view.wantsLayer = true // 不设置的话行号的字体渲染不对, 待排查
         view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
 
         toolView = GroupToolView(frame: NSRect.zero)
