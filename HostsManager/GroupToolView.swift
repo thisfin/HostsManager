@@ -22,7 +22,6 @@ class GroupToolView: NSView {
         super.init(frame: frameRect)
 
         wantsLayer = true
-//        layer?.backgroundColor = NSColor.yellow.cgColor
         layer?.addBorder(edges: [.minX, .maxX, .minY], color: Constants.colorTableBorder, thickness: 1)
         initSubview()
 

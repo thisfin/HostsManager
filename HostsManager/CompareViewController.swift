@@ -23,7 +23,6 @@ class CompareViewController: NSViewController {
         super.viewDidLoad()
 
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.controlColor.cgColor
         view.frame = NSRect.init(origin: .zero, size: AppDelegate.windowSize)
 
         let leftScrollView = NSScrollView.init()

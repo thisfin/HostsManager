@@ -22,7 +22,7 @@ class TextVerticalRulerView: NSRulerView {
         clientView = textView
 
         wantsLayer = true
-        layer?.addBorder(edges: [.maxX], color: NSColor.colorWithHexValue(0xececec), thickness: 1)
+        layer?.addBorder(edges: [.maxX], color: NSColor.controlHighlightColor, thickness: 1)
     }
 
     override func drawHashMarksAndLabels(in rect: NSRect) {

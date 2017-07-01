@@ -14,9 +14,11 @@ typealias SimpleBlock = (_ data: AnyObject) -> Void
 class Constants {
     static let colorBianchi = NSColor.colorWithHexValue(0x8bddd1)
 
-    static let colorTableBackground = NSColor.colorWithHexValue(0xf5f5f5)
+    static let colorTableBackground = NSColor.colorWithHexValue(0xf6f6f6)
     static let colorTableBackgroundLight = NSColor.white
     static let colorTableBorder = NSColor.colorWithHexValue(0xc8c8c8)
+    static let colorSelected = NSColor.colorWithHexValue(0x00cc00)
+    static let colorFont = NSColor.colorWithHexValue(0x333333)
 
     static let iconfontScan = "\u{f029}"
     static let iconfontHistory = "\u{f03a}"
@@ -36,6 +38,6 @@ class Constants {
 
     static let hostInfoFontSize: CGFloat = 14
     static let hostFont = NSFont(name: "PT Mono", size: Constants.hostInfoFontSize)!
-    static let hostFontColor = NSColor.colorWithHexValue(0x333333)
+    static let hostFontColor = Constants.colorFont
     static let hostNoteFontColor = NSColor.brown
 }

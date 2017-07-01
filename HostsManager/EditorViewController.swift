@@ -32,7 +32,6 @@ class EditorViewController: NSViewController {
         super.viewDidLoad()
 
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.colorWithHexValue(0xececec).cgColor
         view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
 
         toolView = GroupToolView(frame: NSRect.zero)
@@ -312,13 +311,13 @@ extension EditorViewController: NSTableViewDelegate {
                 case "icon":
                     if let textField = view.subviews[0] as? NSTextField {
                         let isSelected = dataManager.groups[row].selected
-                        textField.textColor = isSelected ? NSColor.colorWithHexValue(0x00cc00) : .clear
+                        textField.textColor = isSelected ? Constants.colorSelected : .clear
                     }
                     return view
                 case "name":
                     if let textField = view.subviews[0] as? NSTextField {
                         let isSelected = dataManager.groups[row].selected
-                        textField.textColor = isSelected ? NSColor.colorWithHexValue(0x00cc00) : .black
+                        textField.textColor = isSelected ? Constants.colorSelected : Constants.colorFont
                         textField.font = isSelected ? NSFont.boldSystemFont(ofSize: 16) : NSFont.systemFont(ofSize: 16)
                         textField.stringValue = dataManager.groups[row].name!
                         textField.tag = row

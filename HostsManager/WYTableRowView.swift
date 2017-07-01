@@ -17,7 +17,7 @@ class WYTableRowView: NSTableRowView {
 //            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 6, yRadius: 6)
 //            selectionPath.fill()
 //            selectionPath.stroke()
-            NSColor.red.set()
+            NSColor.gridColor.set()
             NSRectFill(dirtyRect)
         }
     }

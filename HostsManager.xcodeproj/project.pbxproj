@@ -15,7 +15,6 @@
 		662E1DCE1EFD10E1005A72BB /* Number+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E1DCD1EFD10E1005A72BB /* Number+Helper.swift */; };
 		662E1DD41EFD19D2005A72BB /* WYTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E1DD31EFD19D2005A72BB /* WYTableRowView.swift */; };
 		66308E2C1E0D14F9000EBBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */; };
-		66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E2D1E0D14F9000EBBF0 /* ViewController.swift */; };
 		66308E301E0D14F9000EBBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */; };
 		66308E3B1E0E59D4000EBBF0 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66308E3A1E0E59D4000EBBF0 /* Application.swift */; };
 		6641DB001EBB7333000DA74A /* CompareWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641DAFF1EBB7333000DA74A /* CompareWindow.swift */; };
@@ -35,7 +34,6 @@
 		666435811E13DD3D00047EBD /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435801E13DD3D00047EBD /* Host.swift */; };
 		666435831E13E45800047EBD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435821E13E45800047EBD /* Group.swift */; };
 		666435871E14B9F000047EBD /* WYScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435861E14B9F000047EBD /* WYScrollView.swift */; };
-		666435891E14D3D100047EBD /* HostScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435881E14D3D100047EBD /* HostScrollView.swift */; };
 		666D778F1F07BD6400F40FB3 /* AlertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666D778E1F07BD6400F40FB3 /* AlertPanel.swift */; };
 		66818C5E1EB9828B00248ABF /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66818C5D1EB9828B00248ABF /* PreferenceManager.swift */; };
 		669720B71E1F9B0E0093DDEF /* WYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669720B61E1F9B0E0093DDEF /* WYView.swift */; };
@@ -83,7 +81,6 @@
 		662E1DD31EFD19D2005A72BB /* WYTableRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYTableRowView.swift; sourceTree = "<group>"; };
 		66308E281E0D14F9000EBBF0 /* HostsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HostsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66308E2B1E0D14F9000EBBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		66308E2D1E0D14F9000EBBF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		66308E2F1E0D14F9000EBBF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66308E341E0D14F9000EBBF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66308E3A1E0E59D4000EBBF0 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -107,7 +104,6 @@
 		666435801E13DD3D00047EBD /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		666435821E13E45800047EBD /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		666435861E14B9F000047EBD /* WYScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYScrollView.swift; sourceTree = "<group>"; };
-		666435881E14D3D100047EBD /* HostScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostScrollView.swift; sourceTree = "<group>"; };
 		666D778E1F07BD6400F40FB3 /* AlertPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPanel.swift; sourceTree = "<group>"; };
 		66818C5D1EB9828B00248ABF /* PreferenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		669720B61E1F9B0E0093DDEF /* WYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYView.swift; sourceTree = "<group>"; };
@@ -273,7 +269,6 @@
 				666158A01EF90373007D650B /* PopoverViewController.swift */,
 				66C3835E1E138B8D00824982 /* SettingViewController.swift */,
 				66C3835C1E138B0200824982 /* SourceViewController.swift */,
-				66308E2D1E0D14F9000EBBF0 /* ViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -284,7 +279,6 @@
 				666D778E1F07BD6400F40FB3 /* AlertPanel.swift */,
 				66A72B631EEE967500D4C3A7 /* GroupEditView.swift */,
 				6609916E1E1CFBF9008DF493 /* GroupToolView.swift */,
-				666435881E14D3D100047EBD /* HostScrollView.swift */,
 				66C383311E11071800824982 /* StatusMenu.swift */,
 				66A72B5E1EEE964B00D4C3A7 /* TextVerticalRulerView.swift */,
 				666084011EF66B30000D1B9C /* ToolMenu.swift */,
@@ -509,7 +503,6 @@
 				66A72B611EEE964B00D4C3A7 /* TextVerticalRulerView.swift in Sources */,
 				662E1DD41EFD19D2005A72BB /* WYTableRowView.swift in Sources */,
 				66F00B761EEA8E92002B9F28 /* FilePermissions.swift in Sources */,
-				666435891E14D3D100047EBD /* HostScrollView.swift in Sources */,
 				662E1DCE1EFD10E1005A72BB /* Number+Helper.swift in Sources */,
 				666435831E13E45800047EBD /* Group.swift in Sources */,
 				66B2F8EC1E209E9F001FB418 /* CALayer+Helper.swift in Sources */,
@@ -518,7 +511,6 @@
 				669720B71E1F9B0E0093DDEF /* WYView.swift in Sources */,
 				666435871E14B9F000047EBD /* WYScrollView.swift in Sources */,
 				66C3835D1E138B0200824982 /* SourceViewController.swift in Sources */,
-				66308E2E1E0D14F9000EBBF0 /* ViewController.swift in Sources */,
 				66A72B601EEE964B00D4C3A7 /* NSTextView+Helper.swift in Sources */,
 				66C383341E11282400824982 /* EditorViewController.swift in Sources */,
 				666084021EF66B30000D1B9C /* ToolMenu.swift in Sources */,

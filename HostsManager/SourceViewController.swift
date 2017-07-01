@@ -19,7 +19,6 @@ class SourceViewController: NSViewController {
         super.viewDidLoad()
 
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.colorWithHexValue(0xececec).cgColor
         view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
 
         let scrollView = NSScrollView.init()
