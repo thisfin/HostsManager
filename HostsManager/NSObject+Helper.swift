@@ -36,8 +36,8 @@ extension NSObject {
         let ivars: UnsafeMutablePointer<Ivar?> = class_copyIvarList(self.classForCoder, count)
         var ivarArray = [String]()
         for i in 0 ..< Int(count.pointee) {
-            let ivarName = String.init(cString: ivar_getName(ivars[i]))
-            ivarArray.append(String.init(cString: propertyName!))
+            let ivarName = ivar_getName(ivars[i])
+            ivarArray.append(String.init(cString: ivarName!))
         }
         return ivarArray
     }

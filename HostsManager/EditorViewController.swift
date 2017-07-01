@@ -80,11 +80,7 @@ class EditorViewController: NSViewController {
         toolView.saveBlock = {
             self.dataManager.updateGroupData()
             HostsFileManager.sharedInstance.writeContentToFile(content: self.dataManager.groups)
-            let alert = NSAlert.init()
-            alert.messageText = "保存成功"
-            alert.informativeText = "所有修改已经同步至 hosts 文件"
-            alert.alertStyle = .critical
-            alert.beginSheetModal(for: NSApp.mainWindow!, completionHandler: nil)
+            AlertPanel.show("hosts 文件已同步")
         }
         toolView.revertBlock = {
             self.dataManager.loadFile()

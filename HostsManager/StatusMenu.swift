@@ -99,6 +99,7 @@ class StatusMenu: NSMenu {
         dataManager.updateGroupData()
         HostsFileManager.sharedInstance.writeContentToFile(content: dataManager.groups)
         NotificationCenter.default.post(name: .WYStatusMenuUpdateHosts, object: nil)
+        AlertPanel.show("hosts 文件已同步")
     }
 }
 

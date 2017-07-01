@@ -36,6 +36,7 @@
 		666435831E13E45800047EBD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435821E13E45800047EBD /* Group.swift */; };
 		666435871E14B9F000047EBD /* WYScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435861E14B9F000047EBD /* WYScrollView.swift */; };
 		666435891E14D3D100047EBD /* HostScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666435881E14D3D100047EBD /* HostScrollView.swift */; };
+		666D778F1F07BD6400F40FB3 /* AlertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666D778E1F07BD6400F40FB3 /* AlertPanel.swift */; };
 		66818C5E1EB9828B00248ABF /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66818C5D1EB9828B00248ABF /* PreferenceManager.swift */; };
 		669720B71E1F9B0E0093DDEF /* WYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669720B61E1F9B0E0093DDEF /* WYView.swift */; };
 		66A72B601EEE964B00D4C3A7 /* NSTextView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A72B5D1EEE964B00D4C3A7 /* NSTextView+Helper.swift */; };
@@ -107,6 +108,7 @@
 		666435821E13E45800047EBD /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		666435861E14B9F000047EBD /* WYScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYScrollView.swift; sourceTree = "<group>"; };
 		666435881E14D3D100047EBD /* HostScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostScrollView.swift; sourceTree = "<group>"; };
+		666D778E1F07BD6400F40FB3 /* AlertPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPanel.swift; sourceTree = "<group>"; };
 		66818C5D1EB9828B00248ABF /* PreferenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		669720B61E1F9B0E0093DDEF /* WYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WYView.swift; sourceTree = "<group>"; };
 		66A72B5D1EEE964B00D4C3A7 /* NSTextView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTextView+Helper.swift"; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 		66B2F8EA1E209415001FB418 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				666D778E1F07BD6400F40FB3 /* AlertPanel.swift */,
 				66A72B631EEE967500D4C3A7 /* GroupEditView.swift */,
 				6609916E1E1CFBF9008DF493 /* GroupToolView.swift */,
 				666435881E14D3D100047EBD /* HostScrollView.swift */,
@@ -498,6 +501,7 @@
 				6641DB051EC5B04F000DA74A /* WYHelp.swift in Sources */,
 				302B4F0B1EDE9846002352CC /* WYFileWatch.swift in Sources */,
 				6641DB031EBB73CC000DA74A /* CompareViewController.swift in Sources */,
+				666D778F1F07BD6400F40FB3 /* AlertPanel.swift in Sources */,
 				66A72B621EEE964B00D4C3A7 /* WYTypesetter.swift in Sources */,
 				666435811E13DD3D00047EBD /* Host.swift in Sources */,
 				66F00B741EEA8DC4002B9F28 /* ACLHelp.swift in Sources */,
