@@ -42,6 +42,7 @@ class SettingWindow: NSWindow {
     override init(contentRect: NSRect, styleMask style: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: style, backing: bufferingType, defer: flag)
 
+        self.delegate = self
         self.isReleasedWhenClosed = false
         self.minSize = NSMakeSize(AppDelegate.windowSize.width, AppDelegate.windowSize.height + 22) // 22 是标题栏的高度
         // 设置toolbar
@@ -190,6 +191,13 @@ extension SettingWindow: NSTouchBarDelegate {
             ()
         }
         return touchBarItem
+    }
+}
+
+extension SettingWindow: NSWindowDelegate {
+    func windowShouldClose(_ sender: Any) -> Bool {
+        self.performMiniaturize(self)
+        return false
     }
 }
 
