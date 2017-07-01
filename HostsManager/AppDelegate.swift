@@ -78,7 +78,6 @@ class AppDelegate: NSObject {
 }
 
 extension AppDelegate: NSApplicationDelegate {
-
     func applicationWillFinishLaunching(_ notification: Notification) {
         if !PreferenceManager.sharedInstance.propertyInfo.dockIconShow { // 详见 SettingViewController
             _ = NSApp.setActivationPolicy(.accessory)

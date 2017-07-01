@@ -60,8 +60,10 @@ class SettingViewController: NSViewController {
         switch sender.state {
         case NSOnState:
             PreferenceManager.sharedInstance.propertyInfo.startupLogin = true
+            startupAppWhenLogin(startup: true)
         case NSOffState:
             PreferenceManager.sharedInstance.propertyInfo.startupLogin = false
+            startupAppWhenLogin(startup: false)
         default:
             ()
         }
