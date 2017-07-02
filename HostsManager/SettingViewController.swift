@@ -21,6 +21,7 @@ class SettingViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.wantsLayer = true
         view.frame = NSRect(origin: NSPoint.zero, size: AppDelegate.windowSize)
 
         view.addSubview(startupButton)
