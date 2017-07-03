@@ -43,7 +43,7 @@ class HostDataManager: NSObject {
             result.append("\(Constants.hostsFileGroupPrefix)\(group.name!)\n")
             var content = group.content
             if !group.selected { // 未生效加注释
-                content = content.replacingOccurrences(of: "\n", with: "\n# ")
+                content = content.replacingOccurrences(of: "\n", with: "\n#")
                 content = "#\(content)"
             }
             result.append("\(content)\n\n")
