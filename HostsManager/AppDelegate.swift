@@ -75,6 +75,30 @@ class AppDelegate: NSObject {
         rootStatusItem.image = WYIconfont.imageWithIcon(content: Constants.iconfontRandom, backgroundColor: .clear, iconColor: .black, size: NSMakeSize(20, 20))
         rootStatusItem.menu = StatusMenu(statusItem: rootStatusItem)
     }
+
+    fileprivate func bookmarkCheck() {
+        let filePermissions = FilePermissions.sharedInstance
+        if filePermissions.isBookmarkExist(bookmarkKey: Constants.hostsFileBookmarkKey) {
+            return
+        }
+        let panel = NSOpenPanel().then { (this) in
+            this.message = "因为 AppStore 上架限制, 沙盘环境没有直接访问系统文件的权限, 请在下面选择 hosts 文件来获得访问权限"
+            this.directoryURL = Constants.hostsFileURL
+            this.canChooseDirectories = false
+            this.allowedFileTypes = [""]
+        }
+        switch panel.runModal() {
+        case NSFileHandlingPanelOKButton:
+            if let url = panel.url {
+                if url.path == Constants.hostsFileURL.path {
+                    filePermissions.addBookmark(url: url, bookmarkKey: Constants.hostsFileBookmarkKey)
+                }
+            }
+            bookmarkCheck()
+        default:
+            NSApp.terminate(self)
+        }
+    }
 }
 
 extension AppDelegate: NSApplicationDelegate {
@@ -88,6 +112,8 @@ extension AppDelegate: NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // 布局约束冲突 visualizeConstraints
         // UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
+
+        bookmarkCheck()
 
         // 文件权限操作
         FilePermissions.sharedInstance.hostsFilePermissionsCheck()

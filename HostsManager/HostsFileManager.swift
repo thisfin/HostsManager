@@ -41,7 +41,12 @@ class HostsFileManager {
                 fileContent.append("\(group.content)\n")
             }
         }
-        try! fileContent.write(to: Constants.hostsFileURL, atomically: false, encoding: .utf8)
+
+        FilePermissions.sharedInstance.handleFile(bookmarkKey: Constants.hostsFileBookmarkKey, newPath: Constants.hostsFileURL.path) { (url) in
+            try! fileContent.write(to: Constants.hostsFileURL, atomically: false, encoding: .utf8)
+        }
+
+//        try! fileContent.write(to: Constants.hostsFileURL, atomically: false, encoding: .utf8)
         saveMD5()
     }
 
@@ -100,9 +105,17 @@ class HostsFileManager {
 
     // MARK: - private
 
+    private func fileMD5() -> String {
+        var result = ""
+        FilePermissions.sharedInstance.handleFile(bookmarkKey: Constants.hostsFileBookmarkKey, newPath: Constants.hostsFileURL.path) { (url) in
+            result = safeFileMD5()
+        }
+        return result
+    }
+
     // hosts 文件的md5
     // http://stackoverflow.com/questions/42935148/swift-calculate-md5-checksum-for-large-files
-    private func fileMD5() -> String {
+    private func safeFileMD5() -> String {
         let file = try! FileHandle.init(forReadingFrom: Constants.hostsFileURL)
         defer {
             file.closeFile()
