@@ -27,31 +27,35 @@ class FilePermissions {
             return
         }
 
+        let command = "sudo /bin/chmod +a \"user:\(NSUserName()):allow read,write\" \(Constants.hostsFileURL.path)"
+
         let response: NSModalResponse = {
             let alert = NSAlert.init()
             alert.alertStyle = .critical
             alert.messageText = "需要您对 hosts 文件进行权限设置"
             var text = "为了对 hosts 文件进行读写操作, 需要使用 ACL 对文件增加权限.\n\n"
-            text += "命令为: sudo /bin/chmod +a \"user:\(NSUserName()):allow read,write\" \(Constants.hostsFileURL.path)\n\n"
-            text += "点击 [修改权限] 会唤起 Terminal 执行命令, 请按照提示输入密码, 然后重新启动程序.\n"
+            text += "命令为: \(command)\n\n"
+            text += "点击 [修改权限] 会唤起 Terminal, 命令已经拷贝至剪贴板; 请粘贴命令到 Terminal, 执行并输入密码, 然后点击校验.\n"
             alert.informativeText = text
             alert.addButton(withTitle: "修改权限")
+            alert.addButton(withTitle: "校验")
             alert.addButton(withTitle: "退出程序")
             return alert.runModal()
         }()
 
         switch response {
         case NSAlertFirstButtonReturn:
-            var error: NSDictionary?
-            var cmd = "tell application \"Terminal\"\n"
-            cmd += "activate (do script \"sudo /bin/chmod +a \\\"user:\(NSUserName()):allow read,write\\\" \(Constants.hostsFileURL.path)\")\n"
-            cmd += "end tell"
-            let appleScript = NSAppleScript.init(source: cmd)
-            appleScript?.executeAndReturnError(&error)
+            let pasteboard = NSPasteboard.general()
+            pasteboard.declareTypes([NSStringPboardType], owner: self)
+            pasteboard.setString(command, forType: NSPasteboardTypeString)
+
+            NSWorkspace.shared().launchApplication("Terminal")
+            hostsFilePermissionsCheck()
+        case NSAlertSecondButtonReturn:
+            hostsFilePermissionsCheck()
         default:
-            ()
+            NSApp.terminate(self)
         }
-        NSApp.terminate(self)
     }
 
     // 执行
