@@ -113,10 +113,9 @@ extension AppDelegate: NSApplicationDelegate {
         // 布局约束冲突 visualizeConstraints
         // UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
 
-        bookmarkCheck()
-
         // 文件权限操作
         FilePermissions.sharedInstance.hostsFilePermissionsCheck()
+        bookmarkCheck()
 
         setMainMenu()
 
