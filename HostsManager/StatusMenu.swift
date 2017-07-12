@@ -75,6 +75,9 @@ class StatusMenu: NSMenu {
     }
 
     func groupClicked(_ sender: NSMenuItem) {
+        if !FilePermissions.sharedInstance.hostFileWritePermissionsCheck() {
+            return
+        }
         let dataManager = HostDataManager.sharedInstance
         let group = dataManager.groups[sender.tag - 100]
         group.selected = !group.selected

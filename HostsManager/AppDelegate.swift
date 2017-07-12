@@ -82,7 +82,7 @@ class AppDelegate: NSObject {
             return
         }
         let panel = NSOpenPanel().then { (this) in
-            this.message = "因为 AppStore 上架限制, 沙盘环境没有直接访问系统文件的权限, 请在下面选择 hosts 文件来获得访问权限"
+            this.message = "因为 AppStore 上架限制, 沙盒环境没有直接访问系统文件的权限, 请在下面选择 hosts 文件来获得访问权限."
             this.directoryURL = Constants.hostsFileURL
             this.canChooseDirectories = false
             this.allowedFileTypes = [""]
@@ -113,8 +113,7 @@ extension AppDelegate: NSApplicationDelegate {
         // 布局约束冲突 visualizeConstraints
         // UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
 
-        // 文件权限操作
-        FilePermissions.sharedInstance.hostsFilePermissionsCheck()
+        FilePermissions.sharedInstance.hostsFileReadPermissionsCheck()
         bookmarkCheck()
 
         setMainMenu()

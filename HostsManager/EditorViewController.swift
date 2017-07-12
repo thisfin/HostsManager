@@ -217,6 +217,9 @@ class EditorViewController: NSViewController {
     }
 
     func changeRowStatus(index: Int) {
+        if !FilePermissions.sharedInstance.hostFileWritePermissionsCheck() {
+            return
+        }
         if index >= 0 && index < dataManager.groups.count {
             let group = dataManager.groups[index]
             group.selected = !group.selected

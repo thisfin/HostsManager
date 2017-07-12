@@ -7,6 +7,7 @@
 //
 
 import AppKit
+import WYKit
 
 typealias URLHandleBlock = (_ url: URL) -> Void
 
@@ -14,6 +15,52 @@ class FilePermissions {
     static let sharedInstance = FilePermissions()
 
     private init() {
+    }
+
+    func hostsFileReadPermissionsCheck() {
+        if FileManager.default.isReadableFile(atPath: Constants.hostsFileURL.path) {
+            return
+        }
+
+        let alert = NSAlert().then({ (this) in
+            this.alertStyle = .critical
+            this.messageText = "您没有 hosts 文件的访问权限, 请设置后运行."
+        })
+        alert.runModal()
+        NSApp.terminate(self)
+    }
+
+    func hostFileWritePermissionsCheck() -> Bool {
+        if FileManager.default.isWritableFile(atPath: Constants.hostsFileURL.path) {
+            return true
+        }
+
+        let command = "sudo /bin/chmod +a 'user:\(NSUserName()) allow write' \(Constants.hostsFileURL.path)"
+        let alert = NSAlert().then { (this) in
+            this.alertStyle = .critical
+            this.messageText = "需要获得 hosts 文件的写权限"
+            var text = "为了获得完整功能, 对 hosts 文件进行写操作, 需要使用 ACL 对文件增加权限. 如果不设置的话, 您仍能使用读权限的相关功能.\n\n"
+            text += "命令为: \(command)\n\n"
+            text += "点击 [修改权限] 会唤起 Terminal, 命令已经拷贝至剪贴板; 请粘贴命令到 Terminal, 执行并输入密码, 然后点击校验.\n"
+            this.informativeText = text
+            this.addButton(withTitle: "修改权限")
+            this.addButton(withTitle: "校验")
+            this.addButton(withTitle: "关闭")
+        }
+        let response = alert.runModal()
+        switch response {
+        case NSAlertFirstButtonReturn:
+            let pasteboard = NSPasteboard.general()
+            pasteboard.declareTypes([NSStringPboardType], owner: self)
+            pasteboard.setString(command, forType: NSPasteboardTypeString)
+
+            NSWorkspace.shared().launchApplication("Terminal")
+            return hostFileWritePermissionsCheck()
+        case NSAlertSecondButtonReturn:
+            return hostFileWritePermissionsCheck()
+        default:
+            return false
+        }
     }
 
     func hostsFilePermissionsCheck() {
@@ -62,8 +109,7 @@ class FilePermissions {
     func handleFile(bookmarkKey: String, newPath: String, block: URLHandleBlock) {
         var isStale = false
         if let bookmarkData = UserDefaults.standard.object(forKey: bookmarkKey) as? Data,
-            let url = try! URL.init(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale),
-            url.path == newPath {
+            let url = try! URL.init(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale), url.path == newPath {
             _ = url.startAccessingSecurityScopedResource()
             block(url)
             url.stopAccessingSecurityScopedResource()

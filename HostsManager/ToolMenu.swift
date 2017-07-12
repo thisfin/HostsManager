@@ -51,6 +51,9 @@ class ToolMenu: NSMenu {
     }
 
     func importConfigClicked(_ sender: NSMenuItem) {
+        if !FilePermissions.sharedInstance.hostFileWritePermissionsCheck() {
+            return
+        }
         if let block = handle?.importConfigBlock {
             block()
         }
