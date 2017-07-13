@@ -139,6 +139,10 @@ class CompareViewController: NSViewController {
     }
 
     func rightButtonClicked(_ sender: NSButton) {
+        let filePermissions = FilePermissions.sharedInstance
+        if !filePermissions.hostFileWritePermissionsCheck() || !filePermissions.bookmarkCheck() {
+            return
+        }
         HostsFileManager.sharedInstance.writeContentToFile(content: HostDataManager.sharedInstance.groups)
         if let block = self.compareWindowCloseBlock {
             block()
