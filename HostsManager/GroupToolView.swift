@@ -119,7 +119,8 @@ class GroupToolView: NSView {
     }
 
     func saveButtonClicked(_ sender: NSButton) {
-        if !FilePermissions.sharedInstance.hostFileWritePermissionsCheck() {
+        let filePermissions = FilePermissions.sharedInstance
+        if !filePermissions.hostFileWritePermissionsCheck() || !filePermissions.bookmarkCheck() {
             return
         }
         if let block = saveBlock {

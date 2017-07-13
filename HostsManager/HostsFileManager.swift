@@ -107,9 +107,9 @@ class HostsFileManager {
 
     private func fileMD5() -> String {
         var result = ""
-        FilePermissions.sharedInstance.handleFile(bookmarkKey: Constants.hostsFileBookmarkKey, newPath: Constants.hostsFileURL.path) { (url) in
+//        FilePermissions.sharedInstance.handleFile(bookmarkKey: Constants.hostsFileBookmarkKey, newPath: Constants.hostsFileURL.path) { (url) in
             result = safeFileMD5()
-        }
+//        }
         return result
     }
 

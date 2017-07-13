@@ -18,7 +18,8 @@ class FilePermissions {
     }
 
     func hostsFileReadPermissionsCheck() {
-        if FileManager.default.isReadableFile(atPath: Constants.hostsFileURL.path) {
+        let aclHelp = ACLHelp.init(url: Constants.hostsFileURL)
+        if FileManager.default.isReadableFile(atPath: Constants.hostsFileURL.path) || aclHelp.checkACLPermission(userName: NSUserName(), perms: [ACL_READ_DATA]) {
             return
         }
 
@@ -31,7 +32,8 @@ class FilePermissions {
     }
 
     func hostFileWritePermissionsCheck() -> Bool {
-        if FileManager.default.isWritableFile(atPath: Constants.hostsFileURL.path) {
+        let aclHelp = ACLHelp.init(url: Constants.hostsFileURL)
+        if FileManager.default.isWritableFile(atPath: Constants.hostsFileURL.path) || aclHelp.checkACLPermission(userName: NSUserName(), perms: [ACL_WRITE_DATA]) {
             return true
         }
 
@@ -67,7 +69,7 @@ class FilePermissions {
         let fileManager = FileManager.default
         if fileManager.isReadableFile(atPath: Constants.hostsFileURL.path) && fileManager.isWritableFile(atPath: Constants.hostsFileURL.path) {
             return
-        } // 权限校验, 下面的那个 if 已经不需要了, 但是写都写了...
+        }
 
         let aclHelp = ACLHelp.init(url: Constants.hostsFileURL)
         if aclHelp.checkACLPermission(userName: NSUserName(), perms: [ACL_READ_DATA, ACL_WRITE_DATA]) {
@@ -117,12 +119,35 @@ class FilePermissions {
     }
 
     // 增加书签
-    func addBookmark(url: URL, bookmarkKey: String) {
+    private func addBookmark(url: URL, bookmarkKey: String) {
         let bookmarkData = try! url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-        UserDefaults.standard.set(bookmarkData, forKey: bookmarkKey)
+        let defaults = UserDefaults.standard
+        defaults.set(bookmarkData, forKey: bookmarkKey)
+        defaults.synchronize()
     }
 
-    func isBookmarkExist(bookmarkKey: String) -> Bool {
+    private func isBookmarkExist(bookmarkKey: String) -> Bool {
         return UserDefaults.standard.object(forKey: bookmarkKey) != nil
+    }
+
+    func bookmarkCheck() -> Bool{
+        if isBookmarkExist(bookmarkKey: Constants.hostsFileBookmarkKey) {
+            return true
+        }
+        let panel = NSOpenPanel().then { (this) in
+            this.message = "因为 AppStore 上架限制, 沙盒环境没有直接操作系统文件的权限, 请在下面选择 hosts 文件来获得访问权限."
+            this.directoryURL = Constants.hostsFileURL
+            this.canChooseDirectories = false
+            this.allowedFileTypes = [""]
+        }
+        switch panel.runModal() {
+        case NSFileHandlingPanelOKButton:
+            if let url = panel.url, url.path == Constants.hostsFileURL.path {
+                addBookmark(url: url, bookmarkKey: Constants.hostsFileBookmarkKey)
+            }
+            return bookmarkCheck()
+        default:
+            return false
+        }
     }
 }
