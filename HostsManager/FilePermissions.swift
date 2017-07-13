@@ -41,9 +41,9 @@ class FilePermissions {
         let alert = NSAlert().then { (this) in
             this.alertStyle = .critical
             this.messageText = "需要获得 hosts 文件的写权限"
-            var text = "为了获得完整功能, 对 hosts 文件进行写操作, 需要使用 ACL 对文件增加权限. 如果不设置的话, 您仍能使用读权限的相关功能.\n\n"
+            var text = "为了获得完整功能, 对 hosts 文件进行修改, 需要使用 ACL 增加用户 \(NSUserName()) 对文件增加写权限. 如果不设置的话, 您仍能使用只读操作的相关功能.\n\n"
             text += "命令为: \(command)\n\n"
-            text += "点击 [修改权限] 会唤起 Terminal, 命令已经拷贝至剪贴板; 请粘贴命令到 Terminal, 执行并输入密码, 然后点击校验.\n"
+            text += "点击 [修改权限] 会唤起 Terminal, 命令已经拷贝至剪贴板; 请粘贴命令到 Terminal, 执行并输入密码, 然后点击 [校验].\n"
             this.informativeText = text
             this.addButton(withTitle: "修改权限")
             this.addButton(withTitle: "校验")
