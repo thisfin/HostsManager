@@ -1,12 +1,4 @@
 # HostsManager
 MacOS hosts编辑管理
 
-# 开发状态
-
-* color
-* 打包
-* 自启动  待测试
-* 文档
-* 发布
-
-* FileWatch (下一期)
+**project status:** 需要 root 权限, app store 无法上线. 寻找分发渠道中.
